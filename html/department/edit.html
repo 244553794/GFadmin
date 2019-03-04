@@ -1,0 +1,434 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<section class="content-header">
+    <h1>编辑组织架构信息
+    	<small>编辑组织架构</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li><a>组织架构管理</a></li>
+        <li class="active">编辑信息</li>
+    </ol>
+</section>
+<section class="content">
+    
+    <!--基本信息-->
+    <div class="box">
+    	<div class="box-header with-border">
+        	<h3 class="box-title">基本信息</h3>
+            <div class="box-tools pull-right">
+            	<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" title="刷新" onclick="jumpURL(this)" url="/html/department/edit.html" param=""><i class="fa fa-refresh" aria-hidden="true"></i></button>
+            </div>
+        </div>
+        <!--box-header end-->
+        <div class="box-body">
+        	<div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1; "><div style="width:200px;"><font color="#FF0000">*</font>架构名称</div></span>
+                <input type="text" class="form-control" placeholder="架构名称" name="departName" id="departName" value="">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;"><font color="#FF0000">*</font>架构层级</div></span>
+                <div class="form-control">
+                    <label><input type="radio" name="level" value="0" class="minimal" checked>总部架构</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="level" value="1" class="minimal">分区架构</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="level" value="2" class="minimal">发展部架构</label>
+                </div>
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;"><font color="#FF0000">*</font>所属公司</div></span>
+                <div class="form-control" style="height:auto">
+                    <button type="button" class="btn btn-primary" onClick="getCompanyList(this)" fill-id-name="companyid_in" data-toggle="modal" data-target="#modal-default" title="新增" style="float:right"><i class="fa fa-plus" aria-hidden="true"></i> 新增</button>
+                    <span id="companyid_in" style="line-height: 33px;cursor: pointer;" onclick="delCompanyName(this)"></span>
+                    <input name="company" id="company" value="" type="hidden">
+                    <input name="companyid" id="companyid" value="" type="hidden">
+                </div>
+                <error style="margin-right: 80px;line-height: 50px;"></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;"><font color="#FF0000">*</font>所属架构</div></span>
+                <select class="form-control" name="pid" id="pid" style="padding:0; margin:0; display:inline">
+                      <option value="0">顶级架构</option>
+                </select>
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">第一负责人</div></span>
+                <div class="form-control" style="height:auto">
+                    <button type="button" class="btn btn-primary" onClick="getEmployee(0)" data-toggle="modal" data-target="#modal-default" title="编辑" style="float:right"><i class="fa fa-plus" aria-hidden="true"></i> 编辑</button>
+                    <span id="firstManage"></span>
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">第二负责人</div></span>
+                <div class="form-control" style="height:auto">
+                    <button type="button" class="btn btn-primary" onClick="getEmployee(1)" data-toggle="modal" data-target="#modal-default" title="编辑" style="float:right"><i class="fa fa-plus" aria-hidden="true"></i> 编辑</button>
+                    <span id="secendManage"></span>
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">部门人员权限</div></span>
+                <div class="form-control" style="height:auto">
+                    <label style="padding-right:20px;"><input type="checkbox" name="limitArray" value="'+ items.roleId +'" class="minimal">人事管理权</label><label style="padding-right:20px;"><input type="checkbox" name="limitArray" value="'+ items.roleId +'" class="minimal">财务管理权</label><label style="padding-right:20px;"><input type="checkbox" name="limitArray" value="'+ items.roleId +'" class="minimal">行政管理权</label><label style="padding-right:20px;"><input type="checkbox" name="limitArray" value="'+ items.roleId +'" class="minimal">业务管理权</label><label style="padding-right:20px;"><input type="checkbox" name="limitArray" value="'+ items.roleId +'" class="minimal">品质督查权</label>
+                    <error></error>
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">管辖项目</div></span>
+                <div class="form-control" style="height:auto">
+                    <button type="button" class="btn btn-primary" onClick="" url="" param="" title="编辑" style="float:right"><i class="fa fa-plus" aria-hidden="true"></i> 编辑</button>
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">部门成员</div></span>
+                <div class="form-control" style="height:auto">
+                    <button type="button" class="btn btn-primary" onClick="" url="" param="" title="编辑" style="float:right"><i class="fa fa-plus" aria-hidden="true"></i> 编辑</button>
+                </div>
+            </div>
+        </div>
+       <!-- box-body end-->
+    </div>
+   <!-- box end-->
+   
+   
+   <div class="modal modal-default fade" id="modal-default" data-id="">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+              <div class="col-xs-3"><input type="text" class="form-control" placeholder="姓名" name="schempName" id="schempName" value=""></div>
+              <div class="col-xs-5"><input type="text" class="form-control" placeholder="手机号" name="schphone" id="schphone" value=""></div>
+              <button type="button" class="btn btn-primary" onClick="searchList(this)" title="搜索"><i class="fa fa-search" aria-hidden="true"></i></button>
+          </div>
+          <div class="modal-body">
+            	<!--异步加载数据-->
+          </div>
+          <!--分页-->
+          <div class="pagination-holder clearfix">
+              <input type="hidden" name="pageNo" id="pageNo" value="1">
+              <div id="compact-pagination"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary pull-left" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" onClick="checkEmp(this)">保存修改</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+   
+   
+    <div class="box-footer" style="position:fixed; left:0px; bottom:0px; width:100%; height:60px;box-shadow: 0px 0px 40px #888888; z-index:9; background-color:#FFF;">
+    <p><error></error></p>
+    <button type="button" class="btn btn-primary fl_right" style="width:150px;" onClick="judgeform()">保存提交</button><button type="button" class="btn btn-default fl_right" style="width:150px; margin-right:50px;" onClick="jumpURL(this)" url="/html/department/" param="">取消返回</button>
+    </div>
+    <!-- /.box-footer-->
+</section>
+<script>
+$(function(){
+	//上传图片
+	var $tgaUpload = $('#goodsUpload').diyUpload({
+		url:'uploadFilePath',
+		success:function( data ) { },
+		error:function( err ) { },
+		buttonText : '',
+		fileNumLimit: 1,
+		accept: {
+			title: "Images",
+			extensions: 'gif,jpg,jpeg,bmp,png'
+		},
+		thumb:{
+			width:120,
+			height:90,
+			quality:100,
+			allowMagnify:true,
+			crop:true,
+			type:"image/jpeg"
+		}
+	});
+	var $tgaUpload = $('#goodsUpload2').diyUpload({
+		url:'uploadFilePath',
+		success:function( data ) { },
+		error:function( err ) { },
+		buttonText : '',
+		fileNumLimit: 1,
+		accept: {
+			title: "Images",
+			extensions: 'gif,jpg,jpeg,bmp,png'
+		},
+		thumb:{
+			width:120,
+			height:90,
+			quality:100,
+			allowMagnify:true,
+			crop:true,
+			type:"image/jpeg"
+		}
+	});
+	var $tgaUpload = $('#goodsUpload2').diyUpload({
+		url:'uploadFilePath',
+		success:function( data ) { },
+		error:function( err ) { },
+		buttonText : '',
+		fileNumLimit: 2,
+		accept: {
+			title: "Images",
+			extensions: 'gif,jpg,jpeg,bmp,png'
+		},
+		thumb:{
+			width:120,
+			height:90,
+			quality:100,
+			allowMagnify:true,
+			crop:true,
+			type:"image/jpeg"
+		}
+	});
+});
+//根据ID填充表单
+var param = $("#ajaxcontent").attr("param");
+param = param.replace(/'/g,"\"");
+param = JSON.parse(param);
+$("#reflash").attr("param",param.id);
+fillform(param.id)
+function fillform(id){
+	var url = depUrl + "/employee/depart/getdepartlist";
+	$.ajax({
+		type: 'POST',
+		url: url,
+		data: {"id":id},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+			var code = data.code;
+			if(code=="000000"){
+				$.each(data.data,function(i,items){
+                    $("#departName").val(items.deptname);
+                    if(items.level=="0"){
+                        $("input[name=level]:eq(0)").attr("checked",'checked'); 
+                    }else if(items.level=="1"){
+                        $("input[name=level]:eq(1)").attr("checked",'checked'); 
+                    }else if(items.level=="2"){
+                        $("input[name=level]:eq(2)").attr("checked",'checked');
+                    }
+                    
+                    $("#company").val(items.company);
+                    $("#companyid_in").text(items.company);
+                    $("#companyid").val(items.companyid);
+                    
+                    $("#pid option").each(function(){
+                        if($(this).val==items.pid){
+                            $(this).attr("selected", "selected");
+                        }
+                    });
+                    
+                    $("#firstManage").html('<label class="checkbtn">'+items.firstpersonname+'<input type="hidden" value="'+items.firstpersonname+'" name="firstPersonName" id="firstPersonName"><input type="hidden" value="'+items.firstpersonid+'" name="firstPersonId" id="firstPersonId"><i class="fa fa-times-circle" aria-hidden="true" onclick="delEmp(this)"></i></label>');
+                    
+                    $("#secendManage").html('<label class="checkbtn">'+items.secondpersonname+'<input type="hidden" value="'+items.secondpersonname+'" name="secondPersonName" id="secondPersonName"><input type="hidden" value="'+items.secondpersonid+'" name="secondPersonId" id="secondPersonId"><i class="fa fa-times-circle" aria-hidden="true" onclick="delEmp(this)"></i></label>');
+                    
+                    $("input[name=limitArray]").each(function(){
+                        if($(this).val()==items.limitArray){
+                            $(this).attr("checked","checked");
+                        }
+                    });
+                    
+                    $("#projectName_in").html('<label class="checkbtn" data-mode="0" onclick="delProjectName(this)">'+items+'<input name="projectName" value="外太空扫地" type="hidden"><input name="projectId" value="1" type="hidden"><i class="fa fa-times-circle" aria-hidden="true"></i></label>');
+                    
+				});
+			}else if(code=="002003"){
+				alert("当前登录已失效,请重新登录");
+				$.session.clear();
+				$(location).attr('href', 'login.html');
+			}else{
+				$(".box-footer error").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			alert(data.msg);
+			$(".box-footer error").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+	});
+}
+//函数名：判断参数
+function judgeform(){
+	if($("#departName").val()==""){
+		$("#departName").parent().find("error").text("部门名称不能为空");
+		return false;
+	}
+	if($("#level").val()==""){
+		$("#level").parent().find("error").text("部门层级不能为空");
+		return false;
+	}
+	if($("#pid").val()==""){
+		$("#pid").parent().find("error").text("所属部门不能为空");
+		return false;
+	}
+	if($("#companyid").val()=="" || $("#companyid").find("option:selected").text()==""){
+		$("#companyid").parent().find("error").text("所属公司不能为空");
+		return false;
+	}
+	adddepart()
+}
+//函数名：adddepart
+//作用：添加部门信息
+//参数：必填：
+function adddepart(){
+	var departName = $("#departName").val();
+	var level = $('input[name="level"]:checked ').val();
+	var pid = $("#pid").val();
+	var companyid = $('#companyid').val();
+	var company = $("#companyid").find("option:selected").text();
+	var firstPersonId = $('#firstPersonId').val();
+	var firstPersonName = $('#firstPersonName').val();
+	var secondPersonId = $('#secondPersonId').val();
+	var secondPersonName = $('#secondPersonName').val();
+	//待补充参数
+	var url = depUrl + "/employee/depart/adddepart";
+	$.ajax({
+		type: 'POST',
+		url: url,
+		data: {"departName":departName,"level":level,"pid":pid,"companyid":companyid,"company":company,"firstPersonId":firstPersonId,"firstPersonName":firstPersonName,"secondPersonId":secondPersonId,"secondPersonName":secondPersonName},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+			var code = data.code;
+			if(code=="000000"){
+				alert("添加成功！");
+				autoJumpURL('/html/department/index.html');
+			}else{
+				$(".box-footer error").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			$(".box-footer error").text("* 错误提示："+ data.msg +"！");
+			return false;
+		}
+	});
+}
+//异步请求列表统一按钮事件
+function searchList(obj){
+	var dataid = $("#modal-default").attr("data-id");
+	if(dataid==0){
+		getEmployee(0);
+	}
+	if(dataid==1){
+		getEmployee(1);
+	}
+}
+// 加载员工列表信息
+function getEmployee(dn){
+    $(".modal-header").html('<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><div class="col-xs-3"><input type="text" class="form-control" placeholder="姓名" name="schempName" id="schempName" value=""></div><div class="col-xs-5"><input type="text" class="form-control" placeholder="手机号" name="schphone" id="schphone" value=""></div><button type="button" class="btn btn-primary" onClick="searchList(this)" title="搜索"><i class="fa fa-search" aria-hidden="true"></i></button>');
+     $(".modal-footer").html('<button type="button" class="btn btn-primary pull-left" id="closeModal" data-dismiss="modal">关闭</button><button type="button" class="btn btn-primary" onClick="checkEmpDep(this)">确定选择</button>');
+    $(".modal-dialog").css("width","35%");
+    
+	var schempName = $("#schempName").val();
+	var schphone = $("#schphone").val();
+	var pageNo = $("#pageNo").val();
+	var url = depUrl + "/employee/creator/getEmployee";
+	$.ajax({
+		type: 'POST',
+		url: url,
+		data: {"empName":schempName,"phone":schphone,"pageNo":pageNo},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+			var code = data.code;
+			var empHtml = "";
+			if(code=="000000"){
+				$.each(data.data.list,function(i,items){
+					empHtml = empHtml + '<div style="height:40px; line-height:40px; width:100%; border-bottom:#f1f1f1 1px solid; overflow:hidden;"><div class="col-xs-3"><label><input type="radio" name="uid" value="'+items.id+'">'+items.empRealname+'</label></div><div class="col-xs-5">'+items.phone+'</div></div>';
+				});
+				$(".modal-body").html(empHtml);
+			}else{
+				$(".modal-body").text("* 错误提示："+ data.msg +"！");
+			}
+			//分页显示
+			$('#compact-pagination').pagination({
+				pages: data.data.pages,
+				cssStyle: 'compact-theme',
+				displayedPages: 7,
+				currentPage: pageNo
+			});
+		},
+		error:function(data){
+			$(".modal-body").text("* 错误提示："+ data.msg +"！");
+			return false;
+		}
+	});
+	$("#modal-default").attr("data-id",dn);
+}
+//选中第一负责人的事件
+function checkEmp(obj){
+	var dataid = $("#modal-default").attr("data-id");
+	$("input[name=uid]").each(function(){
+		if(this.checked){
+			if(dataid==0){
+				$("#firstManage").html('<label class="checkbtn">'+$(this).parent().text()+'<input type="hidden" value="'+$(this).parent().text()+'" name="firstPersonName" id="firstPersonName"><input type="hidden" value="'+$(this).val()+'" name="firstPersonId" id="firstPersonId"><i class="fa fa-times-circle" aria-hidden="true" onClick="delEmp(this)"></i></label>')
+			}
+			if(dataid==1){
+				$("#secendManage").html('<label class="checkbtn">'+$(this).parent().text()+'<input type="hidden" value="'+$(this).parent().text()+'" name="secondPersonName" id="secondPersonName"><input type="hidden" value="'+$(this).val()+'" name="secondPersonId" id="secondPersonId"><i class="fa fa-times-circle" aria-hidden="true" onClick="delEmp(this)"></i></label>')
+			}
+		}
+	});
+	$("#modal-default").css("display","none");
+	$("#modal-default").css("padding-right","");
+	$("#modal-default").removeClass("in");
+	$(".modal-backdrop").remove();
+}
+//删除选中事件
+function delEmp(obj){
+	$(obj).parent().remove();
+}
+//函数名：getdepartlist
+//函数作用：查询信息列表
+//参数：查询条件参数
+getdepartlist()
+function getdepartlist(){
+	var url = depUrl + "/employee/depart/getdepartlist";
+	$.ajax({
+		type: 'POST',
+		url: url,
+		data: {},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+			var code = data.code;
+			var listHtml = '';
+			if(code=="000000"){
+				var listHtmltemp;
+				//alert(JSON.stringify(data.data));
+				if(JSON.stringify(data.data) == ""){
+					listHtmltemp = ''
+				}else{
+					$.each(data.data,function(i,items){
+							listHtmltemp = '<option value="'+items.id+'">'+items.deptname+'</option>'
+							//alert(listHtmltemp);
+						listHtml = listHtml + listHtmltemp;
+					});
+				}
+				$("#pid").html('<option value="0">顶级架构</option>' + listHtml);
+				
+			}else if(code=="002003"){
+				$.session.clear();
+				$(location).attr('href', 'login.html');
+			}else{
+				$("#pid").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			alert(data.msg);
+			$("#pid").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+	});
+}
+</script>

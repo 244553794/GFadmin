@@ -1,0 +1,167 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+<!-- Content Header (页眉) -->
+<section class="content-header">
+  <h1>
+    新增平台用户信息
+    <small>新增平台用户信息</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+    <li><a href="#">平台用户管理</a></li>
+    <li class="active">新增平台用户</li>
+  </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <div class="callout callout-info">
+    <h4>提示！</h4>
+
+    <p>用户管理平台层级的用户管理</p>
+  </div>
+  <!-- Default box -->
+  <div class="box">
+    <div class="box-header with-border">
+      <h3 class="box-title">新增用户</h3>
+
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+        <button type="button" class="btn btn-box-tool" title="刷新" onClick="jumpURL(this)" url="/html/users/add.html" param=""><i class="fa fa-refresh" aria-hidden="true"></i></button>
+      </div>
+    </div>
+    <div class="box-body">
+    	<div class="input-group">
+            <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;"><font color="#FF0000">*</font>用户名</div></span>
+            <input type="text" class="form-control" placeholder="用户名" name="username" id="username" value="">
+            <error></error>
+        </div>
+        <div class="input-group" style="margin-top:20px;">
+            <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;"><font color="#FF0000">*</font>密码</div></span>
+            <input type="password" class="form-control" placeholder="密码" name="password" id="userpsw">
+            <error></error>
+        </div>
+        <div class="input-group" style="margin-top:20px;">
+            <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">头像</div></span>
+            <div class="form-control uploader white">
+            <input type="text" class="filename" name="faceimg" readonly/>
+            <input type="button" name="file" class="button" value="选择图片"/>
+            <input type="file" name="faceimg" size="30"/>
+            </div>
+        </div>
+        <div class="input-group" style="margin-top:20px;">
+            <span class="input-group-addon"style="background-color:#f1f1f1;"><div style="width:200px;">真实姓名</div></span>
+            <input type="text" class="form-control" placeholder="真实姓名" name="realname" id="realname">
+        </div>
+        <div class="input-group" style="margin-top:20px;">
+            <span class="input-group-addon"style="background-color:#f1f1f1;"><div style="width:200px;"><font color="#FF0000">*</font>联系电话</div></span>
+            <input type="text" class="form-control" placeholder="联系电话" name="phonenumber" id="phonenumber">
+            <error></error>
+        </div>
+        <div class="input-group" style="margin-top:20px;">
+            <span class="input-group-addon"style="background-color:#f1f1f1;"><div style="width:200px;">邮箱</div></span>
+            <input type="text" class="form-control" placeholder="邮箱" name="email" id="email">
+            <error></error>
+        </div>
+        <div class="input-group" style="margin-top:20px;">
+            <span class="input-group-addon"style="background-color:#f1f1f1;"><div style="width:200px;">年龄</div></span>
+            <input type="text" class="form-control" placeholder="年龄" name="age" id="age">
+            <error></error>
+        </div>
+        <div class="input-group" style="margin-top:20px;">
+        	<span class="input-group-addon"style="background-color:#f1f1f1;"><div style="width:200px;">性别</div></span>
+            <div class="form-control">
+            	<label><input type="radio" name="sex" value="0" class="minimal" checked>未知</label>&nbsp;&nbsp;
+                <label><input type="radio" name="sex" value="1" class="minimal">男</label>&nbsp;&nbsp;
+                <label><input type="radio" name="sex" value="2" class="minimal">女</label>
+            </div>
+        
+        </div>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer" style="position:fixed; left:0px; bottom:0px; width:100%; height:60px;box-shadow: 0px 0px 40px #888888; z-index:9; background-color:#FFF;">
+    <p><error></error></p>
+    <button type="button" class="btn btn-info fl_right" style="width:150px;" onClick="judgeform()">保存提交</button><button type="button" class="btn btn-default fl_right" style="width:150px; margin-right:50px;" onClick="jumpURL(this)" url="/html/users/" param="">取消返回</button>
+    </div>
+    <!-- /.box-footer-->
+  </div>
+  <!-- /.box -->
+
+
+</section>
+<script>
+$(function(){
+	$("input[type=file]").change(function(){$(this).parents(".uploader").find(".filename").val($(this).val());});
+	$("input[type=file]").each(function(){
+	if($(this).val()==""){$(this).parents(".uploader").find(".filename").val("未选择任何图片...");}
+	});
+});
+function judgeform(){
+	var mail=/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	var phone=/^1[34578]\d{9}$/;
+	var age = new RegExp("^[0-9]*$");
+	$("error").each(function(){
+		$(this).text(" ");
+	});
+	var uname = $("#username").val();
+	if(uname =="" || uname.match( /^[\u4E00-\u9FA5]{1,}$/)){
+		$("#username").parent().find("error").text("用户名不能为空或者为汉字");
+		return false;
+	}else if($("#password").val()==""){
+		$("#password").parent().find("error").text("密码不能为空");
+		return false;
+	}else if($("#phonenumber").val()==""){
+		$("#phonenumber").parent().find("error").text("电话号码不能为空");
+		return false;
+	}else if($("#phonenumber").val().match(phone)==null){
+		$("#phonenumber").parent().find("error").text("电话号码格式不正确");
+	}else if($("#email").val()!=""){
+		if($("#email").val().match(mail)==null){
+			$("#email").parent().find("error").text("邮箱格式不正确");
+		}
+	}else if(age.test($("#age").val())==false){
+		$("#age").parent().find("error").text("年龄为正整数");
+	}else{
+		addrequest()
+	}
+}
+function addrequest(){
+	var username = $("#username").val();
+	var password = $("#userpsw").val();
+	//alert(password);
+	var faceimg = $("#faceimg").val();
+	var realname = $("#realname").val();
+	var email = $("#email").val();
+	var phonenumber = $("#phonenumber").val();
+	var age = $("#age").val();
+	var sex = $("#sex").val();
+	var url = httpurl + "/user/creator/register";
+	$.ajax({
+		type: 'POST',
+		url: url,
+		data: {"username":username,"password":password,"faceimg":faceimg,"realname":realname,"email":email,"phonenumber":phonenumber,"age":age,"sex":sex},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+			var code = data.code;
+			if(code=="000000"){
+				alert("添加成功！");
+				autoJumpURL('/html/users/index.html');
+			}else{
+				$(".box-footer error").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			$(".box-footer error").text("* 错误提示："+ data.msg +"！");
+			return false;
+		}
+	});
+}
+</script>
+</body>
+</html>

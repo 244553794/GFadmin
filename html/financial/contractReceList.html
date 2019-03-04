@@ -1,0 +1,282 @@
+<section class="content-header">
+    <h1>主合同应收账款
+    	<small>主合同管理列表</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li><a>主合同应收账款</a></li>
+        <li class="active">信息列表</li>
+    </ol>
+</section>
+<section class="content">
+	<div class="row">
+    	<div class="col-xs-12">
+        	<div class="box">
+            	<div class="box-header">
+                	<div class="form-group">
+                        <!--搜索条件-->
+                        <div class="col-xs-2"><input type="text" class="form-control" name="contractNum" id="contractNum" placeholder="合同编号"></div>
+                        <div class="col-xs-3"><input type="text" class="form-control" name="aPartyCompanyname" id="aPartyCompanyname" placeholder="甲方"></div>
+                        <div class="col-xs-3"><input type="text" class="form-control" name="bPartyCompanyname" id="bPartyCompanyname" placeholder="乙方"></div>
+                        <button type="button" class="btn btn-default" id="daterange-btn">
+                          <span>
+                            <i class="fa fa-calendar"></i> 日期范围选择
+                          </span>
+                          <i class="fa fa-caret-down"></i>
+                        </button>
+                        <input type="hidden" name="starttime" id="starttime">
+                        <input type="hidden" name="endtime" id="endtime">
+                        <button type="button" class="btn btn-primary" onClick="getContractList()" title="搜索"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        
+                        <button type="button" class="btn btn-primary float-right" onClick="jumpURL(this)" url="/html/financial/contractReceList.html" param="" title="刷新"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+                <!--box-hearder end-->
+                <div class="box-body" id="ajaxTable">
+                <!--
+                |-----------------------|
+                |      异步加载数据       |
+                |-----------------------|
+                -->
+                </div>
+                <!--box-body end-->
+                <!--分页-->
+                <div class="pagination-holder clearfix">
+                    <div class="col-sm-5"><div class="dataTables_info" id="example1_info" role="status" aria-live="polite" style="color: darkgray">当前页 <curpage></curpage>，共<totpage></totpage> 页，共计 <datanum></datanum> 条数据</div></div>
+                    <input type="hidden" name="pageNo" id="pageNo" value="1">
+                    <div id="compact-pagination"></div>
+                </div>
+            </div>
+            <!--box end-->
+            
+            
+            <!--弹窗-->
+            <div class="modal modal-default fade" id="modal-default" data-id="" data-ip-id="" data-ip-name="">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                      <h4></h4>
+                  </div>
+                  <div class="modal-body">
+                      <form>
+                      <div class="input-group" style="margin-bottom:20px;">
+                          <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>本月应收</div></span>
+                          <div class="form-control" id="currentEnterMoney">￥<b>9000</b></div>
+                      </div>
+                      <div class="input-group" style="margin-bottom:20px;">
+                          <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>本月实收</div></span>
+                          <input type="text" class="form-control" name="enterMoney" id="enterMoney" value="" onkeyup="showResion(this)" placeholder="本月实收">
+                          <error></error>
+                      </div>
+                      <input type="hidden" name="isEnter" id="isEnter" value="1">
+                      <input type="hidden" name="contractId" id="contractId" value="">
+                      <div class="input-group" id="reason" style="margin-bottom:20px;">
+                          <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>未收/少收回理由</div></span>
+                          <textarea rows="5" style="width: 100%;border:#d2d6de 1px solid" name="reason" class="input-group"></textarea>
+                          <error></error>
+                      </div>
+                      </form>
+                  </div>
+                  <!--分页-->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary pull-left" id="closeModal" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" onClick="entrymoney()">确认应收</button>
+                  </div>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+            </div>
+            <!-- /.弹窗 -->
+            
+            
+        </div>
+    </div>
+</section>
+<script>
+$(function () {
+  //Initialize Select2 Elements
+  $('.select2').select2()
+
+  //Datemask dd/mm/yyyy
+  $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+  //Datemask2 mm/dd/yyyy
+  $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+  //Money Euro
+  $('[data-mask]').inputmask()
+
+  //Date range picker
+  $('#reservation').daterangepicker()
+  //Date range picker with time picker
+  $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
+  //Date range as a button
+  $('#daterange-btn').daterangepicker(
+	{
+	  ranges   : {
+		'今天'       : [moment(), moment()],
+		'昨天'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+		'最近7天' : [moment().subtract(6, 'days'), moment()],
+		'近 30 天': [moment().subtract(29, 'days'), moment()],
+		'本月'  : [moment().startOf('month'), moment().endOf('month')],
+		'上月'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+	  },
+	  startDate: moment().subtract(29, 'days'),
+	  endDate  : moment()
+	},
+	function (start, end) {
+	  $('#daterange-btn span').html(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+      var starttime = start.format('YYYY-MM-DD hh:mm:ss');
+	  var endtime = end.format('YYYY-MM-DD hh:mm:ss');
+      $("#starttime").val(starttime);
+      $("#endtime").val(endtime);
+	}
+  )
+
+  //Date picker
+  $('#datepicker').datepicker({
+	autoclose: true
+  })
+});
+function clearDate(){
+	$("#daterange-btn").html('<span><i class="fa fa-calendar"></i> 日期范围选择</span><i class="fa fa-caret-down"></i>'); 
+}
+//统一加载分页数据
+function loadData(pn){
+	$("#pageNo").val(pn);
+	var pageNo = $("#pageNo").val();
+	getContractList()
+}
+//判断是否为初始加载
+var pno = $("#pageNo").val();
+if(pno == 1){
+	getContractList();
+}
+//获取列表
+function getContractList(){    
+    var url = depUrl + "/contract/get";
+    var pageNo = $("#pageNo").val();//获取当前页
+    //查询参数
+    var contractNum = $("#contractNum").val();
+    var aPartyCompanyname = $("#aPartyCompanyname").val();
+    var bPartyCompanyname = $("#bPartyCompanyname").val();
+    var startTime = $("#starttime").val();
+    var endTime = $("#endtime").val();
+    
+    //table初始化
+    var headHtml = '<table id="example" class="table table-bordered table-hover"><thead><tr><th width="8"><label><input type="checkbox" onClick=selectAllCheckbox("id") id="AllChk"></label></th><th>合同编号</th><th>甲方</th><th>开始时间</th><th>结束时间</th><th>合同金额</th><th>预算金额</th><th>累计回款</th><th>累计应收</th><th>当月应收</th><th>操作</th></tr></thead><tbody>';
+    var footHtml = '</tbody></table>';
+    $.ajax({
+        type: 'POST',
+		url: url,
+		data: {"pageNo":pageNo,"contractNum":contractNum,"aPartyCompanyname":aPartyCompanyname,"bPartyCompanyname":bPartyCompanyname,"startTime":startTime,"endTime":endTime},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+        success:function(data){
+            var code = data.code;
+            if(code=="000000"){
+                if(data.data.total=="0"){
+                    var listHtml = '<tr><td colspan="10"><font color="#999999">数据空空如也，喝一杯咖啡休息一下吧！</font></td></tr>';
+                }else{
+                    var listHtml = '';
+                    $.each(data.data.list,function(i,items){
+                        //编辑按钮参数
+                        var editUrl = "/html/contract/edit.html";
+                        var showUrl = "/html/contract/detail.html";
+	                    var param = "{'id':'"+items.id+"'}";
+                        if(items.isLock=="1"){
+                            var tlinco = '<i class="fa fa-lock" style="color:red"></i>';
+                            var edtBtn = '';
+                        }else{
+                            var tlinco = '<label><input type="checkbox" name="id" value="'+items.id+'" onClick="selectOneUid(this)"></label>';
+                            var edtBtn = '<button type="button" class="btn btn-primary" title="编辑" onClick="starEntryBox(this)" data-toggle="modal" data-target="#modal-default"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
+                        }
+                        
+                        listHtml = listHtml + '<tr><td>'+tlinco+'</td><td>'+outNull(items.contractNum)+'</td><td>'+outNull(items.aPartyCompanyname) + '</td><td>'+outNull(items.effectTime)+'</td><td>'+outNull(items.faileTime)+'</td><td>￥'+outNull(items.contractMoney)+'</td><td>￥'+outNull(items.totalMoney)+'</td><td><font color="green">￥'+outNull(items.enterMoney)+'</font></td><td><font color="red">￥'+outNull(items.shouldEnterMoney)+'</font></td><td><b style="color:darkorange">￥'+outNull(items.currentEnterMoney)+'</b></td><td><div class="btn-group">' + edtBtn +'<button type="button" class="btn btn-primary" title="查看" onClick="jumpURL(this)" url="'+showUrl+'" param="'+param+'"><i class="fa fa-eye" aria-hidden="true"></i></button></div></td></tr>';
+                    });
+                }
+                $("#ajaxTable").html(headHtml + listHtml + footHtml);
+            }else if(code=="002003"){
+                $.session.clear();
+				$(location).attr('href', 'login.html');
+            }else{
+               $("#ajaxTable").text("* 错误提示："+ data.msg +"！"); 
+            }
+            //分页显示
+            $("curpage").text(pageNo);
+            $("totpage").text(data.data.pages);
+            $("datanum").text(data.data.total);
+			$('#compact-pagination').pagination({
+				pages: data.data.pages,
+				cssStyle: 'compact-theme',
+				displayedPages: 7,
+				currentPage: pageNo
+			});
+        },
+        error:function(data){
+			alert(data.msg);
+			$("#ajaxTable").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+    });
+    
+}
+//弹出应收账款窗口
+function starEntryBox(obj){
+    var myDate = new Date();
+    var year=myDate.getFullYear();
+    var month=myDate.getMonth()+1;
+    $("#contractId").val($(obj).parents("tr").find("input").eq(0).val());
+    $("#modal-default .modal-header h4").text('合同【'+$(obj).parents("tr").find("td").eq(1).text()+'】【'+year+'年'+month+'月】合同收款：');
+}
+//编辑应收账款
+function entrymoney(){
+    var d = {};
+    var t = $('form').serializeArray();
+    $.each(t, function() {
+          d[this.name] = this.value;
+    });
+    console.log(JSON.stringify(d));
+    var url = depUrl + "/contract/entrymoney";
+    $.ajax({
+        type: 'POST',
+		url: url,
+		data: JSON.stringify(d),
+		dataType: "json",
+		contentType:"application/json;charset=utf-8",
+		headers:{accessToken:$.session.get('accessToken')},
+        success:function(data){
+            var code = data.code;
+            if(code=="000000"){
+                alert("入账成功！");
+                $(".modal-backdrop").remove();
+                autoJumpURL('/html/financial/contractReceList.html');
+            }else if(code=="002003"){
+                $.session.clear();
+				$(location).attr('href', 'login.html');
+            }else{
+               $("#ajaxTable").text("* 错误提示："+ data.msg +"！"); 
+            }
+        },
+        error:function(data){
+			alert(data.msg);
+			$("#ajaxTable").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+    });
+    
+}
+//未收回理由显示
+function showResion(obj){
+    var enterMoney = $(obj).val();
+    var currentEnterMoney = $("#currentEnterMoney b").text();
+    if(enterMoney==""){
+        enterMoney = "0";
+    }
+    if(parseFloat(enterMoney) < parseFloat(currentEnterMoney)){
+        $("#reason").css("display","inline-table");
+    }else{
+        $("#reason").css("display","none");
+    }
+}
+</script>

@@ -1,0 +1,249 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<section class="content-header">
+    <h1>组织架构管理
+    	<small>组织架构信息列表</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li><a>组织架构管理</a></li>
+        <li class="active">信息列表</li>
+    </ol>
+</section>
+
+<section class="content">
+	<div class="row">
+    	<div class="col-xs-12">
+        	<div class="box">
+            	<div class="box-header">
+                	<div class="form-group">
+                    	<div class="col-xs-2"><input type="text" class="form-control" name="did" id="did" placeholder="组织架构编号"></div>
+                        <div class="col-xs-3"><input type="text" class="form-control" name="deptname" id="deptname" placeholder="组织架构名称"></div>
+                        <div class="col-xs-3"><input type="text" class="form-control" name="company" id="company" placeholder="所属公司名称"></div>
+                        <div class="col-xs-1"><input type="text" class="form-control" name="firstPersonName" id="firstPersonName" placeholder="第一负责人"></div>
+                        <button type="button" class="btn btn-primary" onClick="getdepartlist()" title="搜索"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary" onClick="jumpURL(this)" url="/html/department/add.html" param=""><i class="fa fa-plus" aria-hidden="true"></i> 新增信息</button>
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">切换下拉菜单</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="javascript:void(0);" onClick="deleteDepartByid(this)" id="numisDel" data-id="">批量删除</a></li>
+                            </ul>
+                        </div>
+                        <button type="button" class="btn btn-primary float-right" onClick="jumpURL(this)" url="/html/department/" param="" title="刷新"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+                <!--box-hearder end-->
+                <div class="box-body" id="ajaxTable">
+                
+                <!--
+                |-----------------------|
+                |      异步加载数据       |
+                |-----------------------|
+                -->
+                </div>
+                <!--box-body end-->
+            </div>
+            <!--box end-->
+            
+        </div>
+    </div>
+    <!--row end-->
+</section>
+<script>
+getdepartlist()  //初始化加载页面
+//函数名：getdepartlist
+//函数作用：查询信息列表
+//参数：查询条件参数
+function getdepartlist(){
+	//编辑按钮参数
+	var editUrl = "/html/department/edit.html";
+	var param = "{'id':'{$id}'}";
+	
+	var url = depUrl + "/employee/depart/getdepartlist";
+	var listHead = '<table id="example" class="table table-bordered table-hover"><thead><tr><th width="8"><label><input type="checkbox" onClick="selectAllUid(this)"></label></th><th width="50">下级</th><th>组织架构编号</th><th>组织架构名称</th><th>所属公司</th><th>第一负责人</th><th>操作</th></tr></thead>';
+	var listFoot = '</tbody></table>';
+	var delBtn = '<button type="button" class="btn btn-primary" title="删除" onClick="tipDeletedepart({$id})"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
+	var edtBtn = '<button type="button" class="btn btn-primary" title="编辑" onClick="jumpURL(this)" url="'+editUrl+'" param="'+param+'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
+	var lckBtn = '<button type="button" class="btn btn-primary" title="锁定" onClick="jumpURL(this)" url="" param=""><i class="fa fa-lock" aria-hidden="true"></i></button>';
+    
+    //搜索条件参数
+    var id = $("#did").val();
+    var deptname = $("#deptname").val();
+    var company = $("#company").val();
+    var firstPersonName = $("#firstPersonName").val();
+    
+	$.ajax({
+		type: 'POST',
+		url: url,
+		data: {"id":id,"departName":deptname,"company":company,"firstPersonName":firstPersonName},
+		dataType: "json",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+			var code = data.code;
+			var listHtml = '';
+			if(code=="000000"){
+				var listHtmltemp;
+				//alert(JSON.stringify(data.data));
+				if(JSON.stringify(data.data) == ""){
+					listHtmltemp = '<tr><td colspan="7"><font color="#999999">数据空空如也，喝一杯咖啡休息一下吧！</font></td></tr>'
+				}else{
+					$.each(data.data,function(i,items){
+						listHtmltemp= '<tr><td><label><input type="checkbox" name="depId" value="{$id}" onClick="selectOneUid(this)"></label></td><td align="center">{$level}</td><td>{$id}</td><td>{$deptname}</td><td>{$companyName}</td><td>{$first_person_name}</td><td><div class="btn-group">'+ delBtn + edtBtn + '</div></td></tr>'
+							for(var a=0;a<10;a++){
+								listHtmltemp = listHtmltemp.replace("{$id}",items.id);
+							}
+							listHtmltemp = listHtmltemp.replace("{$deptname}",items.deptname);
+							listHtmltemp = listHtmltemp.replace("{$first_person_name}",items.firstpersonname);
+							listHtmltemp = listHtmltemp.replace("{$companyName}",items.company);
+							if(JSON.stringify(items.chrildren) != "[]"){
+								listHtmltemp = listHtmltemp.replace("{$level}",'<i class="fa fa-plus-square-o" aria-hidden="true" style="cursor:pointer" onClick="showHideSmalDep('+items.id+')"></i>');
+							}else{
+								listHtmltemp = listHtmltemp.replace("{$level}",'<i class="fa fa-minus-square-o" aria-hidden="true"></i>');
+							}
+							//这里只做了两级分类，可拓展多级分类
+							if(JSON.stringify(items.chrildren) != "[]"){
+								$.each(items.chrildren,function(j,itemx){
+									var smallListHtmltemp = '<tr style="background-color:#e9faff;display:none;" data-smcat="'+items.id+'"><td><label><input type="checkbox" name="depId" value="{$id}" onClick="selectOneUid(this)"></label></td><td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|—</td><td>{$id}</td><td>{$deptname}</td><td>{$companyName}</td><td>{$first_person_name}</td><td><div class="btn-group">'+ delBtn + edtBtn + '</div></td></tr>'
+									for(var b=0;b<10;b++){
+										smallListHtmltemp = smallListHtmltemp.replace("{$id}",itemx.id);
+									}
+									smallListHtmltemp = smallListHtmltemp.replace("{$deptname}",itemx.deptname);
+									smallListHtmltemp = smallListHtmltemp.replace("{$first_person_name}",itemx.firstpersonname);
+									smallListHtmltemp = smallListHtmltemp.replace("{$companyName}",itemx.company);
+									listHtmltemp = listHtmltemp + smallListHtmltemp;
+									for(var z=0;z<4;z++){
+										listHtmltemp = listHtmltemp.replace("null","-");
+									}
+								});
+							}
+							//alert(listHtmltemp);
+						listHtml = listHtml + listHtmltemp;
+						for(var b=0;b<4;b++){
+							listHtml = listHtml.replace("null","-");
+						}
+					});
+				}
+				$("#ajaxTable").html(listHead + listHtml + listFoot);
+				
+			}else if(code=="002003"){
+				$.session.clear();
+				$(location).attr('href', 'login.html');
+			}else{
+				$("#ajaxTable").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			alert(data.msg);
+			$("#ajaxTable").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+	});
+}
+//函数名：showHideSmalDep
+//函数作用：显示隐藏小类别;
+function showHideSmalDep(id){
+	$("tr").each(function(){
+		
+		if($(this).attr("data-smcat") == id){
+			$(this).toggle(300);
+		}
+	});
+}
+//架构删除提示
+function tipDeletedepart(id){
+	var islevel = 0;
+	$("tr").each(function(){
+		if($(this).attr("data-smcat")==id){
+			islevel = 1;
+		}
+	});
+	
+	if(islevel==0){
+		if(confirm("确定删除该部门?")){
+			deletedepart(id);
+		}
+	}else{
+		if(confirm("该部门下面含有子部门，删除将会连同子部门一起删除，是否仍要删除?")){
+			deletedepart(id);
+		}
+	}
+}
+//批量删除架构提示
+function deleteDepartByid(obj){
+	var id = $(obj).attr("data-id");
+	if(confirm("确定批量删除部门以及子部门?")){
+		deletedepart(id);
+	}
+}
+//架构删除
+function deletedepart(id){
+	var url = depUrl + "/employee/depart/deletedepart";
+	$.ajax({
+		type:"POST",
+		url:url,
+		data:{"departId":id},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success:function(data){
+			var code = data.code;
+			if(code=="000000"){
+				alert("删除成功");
+				autoJumpURL('/html/department/index.html');
+			}else if(code=="002003"){
+				alert("当前登录已失效,请重新登录");
+				$.session.clear();
+				$(location).attr('href', 'login.html');
+			}else{
+				$("#roleselect").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			$(".box-footer error").text("* 错误提示："+ data.msg +"！");
+			return false;
+		}
+	});
+}
+//函数名：选中所有的uid checkbox
+function selectAllUid(obj){
+	var ids = "";
+    if($(obj).is(':checked')==false){
+        $("input[name='depId']").each(function(){
+            $(this).prop("checked", false);
+        });
+    }else{
+        $("input[name='depId']").each(function(){
+             ids = ids + $(this).val() + ",";
+		     $(this).prop("checked",true);
+        });
+    }
+	if(ids!=""){
+		ids = ids.substr(0,ids.length-1);
+	}
+	$("#numisDel").attr("data-id",ids);
+}
+//函数名：选中单条数据
+
+function selectOneUid(obj){
+	var ids = "";
+    var idtemp = $(obj).val();
+    var objstu = $(obj).is(':checked');
+	$("input[name='depId']").each(function(){
+        if($(this).parent().parent().parent().attr("data-smcat")==idtemp && objstu == true){
+            $(this).prop("checked",true);
+        }
+        if($(this).parent().parent().parent().attr("data-smcat")==idtemp && objstu == false){
+            $(this).prop("checked",false);
+        }
+		if($(this).is(':checked')==true){
+			ids = ids + $(this).val() + ",";
+		}
+	});
+	if(ids!=""){
+		ids = ids.substr(0,ids.length-1);
+	}
+	$("#numisDel").attr("data-id",ids);
+}
+</script>

@@ -1,0 +1,510 @@
+<html>
+<head>
+  <meta charset="UTF-8" http-equiv="Access-Control-Allow-Origin" content="*">
+  </head>
+  <body>
+    <!-- Content Header (页眉) -->
+    <section class="content-header">
+      <h1>
+        用户信息管理
+        <small>平台用户信息列表</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li><a>用户信息管理</a></li>
+        <li class="active">信息列表</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+            <div class="form-group">
+                <div class="col-xs-2"><input type="text" class="form-control" name="username" id="username" placeholder="用户名"></div>
+                <div class="col-xs-2"><input type="text" class="form-control" name="realname" id="realname" placeholder="真实姓名"></div>
+                <div class="col-xs-3" id="roleselect">
+                <select class="form-control select2" name="roleId" id="roleId">
+                  <option selected="selected" value="">选择权限组</option>
+                </select>
+                </div>
+                <button type="button" class="btn btn-default" id="daterange-btn">
+                  <span>
+                    <i class="fa fa-calendar"></i> 日期范围选择
+                  </span>
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <input type="hidden" name="starttime" id="starttime">
+                <input type="hidden" name="endtime" id="endtime">
+                <button type="button" class="btn btn-primary" onClick="listrequest()"><i class="fa fa-search" aria-hidden="true"></i></button>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-info" onClick="jumpURL(this)" url="/html/users/add.html" param=""><i class="fa fa-plus" aria-hidden="true"></i> 新增信息</button>
+                  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    <span class="sr-only">切换下拉菜单</span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="javascript:void(0);" onClick="deleteUserByid(this)" id="numisDel" data-id="">批量删除</a></li>
+                    <li><a href="javascript:void(0);" onClick="lockUser(this)" id="numisLock" data-id="">批量锁定 / 解锁</a></li>
+                  </ul>
+                </div>
+                <button type="button" class="btn btn-primary float-right" onClick="listrequest()" title="刷新"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" id="ajaxTable">
+              <!--
+              |-----------------------|
+              |      异步加载数据       |
+              |-----------------------|
+              -->
+            </div>
+            <!--分页-->
+            <div class="pagination-holder clearfix">
+            	<input type="hidden" name="pageNo" id="pageNo" value="1">
+            	<div id="compact-pagination"></div>
+            </div>
+            <!-- /.box-body -->
+            
+            <div class="modal modal-default fade" id="modal-default" data-id="">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">消息样式弹框</h4>
+                  </div>
+                  <div class="modal-body">
+                  	
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary pull-left" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" onClick="addUserRole()">保存修改</button>
+                  </div>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+<!-- page script -->
+<script>
+function clearDate(){
+	$("#daterange-btn").html('<span><i class="fa fa-calendar"></i> 日期范围选择</span><i class="fa fa-caret-down"></i>'); 
+}
+  $(function () {
+	  
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    //Money Euro
+    $('[data-mask]').inputmask()
+
+    //Date range picker
+    $('#reservation').daterangepicker()
+    //Date range picker with time picker
+    $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
+    //Date range as a button
+    $('#daterange-btn').daterangepicker(
+      {
+        ranges   : {
+          '今天'       : [moment(), moment()],
+          '昨天'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          '最近7天' : [moment().subtract(6, 'days'), moment()],
+          '近 30 天': [moment().subtract(29, 'days'), moment()],
+          '本月'  : [moment().startOf('month'), moment().endOf('month')],
+          '上月'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        startDate: moment().subtract(29, 'days'),
+        endDate  : moment()
+      },
+      function (start, end) {
+        $('#daterange-btn span').html(start.format('YYYY MM DD') + ' - ' + end.format('YYYY MM DD '));
+		var starttime = start.format('YYYY-MM-DD hh:mm:ss');
+		var endtime = end.format('YYYY-MM-DD hh:mm:ss');
+		$("#starttime").val(starttime);
+		$("#endtime").val(endtime);
+      }
+    )
+    //Date picker
+    $('#datepicker').datepicker({
+      autoclose: true
+    })
+
+    //iCheck for checkbox and radio inputs
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+      checkboxClass: 'icheckbox_minimal-blue',
+      radioClass   : 'iradio_minimal-blue'
+    })
+    //Red color scheme for iCheck
+    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+      checkboxClass: 'icheckbox_minimal-red',
+      radioClass   : 'iradio_minimal-red'
+    })
+    //Flat red color scheme for iCheck
+    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+      checkboxClass: 'icheckbox_flat-green',
+      radioClass   : 'iradio_flat-green'
+    })
+
+    //Colorpicker
+    $('.my-colorpicker1').colorpicker()
+    //color picker with addon
+    $('.my-colorpicker2').colorpicker()
+	
+    //Timepicker
+    $('.timepicker').timepicker({
+      showInputs: false
+    })
+  })
+
+//统一加载分页数据
+function loadData(pn){
+	$("#pageNo").val(pn);
+	var pageNo = $("#pageNo").val();
+	listrequest()
+}
+
+var editUrl = "/html/users/edit.html";
+var param = "{'id':'{$id}'}";
+var listhead = '<table id="example" class="table table-bordered table-hover"><thead><tr><th width="8"><label><input type="checkbox" onClick="selectAllUid(this)"></label></th><th>标识号</th><th>用户名</th><th width="30%">权限组</th><th>真实姓名</th><th>创建时间</th><th width="200">操作</th></tr></thead>' 
+var listfoot ='</tbody></table>'
+var pno = $("#pageNo").val();
+if(pno == 1){
+	listrequest();
+}
+function listrequest(){
+	var url = httpurl + "/user/creator/getUserList";
+	var username = $("#username").val();
+	var realname = $("#realname").val();
+	var starttime = $("#starttime").val();
+	var endtime = $("#endtime").val();
+	var roleid = $("#roleId").val();
+	var pageNo = $("#pageNo").val();
+	$.ajax({
+		type: 'POST',
+		url: url,
+		data: {"username":username,"realname":realname,"roleid":roleid,"starttime":starttime,"endtime":endtime,"pageNo":pageNo},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+			var code = data.code;
+			if(code=="000000"){
+				var reg = new RegExp("{$uuid}","g");
+				var rName = ""
+				var listHtmltemp = ""
+				if(data.data.total=="0" || data.data.total==0){
+					listHtmltemp = '<tr><td colspan="7"><font color="#999999">没有您要的数据哦，喝一杯咖啡休息一下吧！</font></td></tr>';
+				}else{
+					$.each(data.data.list,function(i,items){
+						var delBtnHtml = '<button type="button" class="btn btn-info" onClick="deleteUserByid(this)" data-id="{$id}" title="删除"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
+						var editBtnHtml = '<button type="button" class="btn btn-info" title="编辑" onClick="jumpURL(this)" url="'+editUrl+'" param="'+param+'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
+						var lockBtnHtml = '<button type="button" class="btn btn-info" title="锁定" onClick="lockUser(this)" data-id="{$id}">{$islock}</button>';
+						var roleBtnHtml = '<button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-default" title="指定权限组" onClick="getuserrole({$id})">指定权限组</button>';
+						
+						if(items.username=="admin" || items.username == $.session.get('username')){
+							delBtnHtml = "";
+							lockBtnHtml = "";
+							roleBtnHtml = "";
+						}
+						var listHtml = '<tr><td><label><input type="checkbox" onClick="selectOneUid(this)" name="uid" value="{$id}"></label></td><td>{$uuid}</td><td id="un{$id}">{$username}{$islock}</td><td>{$roleName}</td><td>{$realname}</td><td>{$createtime}</td><td><div class="btn-group">' + delBtnHtml + editBtnHtml + lockBtnHtml + roleBtnHtml + '</div></td></tr>'
+						
+						for(var a=0;a<10;a++){
+							listHtml = listHtml.replace("{$id}",items.id);
+						}
+						listHtml = listHtml.replace("{$uuid}",items.uuid);
+						listHtml = listHtml.replace("{$username}",items.username);
+						$.each(items.tbRoles,function(i,itemx){
+							rName = rName + "【" + itemx.roleName + "】";
+						});
+						if(items.islock == "1" || items.islock == 1){
+							listHtml = listHtml.replace("{$islock}",'&nbsp;&nbsp;<i class="fa fa-lock" aria-hidden="true"></i>');
+							listHtml = listHtml.replace("{$islock}",'<i class="fa fa-unlock" aria-hidden="true"></i>');
+						}else{
+							listHtml = listHtml.replace("{$islock}",'');
+							listHtml = listHtml.replace("{$islock}",'<i class="fa fa-lock" aria-hidden="true"></i>');
+						}
+						listHtml = listHtml.replace("{$roleName}",rName);
+						listHtml = listHtml.replace("{$realname}",items.realname);
+						listHtml = listHtml.replace("{$createtime}",items.createtime);
+						rName = "";
+						//处理按钮逻辑
+						
+						listHtmltemp = listHtmltemp + listHtml;
+					});
+				}
+				$("#ajaxTable").html(listhead + listHtmltemp + listfoot);
+				//列表排序
+				$("#example").DataTable({
+				  "paging"      : false,
+				  "lengthChange": false,
+				  "searching"   : false,
+				  "ordering"    : true,
+				  "info"        : false,
+				  "autoWidth"   : false
+				})
+				//分页显示
+				$('#compact-pagination').pagination({
+					pages: data.data.pages,
+					cssStyle: 'compact-theme',
+					displayedPages: 7,
+					currentPage: pageNo
+				});
+				
+			}else if(code=="002003"){
+				$.session.clear();
+				$(location).attr('href', 'login.html');
+			}else{
+				$("#ajaxTable").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			alert(data.msg);
+			$("#ajaxTable").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+	});
+}
+//函数名：获取权限组信息
+getRoleList()
+var roleHtmlhead = '<select class="form-control select2" name="roleId" id="roleId"><option selected="selected" value="">选择权限组</option>';
+var roleHtmlfoot = '</select>'
+function getRoleList(){
+	var url = httpurl + "/user/role/getList";
+	var username = "";
+	var realname ="";
+	var roleid = "";
+	var starttime ="";
+	var endtime = "";
+	$.ajax({
+		type: 'POST',
+		url: url,
+		data: {},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+			var code = data.code;
+			if(code=="000000"){
+				var rName = ""
+				var roleHtmltemp = ""
+				$.each(data.data.list,function(i,items){
+					roleHtmltemp = roleHtmltemp + '<option value="'+items.roleId+'">'+items.roleName+'</option>';
+				});
+				$("#roleselect").html(roleHtmlhead + roleHtmltemp + roleHtmlfoot);
+			}else if(code=="002003"){
+				alert("当前登录已失效,请重新登录");
+				$.session.clear();
+				$(location).attr('href', 'login.html');
+			}else{
+				$("#roleselect").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			alert(data.msg);
+			$("#roleselect").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+	});
+}
+//请求用户角色权限组
+//id:用户ID
+function getuserrole(id){
+	var url = httpurl + "/user/userrole/getuserrole";
+	$.ajax({
+		type:"POST",
+		url: url,
+		data:{"userid":id},
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+			var code = data.code;
+			var roleHtml = "";
+			if(code=="000000"){
+				$("#modal-default h4").text("指定权限组");
+				$("#modal-default").attr("data-id",id);
+				$.each(data.data[0].havaAdd,function(i,items){
+					if(items.isLock == 0){
+						roleHtml = roleHtml + '<label style="padding-right:20px; padding-bottom:20px;"><input type="checkbox" name="limitArray" value="'+ items.roleId +'" class="minimal" checked>'+ items.roleName +'</label>'
+					}
+				});
+				$.each(data.data[0].noAdd,function(i,items){
+					if(items.isLock == 0){
+						roleHtml = roleHtml + '<label style="padding-right:20px; padding-bottom:20px;"><input type="checkbox" name="limitArray" value="'+ items.roleId +'" class="minimal">'+ items.roleName +'</label>'
+					}
+				});
+				$("#modal-default .modal-body").html(roleHtml);
+			}else if(code=="002003"){
+				alert("当前登录已失效,请重新登录");
+				$.session.clear();
+				$(location).attr('href', 'login.html');
+			}else{
+				$("#roleselect").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			$(".box-footer error").text("* 错误提示："+ data.msg +"！");
+			return false;
+		}
+	});
+}
+//函数名：用户锁定
+//id：用户ID，字符串类型，分割线 ","
+function lockUser(obj){
+	var id = $(obj).attr("data-id");
+	if(id==""){
+		alert("请选择要操作的记录");
+		return false;
+	}else{
+		var url = httpurl + "/user/creator/update/islock";
+		$.ajax({
+			type:"POST",
+			url:url,
+			data:{"userId":id},
+			dataType: "json",
+			contentType:"application/x-www-form-urlencoded",
+			headers:{accessToken:$.session.get('accessToken')},
+			success:function(data){
+				var code = data.code;
+				var unid = "#un" + id;
+				if(code=="000000"){
+					autoJumpURL('/html/users/index.html');
+				}else if(code=="002003"){
+					alert("当前登录已失效,请重新登录");
+					$.session.clear();
+					$(location).attr('href', 'login.html');
+				}else{
+					$("#roleselect").text("* 错误提示："+ data.msg +"！");
+				}
+			},
+			error:function(data){
+				$(".box-footer error").text("* 错误提示："+ data.msg +"！");
+				return false;
+			}
+		});
+	}
+}
+//函数名称：删除用户
+//id：用户ID
+function deleteUserByid(obj){
+	if(confirm("确定删除该权限?")){
+		var id = $(obj).attr("data-id");
+		var url = httpurl + "/user/creator/deleteUserByid";
+		$.ajax({
+			type:"POST",
+			url:url,
+			data:{"userId":id},
+			dataType: "json",
+			contentType:"application/x-www-form-urlencoded",
+			headers:{accessToken:$.session.get('accessToken')},
+			success:function(data){
+				var code = data.code;
+				if(code=="000000"){
+					alert("删除成功");
+					autoJumpURL('/html/users/index.html');
+				}else if(code=="002003"){
+					alert("当前登录已失效,请重新登录");
+					$.session.clear();
+					$(location).attr('href', 'login.html');
+				}else{
+					$("#roleselect").text("* 错误提示："+ data.msg +"！");
+				}
+			},
+			error:function(data){
+				$(".box-footer error").text("* 错误提示："+ data.msg +"！");
+				return false;
+			}
+		});
+	}
+}
+//函数名：添加用户角色；
+//userId：用户ID（int），roleId：字符串，多个使用","分隔
+function addUserRole(){
+	var limitArray = "";
+	var roleId = "";
+	var url = httpurl + "/user/userrole/addUserRole";
+	$("input[name='limitArray']:checked").each(function(i){//把所有被选中的复选框的值存入数组
+		limitArray = limitArray + $(this).val() + ",";
+	});
+	if(limitArray!=""){
+		roleId = limitArray.substr(0,limitArray.length-1);
+	}
+	var userid = $("#modal-default").attr("data-id");
+	$.ajax({
+		type:"POST",
+		url:url,
+		data:{"userid":userid,"roleID":roleId},
+		dataType: "json",
+		headers:{accessToken:$.session.get('accessToken')},
+		success:function(data){
+			var code = data.code;
+			if(code=="000000"){
+				alert("修改成功");
+				$(".modal-backdrop").remove();//去除遮罩层
+				autoJumpURL('/html/users/index.html');
+			}else if(code=="002003"){
+				alert("当前登录已失效,请重新登录");
+				$.session.clear();
+				$(location).attr('href', 'login.html');
+			}else{
+				$("#roleselect").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			$(".box-footer error").text("* 错误提示："+ data.msg +"！");
+			return false;
+		}
+	});
+}
+
+//函数名：选中所有的uid checkbox
+function selectAllUid(obj){
+	var ids = "";
+	$("input[name='uid']").each(function(){ 
+		if($(this).attr("checked")){ 
+			$(this).removeAttr("checked"); 
+		}else {
+			ids = ids + $(this).val() + ",";
+			$(this).attr("checked","true"); 
+		} 
+	});
+	if(ids!=""){
+		ids = ids.substr(0,ids.length-1);
+	}
+	$("#numisDel").attr("data-id",ids);
+	$("#numisLock").attr("data-id",ids);
+}
+//函数名：选中单条数据
+
+function selectOneUid(obj){
+	var ids = "";
+	$("input[name='uid']").each(function(){
+		if($(this).is(':checked')){
+			ids = ids + $(this).val() + ",";
+		}
+	});
+	if(ids!=""){
+		ids = ids.substr(0,ids.length-1);
+	}
+	$("#numisDel").attr("data-id",ids);
+	$("#numisLock").attr("data-id",ids);
+}
+</script>
+</body>
+</html>

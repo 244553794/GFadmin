@@ -1,0 +1,229 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!-- Content Header (页眉) -->
+<section class="content-header">
+    <h1>查看培训审批信息
+    	<small>查看培训审批</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li><a>员工信息管理</a></li>
+        <li class="active">查看信息</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="callout callout-info">
+      <h4>审批流程为：</h4>
+      <p>&nbsp;</p>
+      <div class="appr-box"><span>发起人</span><div class="line"></div></div><div class="appr-box"><span>发起部门</span><div class="line"></div></div><div class="appr-box"><span>人事部</span><div class="line"></div></div><div class="appr-box"><span>总经办</span><div class="line none"></div></div>
+      <p style="clear: both;"></p>
+    </div>
+    <!--基本信息-->
+    <div class="box">
+    	<div class="box-header with-border">
+        	<h3 class="box-title">培训信息</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+                <button type="button" id="reflash" class="btn btn-box-tool" title="刷新" onClick="jumpURL(this)" url="/html/personnel/detialTrain.html" param=""><i class="fa fa-refresh" aria-hidden="true"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1; "><div style="width:200px;">培训类型</div></span>
+                <div class="form-control" id="trainType">
+                </div>
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">发起人</div></span>
+                <div class="form-control" id="adminCreatMan" style="height:46px;">
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">发起部门</div></span>
+                <span class="form-control" id="adminDepart"></span>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">参与人员</div></span>
+                <div class="form-control" style="height:46px;">
+                    <span id="joinEmp"></span>
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">执行负责人</div></span>
+                <div class="form-control" style="height:46px;">
+                    <span id="excuEmp"></span>
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">培训内容</div></span>
+                <div class="form-control" style="height:auto" id="trainContent">
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">培训地点</div></span>
+                <div class="form-control" id="trainAddreaa">
+                </div>
+            </div>
+        </div>
+<!--面板结束，人员弹出框加载-->
+    </div>
+    <!--添加第二个面板-->
+    
+    <!--底部-->
+    <div class="box-footer" style="position:fixed; left:0px; bottom:0px; width:100%; height:60px;box-shadow: 0px 0px 40px #888888; z-index:9; background-color:#FFF;">
+    <p><error></error></p>
+    <button type="button" class="btn btn-default fl_right" style="width:150px; margin-right:50px;" onClick="jumpURL(this)" url="/html/personnel/train.html" param="">取消返回</button>
+    </div>
+</section>
+<script>
+$(function () {
+  //Initialize Select2 Elements
+  $('.select2').select2()
+
+  //Date picker
+  $('#birthdate').datepicker({
+	autoclose: true
+  })
+  $('#fileDate').datepicker({
+	autoclose: true
+  })
+});
+//根据ID加载表单数据
+var param = $("#ajaxcontent").attr("param");
+param = param.replace(/'/g,"\"");
+param = JSON.parse(param);
+$("#reflash").attr("param","{'id':'"+param.id+"'}");
+fillform(param.id);
+function fillform(id){
+	var url = depUrl + "/employee/train/get";
+	$.ajax({
+		type: 'POST',
+		url: url,
+		data: {"id":id},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+			var code = data.code;
+			if(code=="000000"){
+				$.each(data.data.list,function(i,items){
+                    //培训类别
+                    $("#trainType").text(trainType(items.trainType));
+                    //发起人
+                    if(items.creatorUsername!=null && items.creatorUserid!=null){
+                        $("#adminCreatMan").html('<label class="checkbtn">'+items.creatorUsername+'</label>');    
+                    }
+                   //部门
+                   infoLoding(items.creatorDeptid);
+                    //参与员工
+                    $.each(items.trainEmpList,function(i,itemx){
+                        if(itemx.empId!=null && itemx.empName!=null){
+                            $("#joinEmp").append('<label class="checkbtn" name="empCheckbtn">'+itemx.empName+'</label>');
+                        }
+                    });
+                    //执行负责人
+                    if(items.executorName!=null && items.executorId!=null){
+                        $("#excuEmp").html('<label class="checkbtn">'+items.executorName+'</label>');
+                    }
+                    //培训内容
+                    $("#trainContent").text(trainContent(items.trainContent));
+                    //培训地点
+                    $("#trainAddreaa").text(items.trainAddreaa);
+				});
+			}else if(code=="002003"){
+				alert("当前登录已失效,请重新登录");
+				$.session.clear();
+				$(location).attr('href', 'login.html');
+			}else{
+				$(".box-footer error").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			alert(data.msg);
+			$(".box-footer error").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+	});
+}
+    
+
+function searchList(obj){
+	var dataid = $("#modal-default").attr("data-id");
+	if(dataid==0){
+		getEmployee(0);
+	}
+	if(dataid==1){
+		getEmployee(1);
+	}
+    if(dataid==2){
+        getEmployee(2);
+    }
+}
+function infoLoding(nowdpid){
+    //加载部门列表
+    var url = depUrl + "/employee/depart/getdepartlist";
+    $.ajax({
+		type: 'POST',
+		url: url,
+		data: {},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+			var code = data.code;
+			var listHtml = '';
+			if(code=="000000"){
+				var listHtmltemp;
+				//alert(JSON.stringify(data.data));
+				if(JSON.stringify(data.data) == ""){
+					listHtmltemp = ''
+				}else{
+					$.each(data.data,function(i,items){
+						listHtmltemp= ''
+							//这里只做了两级分类，可拓展多级分类
+							if(JSON.stringify(items.chrildren) != "[]"){
+                                if(items.id==nowdpid){
+                                    var listHtmltemp = items.deptname;
+                                }
+								$.each(items.chrildren,function(j,itemx){
+                                    if(itemx.id==nowdpid){
+                                        var listHtmltemp = itemx.deptname;
+                                    }
+                                    $.each(itemx.chrildren,function(k,itemy){
+                                        if(itemy.id==nowdpid){
+                                            var listHtmltemp = itemy.id;
+                                        }
+                                    });
+								});
+							}
+							//alert(listHtmltemp);
+						listHtml = listHtmltemp;
+						for(var b=0;b<4;b++){
+							listHtml = listHtml.replace("null","-");
+						}
+					});
+				}
+				$("#adminDepart").html(listHtml);
+				
+			}else if(code=="002003"){
+				$.session.clear();
+				$(location).attr('href', 'login.html');
+			}else{
+				$("#departInfo").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			alert(data.msg);
+			$("#departInfo").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+	});
+    //加载护卫点（项目）列表
+    $("#projectId").click(function(){
+        alert("功能开发中");
+    });
+}
+
+</script>

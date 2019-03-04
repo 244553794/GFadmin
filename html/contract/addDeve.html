@@ -1,0 +1,404 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!-- Content Header (页眉) -->
+<section class="content-header">
+    <h1>新增发展部业务合同
+    	<small>增加发展部业务合同内容信息</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li><a>发展部业务合同列表</a></li>
+        <li class="active">新增信息</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="callout callout-info">
+      <h4>提示！</h4>
+      <p>新增发展部合同信息，注意与发展部的合同做区分，合同的乙方为本公司</p>
+    </div>
+    <!--基本信息-->
+    <form>
+    <div class="box">
+    	<div class="box-header with-border">
+        	<h3 class="box-title">合同基本信息</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" title="刷新，注意保存信息" onClick="jumpURL(this)" url="/html/contract/add.html" param=""><i class="fa fa-refresh" aria-hidden="true"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>关联合同编号</div></span>
+                <div class="form-control" style="height:auto">
+                    <button type="button" class="btn btn-primary" onClick=getContractList() data-toggle="modal" data-target="#modal-default" title="新增" style="float:right"><i class="fa fa-plus" aria-hidden="true"></i> 新增</button>
+                    <span id="deveContactNum"></span>
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>合同编号</div></span>
+                <input type="text" class="form-control" name="contractNum" id="contractNum" value="" placeholder="合同编号">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>合同名称</div></span>
+                <input type="text" class="form-control" name="contractName" id="contractName" value="" placeholder="合同名称">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>甲方</div></span>
+                <input type="text" class="form-control" name="aPartyCompanyname" id="aPartyCompanyname" value="" placeholder="甲方">
+                <input type="hidden" name="aPartyCompnayid" id="aPartyCompnayid" value="">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>乙方</div></span>
+                <input type="text" class="form-control" name="bPartyCompanyname" id="bPartyCompanyname" value="" placeholder="乙方">
+                <input type="hidden" name="bPartyCompanyid" id="bPartyCompanyid" value="">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;position: relative;">
+                <i class="fa fa-calendar" style="float: right;position: absolute;right: 10px; top: 10px;z-index: 99"></i>
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>签约时间</div></span>
+                <input type="text" class="form-control" style="width: 100%;" name="signingTime" id="signingTime" value="" placeholder="签约时间">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;position: relative;">
+                <i class="fa fa-calendar" style="float: right;position: absolute;right: 10px; top: 10px;z-index: 99"></i>
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>生效时间</div></span>
+                <input type="text" class="form-control" style="width: 100%;" name="effectTime" id="effectTime" value="" placeholder="签约时间">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;position: relative;">
+                <i class="fa fa-calendar" style="float: right;position: absolute;right: 10px; top: 10px;z-index: 99"></i>
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>失效时间</div></span>
+                <input type="text" class="form-control" style="width: 100%;" name="faileTime" id="faileTime" value="" placeholder="签约时间">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;"><font color="#FF0000">*</font>乙方签约人</div></span>
+                <div class="form-control" style="height:auto">
+                    <button type="button" class="btn btn-primary" onClick=getEmpList(1,"bSigningPersonid","bSigningPersonname") data-toggle="modal" data-target="#modal-default" title="新增" style="float:right"><i class="fa fa-plus" aria-hidden="true"></i> 新增</button>
+                    <span id="bSigningPersonid_lb"></span>
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>甲方联系人</div></span>
+                <input type="text" class="form-control" name="aSigningPersonname" id="aSigningPersonname" value="" placeholder="甲方联系人">
+                <input type="hidden" name="aSigningPersonid" id="aSigningPersonid" value="">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>甲方联系电话</div></span>
+                <input type="text" class="form-control" name="contactPhone" id="contactPhone" value="" placeholder="甲方联系电话">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>甲方联系地址</div></span>
+                <input type="text" class="form-control" name="contactAddress" id="contactAddress" value="" placeholder="甲方联系地址">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>合同金额(￥)</div></span>
+                <input type="text" class="form-control" style="font-size: 18px;color: #f00;font-weight: bold;" name="contractMoney" id="contractMoney" value="" placeholder="">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1; "><div style="width:200px;"><font color="#FF0000">*</font>支付方式</div></span>
+                <div class="form-control">
+                    <label><input type="radio" name="payType" value="0" class="minimal" checked>按月支付</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="payType" value="1" class="minimal">按年支付</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="payType" value="2" class="minimal">一次性支付</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--添加第二个面板-->
+    <div class="box">
+        <div class="box-header with-border">
+        	<h3 class="box-title">合同业务信息</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <span id="busiC">
+            <div class="contact_box"><i class="fa fa-minus-circle" aria-hidden="true"></i>
+                <div class="input-group" style="margin-bottom:20px;">
+                    <input type="text" class="form-control" name="projectName" id="projectName" value="" placeholder="签约项目">
+                    <input type="hidden" name="projectId" id="projectId" value="">
+                    <span class="input-group-addon" style="background-color: #f1f1f1"><div style="cursor: pointer">选择</div></span>
+                </div>
+                <div class="input-group" style="margin-bottom:20px;">
+                    联系人：<span id="contactUsernameText"></span>
+                    <input type="hidden" name="contactUser" id="contactUser" value="">
+                    <input type="hidden" name="contactUsername" id="contactUsername" value="">
+                </div>
+                <div class="input-group" style="margin-bottom:20px;">
+                    联系电话：<span id="contactUsernameText"></span>
+                    <input type="hidden" name="contactTel" id="contactTel" value="">
+                </div>
+                <div class="input-group" style="margin-bottom:20px;">
+                    <label style="margin-right: 50px;"><input type="radio" name="type" value="0" class="minimal" checked>按岗位</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="type" value="1" class="minimal">按人数</label>&nbsp;&nbsp;
+                </div>
+                <div class="input-group" style="width: 100%">
+                    <input type="text" class="form-control" name="number" id="number" value="" placeholder="岗位数">
+                </div>
+            </div>
+            </span>
+            <div class="contact_add" onclick="addCtr(this)">+</div>
+        </div>
+    </div>
+    
+    <div class="box">
+        <div class="box-header with-border">
+        	<h3 class="box-title">到期提醒设置</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1; "><div style="width:200px;">提前量</div></span>
+                <div class="form-control">
+                    <label><input type="radio" name="remindTimeType" value="0" class="minimal" checked>提前1个月</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="remindTimeType" value="1" class="minimal">提前2个月</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="remindTimeType" value="2" class="minimal">提前3个月</label>
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1; "><div style="width:200px;">提醒方式</div></span>
+                <div class="form-control">
+                    <label><input type="radio" name="repeatRemindType" value="0" class="minimal" checked>按月重复提醒</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="repeatRemindType" value="1" class="minimal">按周重复提醒</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="repeatRemindType" value="2" class="minimal">按天重复提醒</label>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <!--弹窗-->
+    <div class="modal modal-default fade" id="modal-default" data-id="" data-ip-id="" data-ip-name="">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+              
+              <div class="col-xs-3"><input type="text" class="form-control" placeholder="姓名" name="schempName" id="schempName" value=""></div>
+              
+              <div class="col-xs-5"><input type="text" class="form-control" placeholder="手机号" name="schphone" id="schphone" value=""></div>
+              <button type="button" class="btn btn-primary" onClick="searchList(this)" title="搜索"><i class="fa fa-search" aria-hidden="true"></i></button>
+          </div>
+          <div class="modal-body">
+            	<!--异步加载数据-->
+          </div>
+          <!--分页-->
+          <div class="pagination-holder clearfix">
+              <input type="hidden" name="pageNo" id="pageNo" value="1">
+              <div id="compact-pagination"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary pull-left" id="closeModal" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" onClick="checkEmp(this)">确定选择</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.弹窗 -->
+    </form>
+    <!--底部-->
+    <div class="box-footer" style="position:fixed; left:0px; bottom:0px; width:100%; height:60px;box-shadow: 0px 0px 40px #888888; z-index:9; background-color:#FFF;">
+    <p><error></error></p>
+    <button type="button" class="btn btn-info fl_right" style="width:150px; margin-right:50px;" onClick="judgeform()">保存提交</button><button type="button" class="btn btn-default fl_right" style="width:150px; margin-right:50px;" onClick="jumpURL(this)" url="/html/personnel/" param="">取消返回</button>
+    </div>
+</section>
+<script>
+$.fn.datepicker.defaults.format = "yyyy-mm-dd";
+$('#signingTime,#effectTime,#faileTime').datepicker({autoclose: true});
+
+
+//删业务内容
+$(".fa-minus-circle").click(function(){
+    if($(".contact_box").length>1){
+        $(this).parent().remove();
+    }else{
+        alert("合同必须要有签约的业务内容");
+    }
+});
+//增业务内容
+function addCtr(obj){
+    $(obj).parent().find(".contact_box").eq(0).clone(true).appendTo("#busiC");
+}
+//判断表单
+function judgeform(){
+    var data = {};
+    var t = $('form').serializeArray();
+    $.each(t, function() {
+          data[this.name] = this.value;
+    });
+    var projectContractList = '[{"contractId":'+data.contractId+'}]';
+    //alert(JSON.stringify(data));
+    
+    //判断表单(待开发)
+    if(data.contractNum==""){
+        $("#contractNum").parent().find("error").text("合同编号不能为空");
+        return false;
+    }
+    if(data.contractName==""){
+        $("#contractName").parent().find("error").text("合同名称不能为空");
+        return false;
+    }
+    if(data.aPartyCompanyname==""){
+        $("#aPartyCompanyname").parent().find("error").text("甲方不能为空");
+        return false;
+    }
+    if(data.bPartyCompanyname==""){
+        $("#bPartyCompanyname").parent().find("error").text("乙方不能为空");
+        return false;
+    }
+    if(data.signingTime==""){
+        $("#signingTime").parent().find("error").text("签约时间不能为空");
+        return false;
+    }
+    if(data.effectTime==""){
+        $("#effectTime").parent().find("error").text("生效时间不能为空");
+        return false;
+    }
+    if(data.faileTime==""){
+        $("#faileTime").parent().find("error").text("失效时间不能为空");
+        return false;
+    }
+    if(data.aSigningPersonname==""){
+        $("#aSigningPersonname").parent().find("error").text("甲方联系人不能为空");
+        return false;
+    }
+    if(data.bSigningPersonname==""){
+        $("#bSigningPersonname").parent().find("error").text("乙方签约人不能为空");
+        return false;
+    }
+    if(data.contactPhone==""){
+        $("#contactPhone").parent().find("error").text("甲方联系电话不能为空");
+        return false;
+    }
+    if(data.contractMoney==""){
+        $("#contractMoney").parent().find("error").text("合同金额不能为空");
+        return false;
+    }
+    var phone = /^1[34578]\d{9}$/;
+    if($("#contactPhone").val().match(phone)==null){
+		$("#contactPhone").parent().find("error").text("电话号码格式不正确");
+	}
+    if(isNaN(contractMoney)){
+        $("#contractMoney").parent().find("error").text("合同金额必须为数字");
+    }
+    addContractInfo(data);
+}
+//增加业务合同内容
+function addContractInfo(jsonData){
+    var url = depUrl + "/contract/add";
+    $.ajax({
+		type: 'POST',
+		url: url,
+		data: {"pid":jsonData.pid,"contractNum":jsonData.contractNum,"contractName":jsonData.contractName,"aPartyCompanyname":jsonData.aPartyCompanyname,"aPartyCompnayid":jsonData.aPartyCompnayid,"bPartyCompanyid":jsonData.bPartyCompanyid,"bPartyCompanyname":jsonData.bPartyCompanyname,"signingTime":jsonData.signingTime,"effectTime":jsonData.effectTime,"faileTime":jsonData.faileTime,"aSigningPersonname":jsonData.aSigningPersonname,"aSigningPersonid":jsonData.aSigningPersonid,"bSigningPersonname":jsonData.bSigningPersonname,"bSigningPersonid":jsonData.bSigningPersonid,"contactPhone":jsonData.contactPhone,"contactAddress":jsonData.contactAddress,"contractMoney":jsonData.contractMoney,"payType":jsonData.payType,"remindTimeType":jsonData.remindTimeType,"repeatRemindType":jsonData.repeatRemindType},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+			var code = data.code;
+			if(code=="000000"){
+				alert("添加成功！");
+				autoJumpURL('/html/contract/indexDeve.html');
+			}else{
+				$(".box-footer error").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			$(".box-footer error").text("* 错误提示："+ data.msg +"！");
+			return false;
+		}
+	});
+}
+//弹窗，显示所有合同列表
+function getContractList(){
+    var url = depUrl + "/contract/get";
+    var pageNo = $("#pageNo").val();//获取当前页
+    //查询参数
+    var contractNum = $("#contractNum").val();
+    var aPartyCompanyname = $("#aPartyCompanyname").val();
+    var bPartyCompanyname = $("#bPartyCompanyname").val();
+    var startTime = $("#starttime").val();
+    var endTime = $("#endtime").val();
+    
+    $("#modal-default .modal-dialog").css("width","80%");
+    $(".modal-header").html('<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><div class="col-xs-2"><input type="text" class="form-control" name="contractNum" id="contractNum" placeholder="合同编号"></div><div class="col-xs-3"><input type="text" class="form-control" name="aPartyCompanyname" id="aPartyCompanyname" placeholder="甲方"></div><div class="col-xs-3"><input type="text" class="form-control" name="bPartyCompanyname" id="bPartyCompanyname" placeholder="乙方"></div><button type="button" class="btn btn-default" id="daterange-btn"><span><i class="fa fa-calendar"></i> 日期范围选择</span><i class="fa fa-caret-down"></i></button><input type="hidden" name="starttime" id="starttime"><input type="hidden" name="endtime" id="endtime"><button type="button" class="btn btn-primary" onClick="getContractList()" title="搜索"><i class="fa fa-search" aria-hidden="true"></i></button>');
+    $(".modal-footer").html('<button type="button" class="btn btn-primary pull-left" id="closeModal" data-dismiss="modal">关闭</button><button type="button" class="btn btn-primary" onClick="fillIntoData()">确定选择</button>');
+    //table初始化
+    var headHtml = '<table id="example" class="table table-bordered table-hover"><thead><tr><th width="8"></th><th>合同编号</th><th>甲方</th><th>乙方</th><th>合同金额</th><th>签约时间</th><th>生效时间</th><th>失效时间</th><th>签约人</th></tr></thead><tbody>';
+    var footHtml = '</tbody></table>';
+    $.ajax({
+        type: 'POST',
+		url: url,
+		data: {"pageNo":pageNo,"contractNum":contractNum,"aPartyCompanyname":aPartyCompanyname,"bPartyCompanyname":bPartyCompanyname,"startTime":startTime,"endTime":endTime},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+        success:function(data){
+            var code = data.code;
+            if(code=="000000"){
+                if(data.data.total=="0"){
+                    var listHtml = '<tr><td colspan="10"><font color="#999999">数据空空如也，喝一杯咖啡休息一下吧！</font></td></tr>';
+                }else{
+                    var listHtml = '';
+                    $.each(data.data.list,function(i,items){
+                        //编辑按钮参数
+                        var editUrl = "/html/contract/edit.html";
+                        var showUrl = "/html/contract/detail.html";
+	                    var param = "{'id':'"+items.id+"'}";
+                        listHtml = listHtml + '<tr onClick="onClickData(this)" style="cursor: pointer"><td><label><input type="radio" name="id" value="'+items.id+'"></label></td><td align="center">'+outNull(items.contractNum)+'</td><td>'+outNull(items.aPartyCompanyname)+'</td><td>'+outNull(items.bPartyCompanyname)+'</td><td>￥'+outNull(items.contractMoney)+'</td><td>'+outNull(items.signingTime)+'</td><td>'+outNull(items.effectTime)+'</td><td>'+outNull(items.faileTime)+'</td><td>'+outNull(items.aSigningPersonname)+'</td></tr>';
+                    });
+                }
+                $(".modal-body").html(headHtml + listHtml + footHtml);
+            }else if(code=="002003"){
+                $.session.clear();
+				$(location).attr('href', 'login.html');
+            }else{
+               $(".modal-body").text("* 错误提示："+ data.msg +"！"); 
+            }
+            //分页显示
+			$('#compact-pagination').pagination({
+				pages: data.data.pages,
+				cssStyle: 'compact-theme',
+				displayedPages: 7,
+				currentPage: pageNo
+			});
+        },
+        error:function(data){
+			alert(data.msg);
+			$(".modal-body").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+    });
+}
+//合同弹窗选择时间
+function onClickData(obj){
+    if($(obj).find("input").prop("checked")==true){
+        $(obj).parent().find("input").prop("checked",false);
+    }else{
+         $(obj).find("input").prop("checked",true);
+    }
+}
+//将选中的合同填充到表单
+function fillIntoData(){
+    $("#modal-default").find("tr").each(function(i,items){
+        if($(this).find("input").prop("checked")==true){
+            $("#deveContactNum").html("<p style='font-size:18px;font-weight:bold;line-height:40px;margin:0px;'>"+$(this).find("td").eq(1).text()+"</p>");
+            $("#deveContactNum").append('<input name="pid" id="pid" type="hidden" value="'+$(this).find("input").val()+'">');
+        }
+    });
+    $('#closeModal').trigger("click");
+}
+</script>

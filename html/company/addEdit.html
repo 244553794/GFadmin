@@ -1,0 +1,336 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<section class="content-header">
+    <h1>增加保安公司信息
+    	<small>新增保安公司</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li><a>保安信息管理</a></li>
+        <li class="active">新增信息</li>
+    </ol>
+</section>
+<section class="content">
+    <form>
+    <!--基本信息-->
+    <div class="box">
+    	<div class="box-header with-border">
+        	<h3 class="box-title">基本信息</h3>
+            <div class="box-tools pull-right">
+            	<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" id="refresh" title="刷新" onClick="jumpURL(this)" url="/html/company/addEdit.html" param=""><i class="fa fa-refresh" aria-hidden="true"></i></button>
+            </div>
+        </div>
+        <!--box-header end-->
+        <div class="box-body">
+        	<div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1; "><div style="width:200px;"><font color="#FF0000">*</font>公司名称</div></span>
+                <input type="text" class="form-control" placeholder="公司名称" name="companyName" id="companyName" value="">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">图片测试</div></span>
+                <div class="form-control loadJNMImgUpload" style="height: auto;" data-type="" data-accept="image/png, image/jpeg, image/gif, image/jpg" data-id="file" data-maxsize="1024">
+                    <!--多张图片data-type="multiple"-->
+                </div>
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">公司地址</div></span>
+                <input type="text" class="form-control" placeholder="公司地址" name="companyAddress" id="companyAddress" value="">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">公司电话</div></span>
+                <input type="text" class="form-control" placeholder="公司电话" name="companyPhone" id="companyPhone" value="">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">联系人</div></span>
+                <input type="text" class="form-control" placeholder="联系人" name="contactName" id="contactName" value="">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">联系电话</div></span>
+                <input type="text" class="form-control" placeholder="联系电话" name="contactPhone" id="contactPhone" value="">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">营业执照</div></span>
+                <div class="form-control" style="height:auto">
+                    <ul class="upload-ul clearfix" inputName="businessLicenseImage">
+                        <li class="upload-pick">
+                            <div class="webuploader-container clearfix" id="goodsUpload"></div>
+                        </li>
+                    </ul>
+                    <error></error>
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">资质证书</div></span>
+                <div class="form-control" style="height:auto">
+                    <ul class="upload-ul clearfix" inputName="qualificationCertificateImage">
+                        <li class="upload-pick">
+                            <div class="webuploader-container clearfix" id="goodsUpload2"></div>
+                        </li>
+                    </ul>
+                    <error></error>
+                </div>
+            </div>
+        </div>
+       <!-- box-body end-->
+    </div>
+   <!-- box end-->
+   
+   <!--法人信息-->
+   <div class="box">
+    	<div class="box-header with-border">
+        	<h3 class="box-title">法人信息</h3>
+            <div class="box-tools pull-right">
+            	<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <!--box-header end-->
+        <div class="box-body">
+        	<div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">法人姓名</div></span>
+                <input type="text" class="form-control" placeholder="法人姓名" name="legalName" id="legalName" value="">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">法人身份证号</div></span>
+                <input type="text" class="form-control" placeholder="法人身份证号" name="legalCardNum" id="legalCardNum" value="">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">法人身份证</div></span>
+                <div class="form-control" style="height:auto">
+                    <ul class="upload-ul clearfix" inputName="">
+                        <li class="upload-pick">
+                            <div class="webuploader-container clearfix" id="goodsUpload3"></div>
+                        </li>
+                    </ul>
+                    <error></error>
+                </div>
+            </div>
+        </div>
+       <!-- box-body end-->
+    </div>
+   <!-- box end-->
+   
+   <!--对公账户-->
+   <div class="box">
+    	<div class="box-header with-border">
+        	<h3 class="box-title">对公账户</h3>
+            <div class="box-tools pull-right">
+            	<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <!--box-header end-->
+        <div class="box-body">
+        	<div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;"><font color="#FF0000">*</font>账户卡号</div></span>
+                <input type="text" class="form-control" placeholder="账户卡号" name="bankCardNum" id="bankCardNum" value="">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;"><font color="#FF0000">*</font>开户行</div></span>
+                <input type="text" class="form-control" placeholder="开户行" name="bankName" id="bankName" value="">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;"><font color="#FF0000">*</font>账户名</div></span>
+                <input type="text" class="form-control" placeholder="账户名" name="accountName" id="accountName" value="">
+                <error></error>
+            </div>
+        </div>
+       <!-- box-body end-->
+    </div>
+   <!-- box end-->
+   
+   <!-- /.box-body -->
+    <input type="hidden" name="companyId" id="companyId" value="" />
+    <div class="box-footer" style="position:fixed; left:0px; bottom:0px; width:100%; height:60px;box-shadow: 0px 0px 40px #888888; z-index:9; background-color:#FFF;">
+    <p><error></error></p>
+    <button type="button" class="btn btn-primary fl_right" style="width:150px;" onClick="judgeform()">保存提交</button><button type="button" class="btn btn-default fl_right" style="width:150px; margin-right:50px;" onClick="jumpURL(this)" url="/html/company/" param="">取消返回</button>
+    </div>
+    <!-- /.box-footer-->
+    </form>
+</section>
+<script>
+//初始化图片上传组件
+loadJNMImgUpload()
+
+
+$(function(){
+	//上传图片
+	var $tgaUpload = $('#goodsUpload').diyUpload({
+		url:'uploadFilePath',
+		success:function( data ) {},
+		error:function( err ) {},
+		buttonText : '',
+		fileNumLimit: 1,
+		accept: {
+			title: "Images",
+			extensions: 'gif,jpg,jpeg,bmp,png'
+		},
+		thumb:{
+			width:120,
+			height:90,
+			quality:100,
+			allowMagnify:true,
+			crop:true,
+			type:"image/jpeg"
+		}
+	});
+	var $tgaUpload = $('#goodsUpload2').diyUpload({
+		url:'uploadFilePath',
+		success:function( data ) { },
+		error:function( err ) { },
+		buttonText : '',
+		fileNumLimit: 1,
+		accept: {
+			title: "Images",
+			extensions: 'gif,jpg,jpeg,bmp,png'
+		},
+		thumb:{
+			width:120,
+			height:90,
+			quality:100,
+			allowMagnify:true,
+			crop:true,
+			type:"image/jpeg"
+		}
+	});
+	var $tgaUpload = $('#goodsUpload3').diyUpload({
+		url:'uploadFilePath',
+		success:function( data ) { },
+		error:function( err ) { },
+		buttonText : '',
+		fileNumLimit: 2,
+		accept: {
+			title: "Images",
+			extensions: 'gif,jpg,jpeg,bmp,png'
+		},
+		thumb:{
+			width:120,
+			height:90,
+			quality:100,
+			allowMagnify:true,
+			crop:true,
+			type:"image/jpeg"
+		}
+	});
+});
+
+var param = $("#ajaxcontent").attr("param");
+if(param!=""){
+    $("#refresh").attr("param",param);
+    fillForm(param);
+}
+
+//填充表单
+function fillForm(p){
+    var url = depUrl + "/employee/securityCompany/get";
+    $.ajax({
+        type: 'POST',
+		url: url,
+		data: {"companyId":p},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+        success:function(data){
+            if(data.code=="000000"){
+                $.each(data.data.list,function(i,items){
+                    $("#companyId").val(p);
+                    $("#companyName").val(items.companyName);
+                    $("#companyAddress").val(items.companyAddress);
+                    $("#companyPhone").val(items.companyPhone);
+                    $("#contactName").val(items.contactName);
+                    $("#contactPhone").val(items.contactPhone);
+                    $("#legalName").val(items.legalName);
+                    $("#legalCardNum").val(items.legalCardNum);
+                    $("#bankCardNum").val(items.bankCardNum);
+                    $("#bankName").val(items.bankName);
+                    $("#accountName").val(items.accountName);
+                    
+                    $(".upload-ul").eq(0).html('<li id="fileBox_WU_FILE_4" class="diyUploadHover"><div class="viewThumb"><input type="hidden" name="businessLicenseImage" id="businessLicenseImage" value="'+items.businessLicenseImage+'"><div class="diyBar"><div class="diyProgress">0%</div></div><p class="diyControl"><span class="diyLeft"><i></i></span><span class="diyCancel"><i></i></span><span class="diyRight"><i></i></span></p><img src="'+items.businessLicenseImage+'"></div></li><li class="upload-pick"><div class="webuploader-container clearfix" id="goodsUpload"></div></li>');
+                    $(".upload-ul").eq(1).html('<li id="fileBox_WU_FILE_4" class="diyUploadHover"><div class="viewThumb"><input type="hidden" name="businessLicenseImage" id="businessLicenseImage" value="'+items.qualificationCertificateImage+'"><div class="diyBar"><div class="diyProgress">0%</div></div><p class="diyControl"><span class="diyLeft"><i></i></span><span class="diyCancel"><i></i></span><span class="diyRight"><i></i></span></p><img src="'+items.qualificationCertificateImage+'"></div></li><li class="upload-pick"><div class="webuploader-container clearfix" id="goodsUpload"></div></li>');
+                });
+            }else if(code=="002003"){
+                $.session.clear();
+				$(location).attr('href', 'login.html');
+            }else{
+               $(".modal-body").text("* 错误提示："+ data.msg +"！"); 
+            }
+        },
+        error:function(data){
+			alert(data.msg);
+			$(".modal-body").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+    });
+}
+//表单判断
+function judgeform(){
+    var formJsonData = {};
+    var fd = $('form').serializeArray();
+    $.each(fd, function() {
+      formJsonData[this.name] = this.value;
+    });
+    //输出数据
+    //准备传输图像
+    if($("#goodsUpload3").parents("ul").find(".viewThumb").html()!=undefined){
+        var legalCardFimg = $("#goodsUpload3").parents("ul").find("img").eq(0).attr("src").replace("data:image/jpeg;base64,","");
+        var legalCardSimg = $("#goodsUpload3").parents("ul").find("img").eq(1).attr("src").replace("data:image/jpeg;base64,","");
+        //添加josn元素
+        formJsonData = JSON.stringify(formJsonData).replace('}',',"legalCardFirstImage":"'+legalCardFimg+'","legalCardSecondImage":"'+legalCardSimg+'"}')
+    }
+    
+    
+    console.log(formJsonData);
+    
+    //判断表单
+    var isok = publicJudgeForm(0,"companyName","input")+publicJudgeForm(0,"bankCardNum","input")+publicJudgeForm(0,"bankName","input")+publicJudgeForm(0,"accountName","input")+publicJudgeForm(1,"bankCardNum","input");
+    
+    if(isok == 0){
+        addCompany(formJsonData);
+    }
+}
+//编辑公司信息
+function addCompany(jsonData){
+    if($("#companyId").val()==""){
+        var url = depUrl + "/employee/securityCompany/addCompany";
+    }else{
+        var url = depUrl + "/employee/securityCompany/update";
+    }
+    $.ajax({
+        type: 'POST',
+		url: url,
+		data: JSON.stringify(jsonData),
+		dataType: "json",
+		contentType:"application/json;charset=utf-8",
+		headers:{accessToken:$.session.get('accessToken')},
+        success:function(data){
+            if(data.code=="000000"){
+                if($("#companyId").val()==""){
+                    alert("新增成功！");
+                }else{
+                    alert("编辑成功！");
+                }
+                autoJumpURL('/html/company/index.html');
+                
+            }else if(code=="002003"){
+                $.session.clear();
+				$(location).attr('href', 'login.html');
+            }else{
+               $(".modal-body").text("* 错误提示："+ data.msg +"！"); 
+            }
+        },
+        error:function(data){
+			alert(data.msg);
+			$(".modal-body").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+    });  
+}
+</script>

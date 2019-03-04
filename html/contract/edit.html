@@ -1,0 +1,493 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!-- Content Header (页眉) -->
+<section class="content-header">
+    <h1>编辑业务合同
+    	<small>编辑业务合同内容信息</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li><a>业务合同列表</a></li>
+        <li class="active">编辑信息</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="callout callout-info">
+      <h4>提示！</h4>
+      <p> 编辑合同信息，注意与发展部的合同做区分，合同的乙方为本公司</p>
+    </div>
+    <!--基本信息-->
+    <form>
+    <div class="box">
+    	<div class="box-header with-border">
+        	<h3 class="box-title">合同基本信息</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" id="reflash" title="刷新，注意保存信息" onClick="jumpURL(this)" url="/html/contract/edit.html" param=""><i class="fa fa-refresh" aria-hidden="true"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>合同编号</div></span>
+                <input type="text" class="form-control" name="contractNum" id="contractNum" value="" placeholder="合同编号">
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>合同名称</div></span>
+                <input type="text" class="form-control" name="contractName" id="contractName" value="" placeholder="合同名称">
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>甲方</div></span>
+                <input type="text" class="form-control" name="aPartyCompanyname" id="aPartyCompanyname" value="" placeholder="甲方">
+                <input type="hidden" name="aPartyCompnayid" id="aPartyCompnayid" value="">
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>乙方</div></span>
+                <input type="text" class="form-control" name="bPartyCompanyname" id="bPartyCompanyname" value="" placeholder="乙方">
+                <input type="hidden" name="bPartyCompanyid" id="bPartyCompanyid" value="">
+            </div>
+            <div class="input-group" style="margin-bottom:20px;position: relative;">
+                <i class="fa fa-calendar" style="float: right;position: absolute;right: 10px; top: 10px;z-index: 99"></i>
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>签约时间</div></span>
+                <input type="text" class="form-control" style="width: 100%;" name="signingTime" id="signingTime" value="" placeholder="签约时间">
+            </div>
+            <div class="input-group" style="margin-bottom:20px;position: relative;">
+                <i class="fa fa-calendar" style="float: right;position: absolute;right: 10px; top: 10px;z-index: 99"></i>
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>生效时间</div></span>
+                <input type="text" class="form-control" style="width: 100%;" name="effectTime" id="effectTime" value="" placeholder="签约时间">
+            </div>
+            <div class="input-group" style="margin-bottom:20px;position: relative;">
+                <i class="fa fa-calendar" style="float: right;position: absolute;right: 10px; top: 10px;z-index: 99"></i>
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>失效时间</div></span>
+                <input type="text" class="form-control" style="width: 100%;" name="faileTime" id="faileTime" value="" placeholder="签约时间">
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;"><font color="#FF0000">*</font>乙方签约人</div></span>
+                <div class="form-control" style="height:auto">
+                    <button type="button" class="btn btn-primary" onClick=getEmpList(1,"bSigningPersonid","bSigningPersonname") data-toggle="modal" data-target="#modal-default" title="新增" style="float:right"><i class="fa fa-plus" aria-hidden="true"></i> 新增</button>
+                    <span id="bSigningPersonid_lb"></span>
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>甲方联系人</div></span>
+                <input type="text" class="form-control" name="aSigningPersonname" id="aSigningPersonname" value="" placeholder="甲方联系人">
+                <input type="hidden" name="aSigningPersonid" id="aSigningPersonid" value="">
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>甲方联系电话</div></span>
+                <input type="text" class="form-control" name="contactPhone" id="contactPhone" value="" placeholder="甲方联系电话">
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>甲方联系地址</div></span>
+                <input type="text" class="form-control" name="contactAddress" id="contactAddress" value="" placeholder="甲方联系地址">
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>合同金额(￥)</div></span>
+                <input type="text" class="form-control" style="font-size: 18px;color: #f00;font-weight: bold;" name="contractMoney" id="contractMoney" value="" placeholder="">
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1; "><div style="width:200px;"><font color="#FF0000">*</font>支付方式</div></span>
+                <div class="form-control">
+                    <label><input type="radio" name="payType" value="0" class="minimal" checked>按月支付</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="payType" value="1" class="minimal">按年支付</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="payType" value="2" class="minimal">一次性支付</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--添加第二个面板-->
+    <div class="box">
+        <div class="box-header with-border">
+        	<h3 class="box-title">合同业务信息</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <span id="busiC">
+            
+            </span>
+            <div class="contact_add" onclick="addCtr(this)">+</div>
+        </div>
+    </div>
+    <!--        合同照片上传-->
+    <div class="box">
+        <div class="box-header with-border">
+        	<h3 class="box-title">合同电子文件</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;"><font color="#FF0000">*</font>合同电子照片</div></span>
+                <div class="form-control" style="height:auto">
+                    <ul class="upload-ul clearfix">
+                        <li class="upload-pick">
+                            <div class="webuploader-container clearfix" id="goodsUpload"></div>
+                        </li>
+                    </ul>
+                    <error></error>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <div class="box">
+        <div class="box-header with-border">
+        	<h3 class="box-title">到期提醒设置</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1; "><div style="width:200px;">提前量</div></span>
+                <div class="form-control">
+                    <label><input type="radio" name="remindTimeType" value="0" class="minimal" checked>提前1个月</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="remindTimeType" value="1" class="minimal">提前2个月</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="remindTimeType" value="2" class="minimal">提前3个月</label>
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1; "><div style="width:200px;">提醒方式</div></span>
+                <div class="form-control">
+                    <label><input type="radio" name="repeatRemindType" value="0" class="minimal" checked>按月重复提醒</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="repeatRemindType" value="1" class="minimal">按周重复提醒</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="repeatRemindType" value="2" class="minimal">按天重复提醒</label>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <!--弹窗-->
+    <div class="modal modal-default fade" id="modal-default" data-id="" data-ip-id="" data-ip-name="">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+              <div class="col-xs-3"><input type="text" class="form-control" placeholder="姓名" name="schempName" id="schempName" value=""></div>
+              <div class="col-xs-5"><input type="text" class="form-control" placeholder="手机号" name="schphone" id="schphone" value=""></div>
+              <button type="button" class="btn btn-primary" onClick="searchList(this)" title="搜索"><i class="fa fa-search" aria-hidden="true"></i></button>
+          </div>
+          <div class="modal-body">
+            	<!--异步加载数据-->
+          </div>
+          <!--分页-->
+          <div class="pagination-holder clearfix">
+              <input type="hidden" name="pageNo" id="pageNo" value="1">
+              <div id="compact-pagination"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary pull-left" id="closeModal" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" onClick="checkEmp(this)">选择人员</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.弹窗 -->
+    <input name="pid" id="pid" type="hidden" value="0">
+    <input name="id" id="id" type="hidden" value="">
+    </form>
+    <!--底部-->
+    <div class="box-footer" style="position:fixed; left:0px; bottom:0px; width:100%; height:60px;box-shadow: 0px 0px 40px #888888; z-index:9; background-color:#FFF;">
+    <p><error></error></p>
+    <button type="button" class="btn btn-primary fl_right" style="width:150px;" onClick="judgeform()">保存提交</button><button type="button" class="btn btn-default fl_right" style="width:150px; margin-right:50px;" onClick="jumpURL(this)" url="/html/personnel/" param="">取消返回</button>
+    </div>
+</section>
+<script>
+$('#signingTime,#effectTime,#faileTime').datepicker({autoclose: true});
+    
+//删业务内容
+function delcbox(obj){
+    if($(".contact_box").length>1){
+        $(obj).parent().remove();
+    }else{
+        alert("合同必须要有签约的业务内容");
+    }
+}
+//增业务内容
+function addCtr(obj){
+    var i = $("#busiC .contact_box").length;
+    var boxHtml = '<div class="contact_box"><i class="fa fa-minus-circle" aria-hidden="true" onclick="delcbox(this)"></i><div class="input-group" style="margin-bottom:20px;"><input type="text" class="form-control" name="projectName" id="projectName" value="" placeholder="签约项目"><input type="hidden" name="projectId" id="projectId" value=""><span class="input-group-addon" style="background-color: #f1f1f1"><div style="cursor: pointer" data-toggle="modal" data-target="#modal-default" onclick="projectList(this)">选择</div></span></div><div class="input-group" style="margin-bottom:20px;">联系人：<span id="contactUsernameText"></span><input type="hidden" name="contactUser" id="contactUser" value=""><input type="hidden" name="contactUsername" id="contactUsername" value=""></div><div class="input-group" style="margin-bottom:20px;">联系电话：<span id="contactUsernameTell"></span><input type="hidden" name="contactTel" id="contactTel" value=""></div><div class="input-group" style="margin-bottom:20px;"><label style="margin-right: 50px;"><input type="radio" name="type_'+i+'" value="0" class="minimal" checked>按岗位</label>&nbsp;&nbsp;<label><input type="radio" name="type_'+i+'" value="1" class="minimal">按人数</label>&nbsp;&nbsp;</div><div class="input-group" style="width: 100%"><input type="text" class="form-control" name="number" id="number" value="" placeholder="岗位数"></div></div>';
+    $("#busiC").append(boxHtml);
+}
+//填充表单
+var param = $("#ajaxcontent").attr("param");
+param = param.replace(/'/g,"\"");
+$("#reflash").attr("param",param);
+param = JSON.parse(param);
+fillform(param.id)
+function fillform(id){
+    var url = depUrl + "/contract/get";
+    $.ajax({
+		type: 'POST',
+		url: url,
+		data: {"id":id},
+		dataType: "json",
+		ontentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+			var code = data.code;
+			if(code=="000000"){
+                $.each(data.data.list,function(i,items){
+                    if(i==0){
+                        $("#id").val(items.id);
+                        $("#contractNum").val(items.contractNum);
+                        $("#contractName").val(items.contractName);
+                        $("#aPartyCompnayid").val(items.aPartyCompnayid);
+                        $("#aPartyCompanyname").val(items.aPartyCompanyname);
+                        $("#bPartyCompanyid").val(items.bPartyCompanyid);
+                        $("#bPartyCompanyname").val(items.bPartyCompanyname);
+                        $("#signingTime").val(items.signingTime);
+                        $("#effectTime").val(items.effectTime);
+                        $("#faileTime").val(items.faileTime);
+                        $("#aSigningPersonname").val(items.aSigningPersonname);
+                        $("#aSigningPersonid").val(items.aSigningPersonid);
+                        if(items.bSigningPersonname!=null){
+                            $("#bSigningPersonid_lb").html('<label class="checkbtn">'+items.bSigningPersonname+'<input type="hidden" value="'+items.bSigningPersonname+'" name="bSigningPersonname" id="bSigningPersonname"><input type="hidden" value="'+items.bSigningPersonid+'" name="bSigningPersonid" id="bSigningPersonid"><i class="fa fa-times-circle" aria-hidden="true" onClick="delEmp(this)"></i></label>');
+                        }
+                        $("#contactPhone").val(items.contactPhone);
+                        $("#contactAddress").val(items.contactAddress);
+                        $("#contractMoney").val(items.contractMoney);
+                        if(items.payType=="0"){
+                            $("input[name=payType]").eq(0).prop("checked",true);
+                        }else if(items.payType=="1"){
+                            $("input[name=payType]").eq(1).prop("checked",true);
+                        }else if(items.payType=="2"){
+                            $("input[name=payType]").eq(2).prop("checked",true);
+                        }
+                        if(items.remindTimeType=="1"){
+                            $("input[name=remindTimeType]").eq(0).prop("checked",true);
+                        }else if(items.remindTimeType=="2"){
+                            $("input[name=remindTimeType]").eq(1).prop("checked",true);
+                        }else if(items.remindTimeType=="3"){
+                            $("input[name=remindTimeType]").eq(2).prop("checked",true);
+                        }
+                        if(items.repeatRemindType=="1"){
+                            $("input[name=repeatRemindType]").eq(0).prop("checked",true);
+                        }else if(items.repeatRemindType=="2"){
+                            $("input[name=repeatRemindType]").eq(1).prop("checked",true);
+                        }else if(items.repeatRemindType=="3"){
+                            $("input[name=repeatRemindType]").eq(2).prop("checked",true);
+                        }
+                        //业务内容信息
+                        $.each(items.projectContractList,function(i,itemx){
+                            var ched1 = "";
+                            var ched2 = "";
+                            if(itemx.type=="0"){
+                                ched1 = "checked";
+                            }
+                            if(itemx.type=="1"){
+                                ched2 = "checked";
+                            }
+                            if(itemx.contactUser==null || itemx.contactUser=="-"){
+                                var contactUser = '';
+                            }else{
+                                var contactUser = itemx.contactUser;
+                            }
+                            $("#busiC").append('<div class="contact_box"><input name="lid" id="lid" type="hidden" value="'+itemx.id+'"><i class="fa fa-minus-circle" aria-hidden="true"></i><div class="input-group" style="margin-bottom:20px;"><input type="text" class="form-control" name="projectName" id="projectName" value="'+outNull(itemx.projectName)+'" placeholder="签约项目"><input type="hidden" name="projectId" id="projectId" value="'+outNull(itemx.projectId)+'"><span class="input-group-addon" style="background-color: #f1f1f1"><div style="cursor: pointer">选择</div></span></div><div class="input-group" style="margin-bottom:20px;">联系人：<span id="contactUsernameText">'+outNull(itemx.contactUsername)+'</span><input type="hidden" name="contactUser" id="contactUser" value="'+contactUser+'"><input type="hidden" name="contactUsername" id="contactUsername" value="'+outNull(itemx.contactUsername)+'"></div><div class="input-group" style="margin-bottom:20px;">联系电话：<span id="contactUsernameText">'+outNull(itemx.contactTel)+'</span><input type="hidden" name="contactTel" id="contactTel" value="'+outNull(itemx.contactTel)+'"></div><div class="input-group" style="margin-bottom:20px;"><label style="margin-right: 50px;"><input type="radio" name="type_'+i+'" value="0" class="minimal" '+ched1+'>按岗位</label>&nbsp;&nbsp;<label><input type="radio" name="type_'+i+'" value="1" class="minimal" '+ched2+'>按人数</label>&nbsp;&nbsp;</div><div class="input-group" style="width: 100%"><input type="text" class="form-control" name="number" id="number" value="'+outNull(itemx.number)+'" placeholder="岗位数"></div></div>');
+                        });
+                    }
+                });
+			}else{
+				$(".box-footer error").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			$(".box-footer error").text("* 错误提示："+ data.msg +"！");
+			return false;
+		}
+	});
+}
+//判断表单
+function judgeform(){
+    var data = {};
+    var t = $('form').serializeArray();
+    $.each(t, function() {
+          data[this.name] = this.value;
+    });
+    
+    //判断表单(待开发)
+    if(data.contractNum==""){
+        $("#contractNum").parent().find("error").text("合同编号不能为空");
+        return false;
+    }
+    if(data.contractName==""){
+        $("#contractName").parent().find("error").text("合同名称不能为空");
+        return false;
+    }
+    if(data.aPartyCompanyname==""){
+        $("#aPartyCompanyname").parents(".input-group").find("error").text("甲方不能为空");
+        return false;
+    }
+    if(data.bPartyCompanyname==""){
+        $("#bPartyCompanyname").parent().parent().find("error").text("乙方不能为空");
+        return false;
+    }
+    if(data.signingTime==""){
+        $("#signingTime").parent().find("error").text("签约时间不能为空");
+        return false;
+    }
+    if(data.effectTime==""){
+        $("#effectTime").parent().find("error").text("生效时间不能为空");
+        return false;
+    }
+    if(data.faileTime==""){
+        $("#faileTime").parent().find("error").text("失效时间不能为空");
+        return false;
+    }
+    if(data.aSigningPersonname==""){
+        $("#aSigningPersonname").parent().find("error").text("甲方联系人不能为空");
+        return false;
+    }
+    if($("#bSigningPersonid_lb").text==""){
+        $("#bSigningPersonname").parents(".input-group").find("error").text("乙方签约人不能为空");
+        return false;
+    }
+    if(data.contactPhone==""){
+        $("#contactPhone").parent().find("error").text("甲方联系电话不能为空");
+        return false;
+    }
+    if(data.contractMoney==""){
+        $("#contractMoney").parent().find("error").text("合同金额不能为空");
+        return false;
+    }
+    var phone = /^1[34578]\d{9}$/;
+    if($("#contactPhone").val().match(phone)==null){
+		$("#contactPhone").parent().find("error").text("电话号码格式不正确");
+	}
+    if(!isNaN(contractMoney)){
+        $("#contractMoney").parent().find("error").text("合同金额必须为数字");
+    }
+    
+    addContractInfo(data);
+}
+//编辑业务合同内容
+function addContractInfo(jsonData){
+    var projectContractList = '';
+    $("#busiC .contact_box").each(function(i){
+       if($(this).find("input[name=type_"+i+"]:checked").val()==undefined){
+           var ty = "";
+       }else{
+           var ty = $(this).find("input[name=type_"+i+"]:checked").val();
+       }
+       projectContractList = projectContractList + '{"id":"'+$(this).find("input[name=lid]").val()+'","projectId":"'+$(this).find("input[name=projectId]").val()+'","contactUser":"'+$(this).find("input[name=contactUser]").val()+'","contactUsername":"'+$(this).find("input[name=contactUsername]").val()+'","type":"'+ty+'","number":"'+$(this).find("input[name=number]").val()+'","contactTel":"'+$(this).find("input[name=contactTel]").val()+'","projectName":"'+$(this).find("input[name=projectName]").val()+'"},';
+    });
+    projectContractList = "[" + projectContractList.substring(0,projectContractList.length-1) + "]";
+    
+    var jsonData = '{"id":"'+jsonData.id+'","pid":"'+jsonData.pid+'","contractNum":"'+jsonData.contractNum+'","contractName":"'+jsonData.contractName+'","aPartyCompanyname":"'+jsonData.aPartyCompanyname+'","aPartyCompnayid":"'+jsonData.aPartyCompnayid+'","bPartyCompanyid":"'+jsonData.bPartyCompanyid+'","bPartyCompanyname":"'+jsonData.bPartyCompanyname+'","signingTime":"'+jsonData.signingTime+'","effectTime":"'+jsonData.effectTime+'","faileTime":"'+jsonData.faileTime+'","aSigningPersonname":"'+jsonData.aSigningPersonname+'","aSigningPersonid":"'+jsonData.aSigningPersonid+'","bSigningPersonname":"'+jsonData.bSigningPersonname+'","bSigningPersonid":"'+jsonData.bSigningPersonid+'","contactPhone":"'+jsonData.contactPhone+'","contactAddress":"'+jsonData.contactAddress+'","contractMoney":"'+jsonData.contractMoney+'","payType":"'+jsonData.payType+'","remindTimeType":"'+jsonData.remindTimeType+'","repeatRemindType":"'+jsonData.repeatRemindType+'","projectContractList":'+projectContractList+'}';
+    
+    console.log(JSON.stringify(jsonData));
+    
+    var url = depUrl + "/contract/update";
+    $.ajax({
+		type: 'POST',
+		url: url,
+		data: jsonData,
+		dataType: "json",
+		contentType:"application/json;charset=utf-8",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+			var code = data.code;
+			if(code=="000000"){
+				alert("编辑成功！");
+				autoJumpURL('/html/contract/index.html');
+			}else{
+				$(".box-footer error").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			$(".box-footer error").text("* 错误提示："+ data.msg +"！");
+			return false;
+		}
+	});
+}
+//获取项目列表
+function projectList(obj){
+    var url = depUrl + "/employee/project/get";
+	var jsonData = '{"pageNo":'+$("#pageNo").val()+'}';
+    
+    $(".modal-header").html('<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><div class="col-xs-3"><input type="text" class="form-control" placeholder="项目名称" name="s_projectName" id="s_projectName" value=""></div><div class="col-xs-5"><input type="text" class="form-control" placeholder="所属物业公司" name="s_companyName" id="s_companyName" value=""></div><button type="button" class="btn btn-primary" onClick="projectList(this)" title="搜索"><i class="fa fa-search" aria-hidden="true"></i></button>');
+    $(".modal-footer").html('<button type="button" class="btn btn-primary pull-left" id="closeModal" data-dismiss="modal">关闭</button><button type="button" class="btn btn-primary" onClick="checkPro(this)">确定选择</button>');
+    var d = '{"projectName":"'+$("#s_projectName").val()+'","companyName":"'+$("#s_companyName").val()+'","pageNo":"'+$("#pageNo").val()+'"}';
+    console.log(JSON.stringify(d));
+    
+    $(".modal-dialog").css("width","70%");
+    
+    var ordern = $("#busiC .contact_box").index($(obj).parents(".contact_box"));
+    
+    $.ajax({
+        type: 'POST',
+		url: url,
+		data: d,
+		dataType: "json",
+		contentType:"application/json;charset=utf-8;",
+		headers:{accessToken:$.session.get('accessToken')},
+        success:function(data){
+            var code = data.code;
+            if(code=="000000"){
+                var headHtml = '<table id="example" data-od="'+ordern+'" class="table table-bordered table-hover"><thead><tr><th width="8"></th><th>项目编号</th><th>项目名称</th><th>所属公司</th><th>联系人</th><th>联系电话</th></tr></thead><tbody>';
+                var footHtml = '</tbody></table>';
+                var listHtml = '';
+                if(data.total=="0"){
+                    listHtml = '<tr><td colspan="7"><font color="#999999">数据空空如也，喝一杯咖啡休息一下吧！</font></td></tr>';
+                }else{
+                    $.each(data.data.list,function(i,items){
+                        
+                        var param = "{'id':'"+items.id+"'}";
+                        
+                        listHtml = listHtml + '<tr onClick="checkTr(this)" style="cursor: pointer"><td><label><input type="radio" name="id" value="'+items.id+'" onClick="selectOneUid(this)"></label></td><td>'+items.projectNum+'</td><td>'+items.projectName+'</td><td>'+items.companyName+'</td><td ct-id="'+items.contactId+'">'+items.contactName+'</td><td>'+items.contactPhone+'</td></tr>';
+                    });
+                }
+                $(".modal-body").html(headHtml + listHtml + footHtml);
+            }else if(code=="002003"){
+                $.session.clear();
+				$(location).attr('href', 'login.html');
+            }else{
+               $(".modal-body").text("* 错误提示："+ data.msg +"！"); 
+            }
+            //分页显示
+			$('#compact-pagination').pagination({
+				pages: data.data.pages,
+				cssStyle: 'compact-theme',
+				displayedPages: 7,
+				currentPage: pageNo
+			});
+        },
+        error:function(data){
+			alert(data.msg);
+			$(".modal-body").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+    });
+}
+//选择项目
+function checkPro(obj){
+    var i = $("#modal-default").find("table").attr("data-od");
+    $(".modal-body table tr").each(function(){
+        if($(this).find("input").prop("checked")==true){
+            var pid = $(this).find("input").val();
+            var pname = $(this).find("td").eq(2).text();
+            var ctrname = $(this).find("td").eq(4).text();
+            var ctrid = $(this).find("td").eq(4).attr("ct-id");
+            var ctrtell = $(this).find("td").eq(5).text();
+            $("#busiC .contact_box").each(function(x){
+                if(x==i){
+                    $(this).find("input[name=projectId]").val(pid);
+                    $(this).find("input[name=projectName]").val(pname);
+                    $(this).find("#contactUsernameText").text(ctrname);
+                    $(this).find("#contactUsernameTell").text(ctrtell);
+                    $(this).find("input[name=contactUsername]").val(ctrname);
+                    $(this).find("input[name=contactTel]").val(ctrtell);
+                    $(this).find("input[name=contactUser]").val(ctrid);
+                }
+            });
+        }
+    });
+    $('#closeModal').trigger("click");
+}
+</script>

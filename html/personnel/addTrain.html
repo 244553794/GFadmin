@@ -1,0 +1,360 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!-- Content Header (页眉) -->
+<section class="content-header">
+    <h1>增加培训审批信息
+    	<small>增加培训审批</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li><a>员工信息管理</a></li>
+        <li class="active">新增信息</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="callout callout-info">
+      <h4>审批流程为：</h4>
+      <p>&nbsp;</p>
+      <div class="appr-box"><span>发起人</span><div class="line"></div></div><div class="appr-box"><span>发起部门</span><div class="line"></div></div><div class="appr-box"><span>人事部</span><div class="line"></div></div><div class="appr-box"><span>总经办</span><div class="line none"></div></div>
+      <p style="clear: both;"></p>
+    </div>
+    <!--基本信息-->
+    <div class="box">
+    	<div class="box-header with-border">
+        	<h3 class="box-title">培训信息</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" title="刷新，注意保存信息" onClick="jumpURL(this)" url="/html/personnel/addtrain.html" param=""><i class="fa fa-refresh" aria-hidden="true"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1; "><div style="width:200px;"><font color="#FF0000">*</font>培训类型</div></span>
+                <div class="form-control">
+                    <label><input type="radio" name="trainType" value="0" class="minimal" checked>岗前培训</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="trainType" value="1" class="minimal">在岗培训</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="trainType" value="2" class="minimal">上岗培训</label>
+                </div>
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">发起人</div></span>
+                <div class="form-control" id="adminTrainType">
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">发起部门</div></span>
+                <span id="adminDepart"><input type="text" class="form-control" name="creatorDeptname" id="creatorDeptname" value="" readonly></span>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">参与人员</div></span>
+                <div class="form-control" style="height:auto">
+                    <button type="button" class="btn btn-primary" onClick="getEmployee(2)" data-toggle="modal" data-target="#modal-default" title="新增" style="float:right"><i class="fa fa-plus" aria-hidden="true"></i> 新增</button>
+                    <span id="joinEmp"></span>
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">执行负责人</div></span>
+                <div class="form-control" style="height:auto">
+                    <button type="button" class="btn btn-primary" onClick="getEmployee(3)" data-toggle="modal" data-target="#modal-default" title="新增" style="float:right"><i class="fa fa-plus" aria-hidden="true"></i> 新增</button>
+                    <span id="excuEmp"></span>
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">培训内容</div></span>
+                <div class="form-control" style="height:auto">
+                    <label style="padding-right:20px;"><input type="checkbox" name="trainContent" value="1" class="minimal">岗位职责</label><label style="padding-right:20px;"><input type="checkbox" name="trainContent" value="2" class="minimal">安全知识</label><label style="padding-right:20px;"><input type="checkbox" name="trainContent" value="3" class="minimal">消防知识</label><label style="padding-right:20px;"><input type="checkbox" name="trainContent" value="4" class="minimal">专业知识</label><label style="padding-right:20px;"><input type="checkbox" name="trainContent" value="5" class="minimal">职业规划</label>
+                    <error></error>
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">培训地点</div></span>
+                <input type="text" class="form-control" name="trainAddreaa" id="trainAddreaa" value="" placeholder="培训地点">
+            </div>
+        </div>
+<!--面板结束，人员弹出框加载-->
+        <div class="modal modal-default fade" id="modal-default" data-id="">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                  <div class="col-xs-3"><input type="text" class="form-control" placeholder="姓名" name="schempName" id="schempName" value=""></div>
+                  <div class="col-xs-5"><input type="text" class="form-control" placeholder="手机号" name="schphone" id="schphone" value=""></div>
+                  <button type="button" class="btn btn-primary" onClick="searchList(this)" title="搜索"><i class="fa fa-search" aria-hidden="true"></i></button>
+              </div>
+              <div class="modal-body">
+                    <!--异步加载数据-->
+              </div>
+              <!--分页-->
+              <div class="pagination-holder clearfix">
+                  <input type="hidden" name="pageNo" id="pageNo" value="1">
+                  <div id="compact-pagination"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary pull-left" id="closeModal" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onClick="checkEmp(this)">选择人员</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    </div>
+    <!--添加第二个面板-->
+    
+    <!--底部-->
+    <input type="hidden" name="creatorUsername" id="creatorUsername" value="">
+    <input type="hidden" name="creatorUserid" id="creatorUserid" value="">
+    <input type="hidden" name="creatorDeptid" id="creatorDeptid" value="">
+    <div class="box-footer" style="position:fixed; left:0px; bottom:0px; width:100%; height:60px;box-shadow: 0px 0px 40px #888888; z-index:9; background-color:#FFF;">
+    <p><error></error></p>
+    <button type="button" class="btn btn-primary fl_right" style="width:150px; margin-right:50px;" onClick="addTrain()">保存提交</button><button type="button" class="btn btn-default fl_right" style="width:150px; margin-right:50px;" onClick="jumpURL(this)" url="/html/personnel/" param="">取消返回</button>
+    </div>
+</section>
+<script>
+$(function () {
+  //Initialize Select2 Elements
+  $('.select2').select2()
+
+  //Date picker
+  $('#birthdate').datepicker({
+	autoclose: true
+  })
+  $('#fileDate').datepicker({
+	autoclose: true
+  })
+});
+if($.session.get("departName")==undefined){
+    $("#adminTrainType").css("height","auto");
+    $("#adminTrainType").html('<button type="button" class="btn btn-primary" onClick="getEmployee(0)" data-toggle="modal" data-target="#modal-default" title="新增" style="float:right"><i class="fa fa-plus" aria-hidden="true"></i> 新增</button><span id="adminCreatMan"></span>');
+    infoLoding();
+}else{
+    $("#adminTrainType").text($.session.get("realname"));
+    $("#adminTrainType").css("background-color","#f1f1f1");
+    $("#creatorUserid").val($.session.get("id"));
+    $("#creatorUsername").val($.session.get("realname"));
+    $("#creatorDeptname").val($.session.get("departName"));
+    $("#creatorDeptid").val($.session.get("deptid"));
+}
+function searchList(obj){
+	var dataid = $("#modal-default").attr("data-id");
+	if(dataid==0){
+		getEmployee(0);
+	}
+	if(dataid==1){
+		getEmployee(1);
+	}
+    if(dataid==2){
+        getEmployee(2);
+    }
+}
+function infoLoding(){
+    //加载部门列表
+    var url = depUrl + "/employee/depart/getdepartlist";
+	var listHead = '<select class="form-control" name="creatorDeptname" id="creatorDeptname"><option selected="selected" value="">发起部门</option>';
+	var listFoot = '</select>';
+    $.ajax({
+		type: 'POST',
+		url: url,
+		data: {},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+			var code = data.code;
+			var listHtml = '';
+			if(code=="000000"){
+				var listHtmltemp;
+				//alert(JSON.stringify(data.data));
+				if(JSON.stringify(data.data) == ""){
+					listHtmltemp = ''
+				}else{
+					$.each(data.data,function(i,items){
+						listHtmltemp= '<option value="'+items.id+'">'+items.deptname+'</option>'
+							//这里只做了两级分类，可拓展多级分类
+							if(JSON.stringify(items.chrildren) != "[]"){
+								$.each(items.chrildren,function(j,itemx){
+									var smallListHtmltemp = '<option value="'+itemx.id+'">&nbsp;&nbsp;|—'+itemx.deptname+'</option>'
+                                    $.each(itemx.chrildren,function(k,itemy){
+                                        var smallLthiistHtmltemp = '<option value="'+itemy.id+'">&nbsp;&nbsp;&nbsp;&nbsp;|——'+itemy.deptname+'</option>'
+                                        smallListHtmltemp = smallListHtmltemp + smallLthiistHtmltemp;
+                                    });
+                                    listHtmltemp = listHtmltemp + smallListHtmltemp;
+								});
+							}
+							//alert(listHtmltemp);
+						listHtml = listHtml + listHtmltemp;
+						for(var b=0;b<4;b++){
+							listHtml = listHtml.replace("null","-");
+						}
+					});
+				}
+				$("#adminDepart").html(listHead + listHtml + listFoot);
+                $('#creatorDeptname').select2()
+				
+			}else if(code=="002003"){
+				$.session.clear();
+				$(location).attr('href', 'login.html');
+			}else{
+				$("#departInfo").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			alert(data.msg);
+			$("#departInfo").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+	});
+    //加载护卫点（项目）列表
+    $("#projectId").click(function(){
+        alert("功能开发中");
+    });
+}
+// 加载员工列表信息
+function getEmployee(dn){
+	var schempName = $("#schempName").val();
+	var schphone = $("#schphone").val();
+	var pageNo = $("#pageNo").val();
+	var url = depUrl + "/employee/creator/getEmployee";
+	$.ajax({
+		type: 'POST',
+		url: url,
+		data: {"empName":schempName,"phone":schphone,"pageNo":pageNo},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+			var code = data.code;
+			var empHtml = "";
+			if(code=="000000"){
+                if(data.data.total=="0"){
+                    empHtml = "<font color='#999'>数据空空如也/可能是当前用户没有对应的人员操作权限。</font>"
+                }else{
+                    $.each(data.data.list,function(i,items){
+                        if(dn==2){
+                            empHtml = empHtml + '<div style="height:40px; line-height:40px; width:100%; border-bottom:#f1f1f1 1px solid; overflow:hidden;"><div class="col-xs-3"><label><input type="checkbox" name="uid" value="'+items.id+'">'+items.empRealname+'</label></div><div class="col-xs-5">'+items.phone+'</div></div>';
+                        }else{
+                            empHtml = empHtml + '<div style="height:40px; line-height:40px; width:100%; border-bottom:#f1f1f1 1px solid; overflow:hidden;"><div class="col-xs-3"><label><input type="radio" name="uid" value="'+items.id+'">'+items.empRealname+'</label></div><div class="col-xs-5">'+items.phone+'</div></div>';
+                        }
+                    });
+                    //分页显示
+                    $('#compact-pagination').pagination({
+                        pages: data.data.pages,
+                        cssStyle: 'compact-theme',
+                        displayedPages: 7,
+                        currentPage: pageNo
+                    });
+                }
+				$(".modal-body").html(empHtml);
+			}else{
+				$(".modal-body").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			$(".modal-body").text("* 错误提示："+ data.msg +"！");
+			return false;
+		}
+	});
+	$("#modal-default").attr("data-id",dn);
+}
+//选中人员
+function checkEmp(obj){
+	var dataid = $("#modal-default").attr("data-id");
+	$("input[name=uid]").each(function(){
+		if(this.checked){
+            if(dataid==2){
+                var uid = $(this).val();
+                var uname = $(this).parent().text();
+                if($("#joinEmp").text().indexOf(uname)==-1){
+                    $("#joinEmp").append('<label class="checkbtn" name="empCheckbtn">'+uname+'<input type="hidden" value="'+uname+'" name="empName"><input type="hidden" value="'+uid+'" name="empId"><i class="fa fa-times-circle" aria-hidden="true" onClick="delEmp(this)"></i></label>');
+                }
+            }else if(dataid==0){
+                $("#adminCreatMan").html('<label class="checkbtn">'+$(this).parent().text()+'<input type="hidden" value="'+$(this).parent().text()+'" name="creatorUsername" id="creatorUsername"><input type="hidden" value="'+$(this).val()+'" name="creatorUserid" id="creatorUserid"><i class="fa fa-times-circle" aria-hidden="true" onClick="delEmp(this)"></i></label>');
+            }else{
+                $("#excuEmp").html('<label class="checkbtn">'+$(this).parent().text()+'<input type="hidden" value="'+$(this).parent().text()+'" name="executorName" id="executorName"><input type="hidden" value="'+$(this).val()+'" name="executorId" id="executorId"><i class="fa fa-times-circle" aria-hidden="true" onClick="delEmp(this)"></i></label>');
+            }
+		}
+	});
+    $('#closeModal').trigger("click");
+}
+//删除选中事件
+function delEmp(obj){
+	$(obj).parent().remove();
+}
+//新增培训事件
+function addTrain(){
+    //接收参数
+    var trainType = $("input[name='trainType']:checked").val();
+    var creatorUsername = $("#creatorUsername").val();
+    var creatorUserid = $("#creatorUserid").val();
+    var creatorDeptid = $("#creatorDeptid").val();
+    if($.session.get("departName")==undefined){
+        var creatorDeptname = $("#creatorDeptname").find("option:selected").text().replace("|—","").replace("—","").trim();
+        if(creatorDeptname=="发起部门"){
+            creatorDeptname = "";
+        }
+    }else{
+        var creatorDeptname = $("#creatorDeptname").val(); 
+    }
+    
+    var trainEmpList = "";
+    var trainContent = "";
+    $("label[name='empCheckbtn']").each(function(){
+        trainEmpList = trainEmpList + '{"empId":'+$(this).find("input[name='empId']").val()+',"empName":"'+$(this).find("input[name='empName']").val()+'"},';
+    });
+    trainEmpList = trainEmpList.substring(0,trainEmpList.length-1);
+    trainEmpList = "[" + trainEmpList + "]";
+    $("input[name='trainContent']:checked").each(function(){
+        trainContent = trainContent + $(this).val() + ",";
+    });
+    trainContent = trainContent.substring(0,trainContent.length-1);
+    var executorName = $("#executorName").val();
+    var executorId = $("#executorId").val();
+    var trainAddreaa = $("#trainAddreaa").val();
+    
+    //判断参数
+    if(creatorUsername == "" || creatorUserid==""){
+        $(".box-footer error").text("* 错误提示：发起人不能为空");
+    }
+    if(creatorDeptname == ""){
+        $(".box-footer error").text("* 错误提示：发起部门不能为空");
+    }
+    if($("#joinEmp").text() == ""){
+        $(".box-footer error").text("* 错误提示：参与人员不能为空");
+    }
+    if(trainContent == "" || trainContent == ","){
+        $(".box-footer error").text("* 错误提示：培训内容不能为空");
+    }
+    if(executorName == "" || executorId==""){
+        $(".box-footer error").text("* 错误提示：执行人不能为空");
+    }
+    
+    //保存参数
+    var url = depUrl + "/employee/train/add";
+    var jsonData = '{"trainType":'+trainType+',"creatorUsername":"'+creatorUsername+'","creatorUserid":"'+creatorUserid+'","creatorDeptname":"'+creatorDeptname+'","creatorDeptid":"'+creatorDeptid+'","trainEmpList":'+trainEmpList+',"trainContent":"'+trainContent+'","executorName":"'+executorName+'","executorId":"'+executorId+'","trainAddreaa":"'+trainAddreaa+'"}';
+    $.ajax({
+		type: 'POST',
+		url: url,
+		data: jsonData,
+		dataType: "json",
+		contentType:"application/json;charset=utf-8",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+			var code = data.code;
+			if(code=="000000"){
+				alert("添加成功！");
+				autoJumpURL('/html/personnel/train.html');
+			}else{
+				$(".box-footer error").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			$(".box-footer error").text("* 错误提示："+ data.msg +"！");
+			return false;
+		}
+	});
+}
+</script>

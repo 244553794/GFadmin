@@ -1,0 +1,496 @@
+<!-- Content Header (页眉) -->
+<section class="content-header">
+    <h1>增加采购信息
+    	<small>采购审批新增</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li><a>采购信息管理</a></li>
+        <li class="active">新增信息</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="callout callout-info">
+      <h4>审批流程为：</h4>
+      <p>&nbsp;</p>
+      <div class="appr-box"><span>发起人</span><div class="line"></div></div><div class="appr-box"><span>发起部门</span><div class="line"></div></div><div class="appr-box"><span>采购部</span><div class="line"></div></div><div class="appr-box"><span>总经办</span><div class="line none"></div></div>
+      <p style="clear: both;"></p>
+    </div>
+    <!--基本信息-->
+    <form>
+    <div class="box">
+    	<div class="box-header with-border">
+        	<h3 class="box-title">采购基本信息</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" id="reflash" title="刷新，注意保存信息" onclick="jumpURL(this)" url="/html/purchase/addEdit.html" param=""><i class="fa fa-refresh" aria-hidden="true"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <!--内容    -->
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>发起部门</div></span>
+                <span id="departInfo"></span>
+                <input type="hidden" name="departName" id="departName" value="1">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;"><font color="#FF0000">*</font>发起人</div></span>
+                <div class="form-control" style="height:auto">
+                    <button type="button" class="btn btn-primary" onClick=getEmpList(1,"originatorId","originatorName") data-toggle="modal" data-target="#modal-default" title="新增" style="float:right"><i class="fa fa-plus" aria-hidden="true"></i> 新增</button>
+                    <span id="originatorId_lb"></span>
+                </div>
+                <error style="margin-right: 70px; line-height: 50px;"></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;position: relative;">
+                <i class="fa fa-calendar" style="float: right;position: absolute;right: 10px; top: 10px;z-index: 99"></i>
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;">采购日期</div></span>
+                <input type="text" class="form-control" style="width: 100%;" name="purchaseTime" id="purchaseTime" value="" placeholder="签约时间">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color: #f1f1f1"><div style="width:200px;"><font color="#FF0000">*</font>合同金额(￥)</div></span>
+                <div class="form-control" style="font-size: 18px;color: #f00;font-weight: bold;">￥<span id="countMoney">0</span><i style="font-size: 14px;color:#999;font-weight: normal;">【系统会自动计算】</i></div>
+                <input type="hidden" name="purchaseMoney" id="purchaseMoney" value="0">
+                <error></error>
+            </div>
+            
+        </div>
+    </div>
+    <!--添加第二个面板-->
+    <div class="box">
+    	<div class="box-header with-border">
+        	<h3 class="box-title">采购物品内容</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <!--内容    -->
+            <div class="input-group" style="margin-bottom:20px;" id="purchaseCat">
+                <label style="margin-right: 50px;cursor: pointer"><input type="checkbox" name="purchaseContent" value="" class="minimal" onclick="showPurchaseTable(this)">夏季保安服</label>
+                <label style="margin-right: 50px;cursor: pointer"><input type="checkbox" name="purchaseContent" value="" class="minimal" onclick="showPurchaseTable(this)">冬季保安服</label>
+                <label style="margin-right: 50px;cursor: pointer"><input type="checkbox" name="purchaseContent" value="" class="minimal" onclick="showPurchaseTable(this)">保安四件套</label>
+                <label style="margin-right: 50px;cursor: pointer"><input type="checkbox" name="purchaseContent" value="" class="minimal" onclick="showPurchaseTable(this)">特勤服</label>
+                <label style="margin-right: 50px;cursor: pointer"><input type="checkbox" name="purchaseContent" value="" class="minimal" onclick="showPurchaseTable(this)">徽章</label>
+            </div>
+            <span id="tbHtmlData">
+            
+            </span>
+        </div>
+    </div>
+    
+    <!--弹窗-->
+    <div class="modal modal-default fade" id="modal-default" data-id="" data-ip-id="" data-ip-name="">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+              <div class="col-xs-3"><input type="text" class="form-control" placeholder="姓名" name="schempName" id="schempName" value=""></div>
+              <div class="col-xs-5"><input type="text" class="form-control" placeholder="手机号" name="schphone" id="schphone" value=""></div>
+              <button type="button" class="btn btn-primary" onClick="searchList(this)" title="搜索"><i class="fa fa-search" aria-hidden="true"></i></button>
+          </div>
+          <div class="modal-body">
+            	<!--异步加载数据-->
+          </div>
+          <!--分页-->
+          <div class="pagination-holder clearfix">
+              <input type="hidden" name="pageNo" id="pageNo" value="1">
+              <div id="compact-pagination"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary pull-left" id="closeModal" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" onClick="checkEmp(this)">选择人员</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.弹窗 -->
+    </form>
+    <!--底部-->
+    <div class="box-footer" style="position:fixed; left:0px; bottom:0px; width:100%; height:60px;box-shadow: 0px 0px 40px #888888; z-index:9; background-color:#FFF;">
+    <p><error></error></p>
+    <button type="button" class="btn btn-info fl_right" style="width:150px; margin-right:50px;" onClick="judgeform()">保存提交</button><button type="button" class="btn btn-default fl_right" style="width:150px; margin-right:50px;" onClick="jumpURL(this)" url="/html/personnel/" param="">取消返回</button>
+    </div>
+</section>
+<script>
+$(document).find("input").each(function(){
+    $(this).css("border","none");
+    $(this).css("background-color","#FFF");
+    $(this).prop("disable",true);
+});
+    
+$.fn.datepicker.defaults.format = "yyyy-mm-dd";
+$('#purchaseTime').datepicker({autoclose: true});
+//页面初始化
+//判断是否有id参数
+var param = $("#ajaxcontent").attr("param");
+if(param!=""){
+    param = param.replace(/'/g,"\"");
+    param = JSON.parse(param);
+    $("#reflash").attr("param","{'id':'"+param.id+"'}");
+    
+    var url = depUrl + "/purchase/get";
+    $.ajax({
+		type: 'POST',
+		url: url,
+		data: {"id":param.id},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+            if(data.code=="000000"){
+                $.each(data.data.list,function(i,items){
+                    $("#originatorId_lb").html('<label class="checkbtn">'+items.originatorName+'<input type="hidden" value="'+items.originatorName+'" name="originatorName" id="originatorName"><input type="hidden" value="'+items.originatorId+'" name="originatorId" id="originatorId"><i class="fa fa-times-circle" aria-hidden="true" onClick="delEmp(this)"></i></label>');
+                    $("#purchaseTime").val(items.purchaseTime);
+                    $("#countMoney").text(items.purchaseMoney);
+                    $("#purchaseMoney").val(items.purchaseMoney);
+                    var tableHtml = '';
+                    var typeIds = '';
+                    $.each(items.map,function(j,itemx){
+                        var tabHeadHtml = '<table class="table table-bordered table-hover" style="margin-bottom: 20px; box-shadow: 0px 0px 5px #CCC;" data-title="'+itemx.goodsName+'" data-tbid="'+itemx.goodsId+'"><thead><tr><th colspan="8" style="text-align: center;font-size: 16px;">【'+itemx.goodsName+'】<input type="hidden" name="goodsName" value="'+itemx.goodsName+'"><i class="fa fa-minus-square" style="color:darkgray;cursor: pointer;float: right" aria-hidden="true" onClick="delPurchaseTable(this)"></i></th></tr><tr><th>物资名称</th><th>规格型号</th><th>采购项目</th><th>单位</th><th>数量</th><th>单价</th><th>金额</th><th width="50">操作</th></tr></thead><tbody>';
+                        var tabFootHtml = '</tbody></table>'
+                        var tabtrHtml = '';
+                        
+                        typeIds = typeIds + '{"goodsId":'+itemx.goodsId+'},';
+                        
+                        var goodsId = itemx.goodsId;
+                        $.each(itemx.contentList,function(o,itemy){
+                            var se1;var se2;var se3;var se4;var se0;
+                            if(itemy.unit=="件"){
+                                se1 = 'selected="selected"'
+                            }else if(itemy.unit=="只"){
+                                se2 = 'selected="selected"'
+                            }else if(itemy.unit=="个"){
+                                se3 = 'selected="selected"'
+                            }else if(itemy.unit=="套"){
+                                se4 = 'selected="selected"'
+                            }else{
+                                se0 = 'selected="selected"'
+                            }
+                            tabtrHtml = tabtrHtml + '<tr><td><input type="text" class="form-control" name="goodsSonName" value="'+itemy.goodsSonName+'" placeholder="物资名称"></td><td><input type="text" class="form-control" name="specifications" value="'+itemy.specifications+'" placeholder="规格型号"></td><td><div class="form-control" style="width:200px;" placeholder="选择需要采购的项目" id="projecctName_'+itemy.id+'" data-toggle="modal" data-target="#modal-default" fill-id-name="projecctName_'+itemy.id+'" data-mode="1" onclick="getProjectList(this)">'+itemy.projecctName+'</div><input type="hidden" name="projecctName" value="'+itemy.projecctName+'"><input type="hidden" name="projecctId" value="'+itemy.projecctId+'"></td><td><select class="form-control" name="unit"><option '+se0+' value="">单位</option><option '+se1+' value="件">件</option><option '+se2+' value="只">只</option><option '+se3+' value="个">个</option><option '+se4+' value="套">套</option></select></td><td><input type="text" class="form-control" name="number" value="'+itemy.number+'" placeholder="数量" onchange="countMenoy(this)"></td><td><input type="text" class="form-control" name="price" value="'+itemy.price+'" placeholder="单价" onchange="countMenoy(this)"></td><td><input type="text" class="form-control" name="totalMoney" value="'+itemy.totalMoney+'" placeholder="金额" readonly></td><td style="text-align: center;"><i class="fa fa-plus-square" style="font-size: 24px;color:#3c8dbc;cursor: pointer" aria-hidden="true" onClick="addPurchaseTableTr(this)"></i></td></tr>';
+                        });
+                        tableHtml = tableHtml + tabHeadHtml + tabtrHtml + tabFootHtml;
+                    });
+                    typeIds = '['+typeIds.substring(0,typeIds.length-1)+']';//组合goodsid
+                    $("#tbHtmlData").html(tableHtml);
+                    infoLoding(items.departId);
+                    getPurchaseType(typeIds);//加载业务内容type
+                });
+                
+            }else if(code=="002003"){
+				$.session.clear();
+				$(location).attr('href', 'login.html');
+			}else{
+				$(".box-footer").text("* 错误提示："+ data.msg +"！");
+			}
+        },
+		error:function(data){
+			alert(data.msg);
+			$(".box-footer").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+    });
+    
+}else{
+    infoLoding("-1");//新增加载部门
+    getPurchaseType("-1");//加载业务内容type
+}
+function infoLoding(n){
+    //加载部门列表
+    var url = depUrl + "/employee/depart/getdepartlist";
+	var listHead = '<select class="form-control" name="departId" id="departId" onchange="selectDepartName(this)"><option selected="selected" value="">请选择发起部门</option>';
+	var listFoot = '</select>';
+    $.ajax({
+		type: 'POST',
+		url: url,
+		data: {},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+			var code = data.code;
+			var listHtml = '';
+			if(code=="000000"){
+				var listHtmltemp;
+				//alert(JSON.stringify(data.data));
+				if(JSON.stringify(data.data) == ""){
+					listHtmltemp = ''
+				}else{
+					$.each(data.data,function(i,items){
+						listHtmltemp= '<option value="'+items.id+'">'+items.deptname+'</option>'
+							//这里只做了两级分类，可拓展多级分类
+							if(JSON.stringify(items.chrildren) != "[]"){
+								$.each(items.chrildren,function(j,itemx){
+                                    if(n=="-1"){
+                                        var smallListHtmltemp = '<option value="'+itemx.id+'">&nbsp;&nbsp;|—'+itemx.deptname+'</option>'
+                                        $.each(itemx.chrildren,function(k,itemy){
+                                            var smallLthiistHtmltemp = '<option value="'+itemy.id+'">&nbsp;&nbsp;&nbsp;&nbsp;|——'+itemy.deptname+'</option>'
+                                            smallListHtmltemp = smallListHtmltemp + smallLthiistHtmltemp;
+                                        });
+                                    }else{
+                                        if(n==itemx.id){
+                                            var smallListHtmltemp = '<option value="'+itemx.id+'" selected="selected">&nbsp;&nbsp;|—'+itemx.deptname+'</option>'
+                                        }else{
+                                            var smallListHtmltemp = '<option value="'+itemx.id+'">&nbsp;&nbsp;|—'+itemx.deptname+'</option>'
+                                        }
+                                        $.each(itemx.chrildren,function(k,itemy){
+                                            if(n==itemx.id){
+                                                var smallLthiistHtmltemp = '<option value="'+itemy.id+'" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;|——'+itemy.deptname+'</option>'
+                                            }else{
+                                                var smallLthiistHtmltemp = '<option value="'+itemy.id+'">&nbsp;&nbsp;&nbsp;&nbsp;|——'+itemy.deptname+'</option>'
+                                            }
+
+                                            smallListHtmltemp = smallListHtmltemp + smallLthiistHtmltemp;
+                                        });
+                                    }
+									
+                                    listHtmltemp = listHtmltemp + smallListHtmltemp;
+								});
+							}
+							//alert(listHtmltemp);
+						listHtml = listHtml + listHtmltemp;
+						for(var b=0;b<4;b++){
+							listHtml = listHtml.replace("null","-");
+						}
+					});
+				}
+				$("#departInfo").html(listHead + listHtml + listFoot);
+                $('#departId').select2()
+				
+			}else if(code=="002003"){
+				$.session.clear();
+				$(location).attr('href', 'login.html');
+			}else{
+				$("#departInfo").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			alert(data.msg);
+			$("#departInfo").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+	});
+    
+}
+//获取采购物品类型列表
+function getPurchaseType(t){
+    var url = depUrl + "/purchase/getPurchaseType";
+    $.ajax({
+		type: 'POST',
+		url: url,
+		data: {},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+            var code = data.code;
+			var listHtml = '';
+			if(code=="000000"){
+                $.each(data.data,function(i,items){
+                    if(t=="-1"){
+                        listHtml = listHtml + '<label style="margin-right: 50px;cursor: pointer"><input type="checkbox" name="goodsId" value="'+items.id+'" class="minimal" onclick="showPurchaseTable(this)">'+items.typeName+'</label>';
+                    }else{
+                        var jt = JSON.parse(t);
+                        var isorno = 0;
+                        for(var p in jt){
+                            if(jt[p].goodsId==items.id){
+                                isorno = 1;
+                            }
+                        }
+                        if(isorno==0){
+                            listHtml = listHtml + '<label style="margin-right: 50px;cursor: pointer"><input type="checkbox" name="goodsId" value="'+items.id+'" class="minimal" onclick="showPurchaseTable(this)">'+items.typeName+'</label>';
+                        }else{
+                            listHtml = listHtml + '<label style="margin-right: 50px;cursor: pointer"><input type="checkbox" name="goodsId" value="'+items.id+'" class="minimal" onclick="showPurchaseTable(this)" checked>'+items.typeName+'</label>';
+                        }
+                    }
+                    
+                });
+                $("#purchaseCat").html(listHtml);
+            }else if(code=="002003"){
+				$.session.clear();
+				$(location).attr('href', 'login.html');
+			}else{
+				$("#purchaseCat").text("* 错误提示："+ data.msg +"！");
+			}
+        },
+		error:function(data){
+			alert(data.msg);
+			$("#purchaseCat").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+    });
+}
+//选择部门select事件
+function selectDepartName(obj){
+    var Sname = $(obj).find("option:selected").text();
+    Sname = Sname.replace("&nbsp;&nbsp;","").replace("&nbsp;&nbsp;","").replace("|——","").replace("|—").trim();
+    $("#departName").val(Sname);
+}
+//选择采购物品事件
+function showPurchaseTable(obj){
+    var tbName = $(obj).parent().text();
+    var tbId = $(obj).val();
+    var tableHtml = '<table class="table table-bordered table-hover" style="margin-bottom: 20px; box-shadow: 0px 0px 5px #CCC;" data-title="'+tbName+'" data-tbid="'+tbId+'"><thead><tr><th colspan="8" style="text-align: center;font-size: 16px;">【'+tbName+'】<input type="hidden" name="goodsName" value="'+tbName+'"><i class="fa fa-minus-square" style="color:darkgray;cursor: pointer;float: right" aria-hidden="true" onClick="delPurchaseTable(this)"></i></th></tr><tr><th>物资名称</th><th>规格型号</th><th>采购项目</th><th>单位</th><th>数量</th><th>单价</th><th>金额</th><th width="50">操作</th></tr></thead><tbody><tr><td><input type="text" class="form-control" name="goodsSonName" value="" placeholder="物资名称"></td><td><input type="text" class="form-control" name="specifications" value="" placeholder="规格型号"></td><td><div class="form-control" style="width:200px;" placeholder="选择需要采购的项目" id="projecctName_'+tbId+'_0" data-toggle="modal" data-target="#modal-default" fill-id-name="projecctName_'+tbId+'_0" data-mode="1" onclick="getProjectList(this)"></div><input type="hidden" name="projecctName" value=""><input type="hidden" name="projecctId" value=""></td><td><select class="form-control" name="unit"><option selected="selected" value="">单位</option><option value="件">件</option><option value="只">只</option><option value="个">个</option><option value="套">套</option></select></td><td><input type="text" class="form-control" name="number" value="" placeholder="数量" onchange="countMenoy(this)"></td><td><input type="text" class="form-control" name="price" value="" placeholder="单价" onchange="countMenoy(this)"></td><td><input type="text" class="form-control" name="totalMoney" value="" placeholder="金额" readonly></td><td style="text-align: center;"><i class="fa fa-plus-square" style="font-size: 24px;color:#3c8dbc;cursor: pointer" aria-hidden="true" onClick="addPurchaseTableTr(this)"></i></td></tr></tbody></table>';
+    if($(obj).prop("checked")==true){
+        $("#tbHtmlData").append(tableHtml);
+    }else{
+        $("#tbHtmlData table").each(function(){
+            if($(this).attr("data-title")==tbName){
+                $(this).remove();
+            }
+        });
+    }
+    
+}
+//采购table删除按钮事件
+function delPurchaseTable(obj){
+    $(obj).parent().parent().parent().parent().remove();
+    var tbId = $(obj).parents("table").attr("data-tbid");
+    $("#purchaseCat label").each(function(){
+        if($(this).find("input").val()==tbId){
+            $(this).find("input").prop("checked",false);
+        }
+    });
+}
+//增加采购table的行数据事件
+function addPurchaseTableTr(obj){
+    var pi = $(obj).parents("tbody").find("tr").length;
+    var tbId = $(obj).parents("table").attr("data-tbid");
+    var trHtml = '<tr><td><input type="text" class="form-control" name="goodsSonName" value="" placeholder="物资名称"></td><td><input type="text" class="form-control" name="specifications" value="" placeholder="规格型号"></td><td><div class="form-control" style="width:200px;" placeholder="选择需要采购的项目" id="projecctName_'+tbId+"_"+pi+'" data-toggle="modal" data-target="#modal-default" fill-id-name="projecctName_'+tbId+"_"+pi+'" data-mode="1" onclick="getProjectList(this)"></div><input type="hidden" name="projecctName" value=""><input type="hidden" name="projecctId" value=""></td><td><select class="form-control" name="unit"><option selected="selected" value="">单位</option><option value="件">件</option><option value="只">只</option><option value="个">个</option><option value="套">套</option></select></td><td><input type="text" class="form-control" name="number" value="" placeholder="数量" onchange="countMenoy(this)"></td><td><input type="text" class="form-control" name="price" value="" placeholder="单价" onchange="countMenoy(this)"></td><td><input type="text" class="form-control" name="totalMoney" value="" placeholder="金额" readonly></td><td style="text-align: center;"><i class="fa fa-minus-square" style="font-size: 24px;color:red;cursor: pointer" aria-hidden="true" onClick="delPurchaseTableTr(this)"></i></td></tr>';
+    $(obj).parents("tbody").append(trHtml);
+}
+//删除采购table的行数据事件
+function delPurchaseTableTr(obj){
+    $(obj).parents("tr").remove();
+}
+//金额计算
+function countMenoy(obj){
+    //先统计单条table中的tr合计金额
+    var n = $(obj).parents("tr").find("input[name=number]").val();
+    var p = $(obj).parents("tr").find("input[name=price]").val();
+    if(isNaN(n)||isNaN(p)){
+        alert("请填写数字");
+        return false;
+    }else{
+        if(n==""){n=0}
+        if(p==""){p=0}
+        $(obj).parents("tr").find("input[name=totalMoney]").val(n*p);
+        //再统计整个页面的采购金额
+        var tP = 0;
+        $("#tbHtmlData table tr").find("input[name=totalMoney]").each(function(){
+            if($(this).val()!=""){
+                tP =  parseInt(tP) + parseInt($(this).val());
+            }
+        });
+    }
+    $("#countMoney").text(tP);
+    $("#purchaseMoney").val(tP);
+}
+//判断提交表单
+function judgeform(){
+    var data = {};//全局json
+    var pcData = {};
+    var t = $('form').serializeArray();
+    $("error").each(function(){
+        $(this).text("");
+    });
+    $.each(t, function(){
+        //判断表单参数
+        if(this.name=="departId" || this.name=="contractMoney"){
+            if(this.value=="" || this.value=="0"){
+                var tipsName = $("#"+this.name).parents(".input-group").find(".input-group-addon").text();
+                $("#"+this.name).parents(".input-group").find("error").text("错误提示：【"+ tipsName + "】不能为空！");
+                return false;
+            }else{
+                data[this.name] = this.value;
+            }
+        }else{//进入正题
+            if(this.name=="goodsSonName" || this.name=="specifications" || this.name=="projectName" || this.name=="projectId" || this.name=="unit" || this.name=="number" || this.name=="price" || this.name=="totalMoney"){
+                //排除purchaseContentList字段
+            }else{
+                data[this.name] = this.value;//组成最外层的json
+            }
+        }
+    });
+    //拼接purchaseContentList
+    var purchaseContentList = '';
+    $("#tbHtmlData table").each(function(i){
+        var goodsId = $(this).attr("data-tbid");
+        var goodsName = $(this).find("input[name=goodsName]").val();
+        var goodsSonName = '';
+        var specifications = '';
+        var projecctName = '';
+        var projecctId = '';
+        var unit = '';
+        var number = '';
+        var price = '';
+        var totalMoney = '';
+        $(this).find("tr").each(function(j){
+            if(j>1){
+                goodsSonName = $(this).find("input[name=goodsSonName]").val();
+                specifications = $(this).find("input[name=specifications]").val();
+                projecctName = $(this).find("input[name=projecctName]").val();
+                projecctId = $(this).find("input[name=projecctId]").val();
+                unit = $(this).find("select[name='unit']").val();
+                number = $(this).find("input[name=number]").val();
+                price = $(this).find("input[name=price]").val();
+                totalMoney = $(this).find("input[name=totalMoney]").val();
+                
+                purchaseContentList = purchaseContentList + "{"
+                purchaseContentList = purchaseContentList + '"goodsId":"' + goodsId + '",';
+                purchaseContentList = purchaseContentList + '"goodsName":"' + goodsName + '",';
+                purchaseContentList = purchaseContentList + '"goodsSonName":"' + goodsSonName + '",';
+                purchaseContentList = purchaseContentList + '"specifications":"' + specifications + '",';
+                purchaseContentList = purchaseContentList + '"projecctName":"' + projecctName + '",';
+                purchaseContentList = purchaseContentList + '"projecctId":"' + projecctId + '",';
+                purchaseContentList = purchaseContentList + '"unit":"' + unit + '",';
+                purchaseContentList = purchaseContentList + '"number":"' + number + '",';
+                purchaseContentList = purchaseContentList + '"price":"' + price + '",';
+                purchaseContentList = purchaseContentList + '"totalMoney":"' + totalMoney + '"';
+                purchaseContentList = purchaseContentList + "},"
+            }
+            
+        });
+        
+    });
+    purchaseContentList = "["+purchaseContentList.substring(0,purchaseContentList.length-1)+"]";
+    console.log(purchaseContentList);
+    
+    var jsonData = '{"departId":"'+data.departId+'","departName":"'+data.departName+'","originatorId":"'+data.originatorId+'","originatorName":"'+data.originatorName+'","purchaseTime":"'+data.purchaseTime+'","purchaseMoney":"'+data.purchaseMoney+'","purchaseContentList":'+purchaseContentList+'}'
+    var url = depUrl + "/purchase/addOrUpdate";
+    
+    console.log(jsonData);
+    
+    ajaxPost(url,jsonData);
+}
+    
+//ajax接口请求
+function ajaxPost(url,jsonData){
+    
+    $.ajax({
+		type: 'POST',
+		url: url,
+		data: jsonData,
+		dataType: "json",
+		contentType:"application/json;charset=utf-8",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+            if(data.code=="000000"){
+                alert("添加成功!");
+                autoJumpURL('/html/purchase/index.html');
+            }else{
+                $(".box-footer error").text("* 错误提示："+ data.msg +"！");
+            }
+		},
+		error:function(data){
+			$(".box-footer error").text("* 错误提示："+ data.msg +"！");
+			return false;
+		}
+	});
+}
+</script>

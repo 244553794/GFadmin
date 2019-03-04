@@ -1,0 +1,503 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!-- Content Header (页眉) -->
+<section class="content-header">
+    <h1>查看员工信息
+    	<small>员工信息查看</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li><a>员工信息管理</a></li>
+        <li class="active">查看信息</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!--基本信息-->
+    <div class="box">
+    	<div class="box-header with-border">
+        	<h3 class="box-title">员工基本信息</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" id="reflash" title="刷新，注意保存信息" onclick="jumpURL(this)" url="/html/personnel/detial.html" param=""><i class="fa fa-refresh" aria-hidden="true"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="col-xs-3">人员编号：<span id="empNum"></span></div>
+            <div class="col-xs-3">人员姓名：<span id="empRealname"></span></div>
+            <div class="col-xs-3">用户名：<span id="empUsername"></span></div>
+            <div class="col-xs-3">性别：<span id="sex"></span>
+            </div>
+            <p>&nbsp;</p>
+            <div class="col-xs-3">身份证号：<span id="idCard"></span></div>
+            <div class="col-xs-3">
+            	 出生年月：<span id="birthdate"></span>
+            </div>
+            <div class="col-xs-3">籍贯：<span id="nativePlace"></span></div>
+            <div class="col-xs-3">婚否：<span id="isMarried"></span>
+            </div>
+            <p>&nbsp;</p>
+            <div class="col-xs-3">民族：<span id="national"></span></div>
+            <div class="col-xs-3">学历：<span id="education"></span></div>
+            <div class="col-xs-3">电话号码：<span id="phone"></span></div>
+            <div class="col-xs-3">兵役：<span id="isMilitaryService"></span></div>
+            <p>&nbsp;</p>
+            <div class="col-xs-3">政治面貌：<span id="politicsStatus"></span></div>
+            <div class="col-xs-3">身高（cm）：<span id="height"></span></div>
+            <div class="col-xs-3">紧急联系人：<span id="emergencyContact"></span></div>
+            <div class="col-xs-3">紧急联系号码：<span id="emergencyContactNum"></span></div>
+            <div class="col-xs-3">&nbsp;</div>
+            <p>&nbsp;</p>
+            <div class="col-xs-12">有何特长：<span id="specialty"></span></div>
+            <p>&nbsp;</p>
+            <div class="col-xs-12">通讯地址：<span id="correspondenceAddress"></span></div>
+            <p>&nbsp;</p>
+            <div class="col-xs-12">联系地址：<span id="contactAddress"></span></div>
+            
+        </div>
+    </div>
+    
+    <!--职位信息-->
+    <div class="box">
+    	<div class="box-header with-border">
+        	<h3 class="box-title">员工职位信息</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="col-xs-3">入职部门：<span id="departName"></span></div>
+            <div class="col-xs-3">入职岗位:<span id="job"></span></div>
+            <div class="col-xs-3">护卫点项目：<span id="projectId"></span></div>
+            <div class="col-xs-3">员工类别：<span id="empType"></span></div>
+            <p>&nbsp;</p>
+            <div class="col-xs-3">是否允许查看薪资：<span id="isLookMoney"></span></div>
+        </div>
+    </div>
+    
+    <!--薪酬信息-->
+    <div class="box">
+    	<div class="box-header with-border">
+        	<h3 class="box-title">员工薪酬信息</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="col-xs-3">入职薪资：<span id="hiredateMoney"></span></div>
+            <div class="col-xs-3">试用期薪资：<span id="probationPeriodMoney"></span></div>
+            <div class="col-xs-3">通讯津贴：<span id="phoneAllowance"></span></div>
+            <div class="col-xs-3">交通补贴：<span id="trafficAllowance"></span></div>
+            <p style="clear:both">&nbsp;</p>
+            <div class="col-xs-3">伙食补助：<span id="foodAllowance"></span></div>
+            <div class="col-xs-3">其他补贴：<span id="otherAllowance"></span></div>
+            <p style="clear:both">&nbsp;</p>
+            <div class="col-xs-3">伙食费扣减：<span id="foodDeductions"></span></div>
+            <div class="col-xs-3">代扣项：<span id="withhold"></span></div>
+            <div class="col-xs-3">水电扣减：<span id="waterElectricityDeductions"></span></div>
+            <div class="col-xs-3">社保金额：<span id="socialSecurityMoney"></span></div>
+            <p style="clear:both">&nbsp;</p>
+            <div class="col-xs-3">公积金金额：<span id="accumulationFundMoney"></span></div>
+            <div class="col-xs-3">其他扣减：<span id="otherDeductions"></span></div>
+            <div class="col-xs-3">个人所得税：<span id="individualIncomeTax"></span></div>
+            <p style="clear:both">&nbsp;</p>
+            <div class="col-xs-3">社保号：<span id="socialSecurityNum"></span></div>
+            <div class="col-xs-3">公积金号：<span id="accumulationFundNum"></span></div>
+            <div style="line-height:35px;">保险状态：<span id="insuranceType"></span></div>
+        </div>
+    </div>
+    
+    <!--员工证件信息-->
+    <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">员工证件信息</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+          </div>
+        </div>
+        <div class="box-body">
+        	身份证：
+        </div>
+        <!-- /.box-body -->
+	</div>
+    <!--员工特征信息-->
+    <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">员工特征信息</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+          </div>
+        </div>
+        <div class="box-body">
+        	人脸识别：
+            指纹识别
+        </div>
+        <!-- /.box-body -->
+	</div>
+    
+    <!--银行卡信息-->
+    <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">银行卡信息</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+          </div>
+        </div>
+        <div class="box-body">
+        	银行卡号：
+        </div>
+        <!-- /.box-body -->
+	</div>
+    
+    <!--员工上岗信息-->
+    <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">员工上岗信息</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+          </div>
+        </div>
+        <div class="box-body">
+            <div class="col-xs-3">有无上岗证：<span id="isMountGuard"></span></div>
+            <div class="col-xs-3">上岗证编号：<span id="mountGuardCardnum"></span></div>
+            <div class="col-xs-3">数码回执号：<span id="digitalReceipNumt"></span></div>
+            <div class="col-xs-3">
+            	<div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                    交档案日期：<span id="fileDate"></span>
+                </div>
+            </div>
+            <p style="clear:both;"></p>
+            <div class="col-xs-3">体检状态：<span id="medicalType"></span></div>
+            回执照片：
+            上岗证：
+            体检证明：
+        </div>
+        <!-- /.box-body -->
+	</div>
+    
+    <!--员工文件签署-->
+    <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">员工文件签署</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+          </div>
+        </div>
+        <div class="box-body">
+        	无犯罪承诺书：
+        	劳动合同：
+        </div>
+        <!-- /.box-body -->
+	</div>
+    
+    <!--其他-->
+    <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">其他</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+          </div>
+        </div>
+        <div class="box-body">
+        	<div class="col-xs-5"><input type="text" name="examination" class="form-control" id="examination" placeholder="入职审批"></div>
+            <div class="col-xs-5"><input type="text" name="isLock" class="form-control" id="isLock" placeholder="当前可用状态"></div>
+        </div>
+        <input type="hidden" name="helpId" id="helpId" value="">
+        <!-- /.box-body -->
+	</div>
+    
+    <input type="hidden" name="uuid" id="uuid" value="">
+    <div class="box-footer" style="position:fixed; left:0px; bottom:0px; width:100%; height:60px;box-shadow: 0px 0px 40px #888888; z-index:9; background-color:#FFF;">
+    <p><error></error></p>
+    <button type="button" class="btn btn-success fl_right" style="width:150px;" onClick="judgeform()">通过入职</button><button type="button" class="btn btn-danger fl_right" style="width:150px; margin-right:50px;" onClick="jumpURL(this)" url="/html/department/" param="">拒绝入职</button>
+    </div>
+    <!-- /.box-footer-->
+</section>
+
+<script>
+$(function () {
+  //Initialize Select2 Elements
+  $('.select2').select2()
+
+  //Date picker
+  $('#birthdate').datepicker({
+	autoclose: true
+  })
+  $('#fileDate').datepicker({
+	autoclose: true
+  })
+});
+$(".col-xs-3").css("position","relative");
+$("input").keyup(function(){
+    if($(this).val()==""){
+        $(this).parent().find("span").remove();
+    }else{
+        if($(this).parent().find("span").length>0){
+            return false;
+        }else{
+            $(this).parent().append("<span style='position:absolute;top: 8px;right: 30px;'>" + $(this).attr("placeholder") + "</span>");
+        }
+    }
+});
+// 加载部门数据
+function getdepartlist(n){
+    var urldep = depUrl + "/employee/depart/getdepartlist";
+	var listHead = '<select class="form-control" name="departId" id="departId"><option selected="selected" value="">入职部门</option>';
+	var listFoot = '</select>';
+    $.ajax({
+		type: 'POST',
+		url: urldep,
+		data: {},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+			var code = data.code;
+			var listHtml = '';
+			if(code=="000000"){
+				var listHtmltemp;
+				//alert(JSON.stringify(data.data));
+				if(JSON.stringify(data.data) == ""){
+					listHtmltemp = ''
+				}else{
+					$.each(data.data,function(i,items){
+						listHtmltemp= '<option value="'+items.id+'">'+items.deptname+'</option>'
+							//这里只做了两级分类，可拓展多级分类
+							if(JSON.stringify(items.chrildren) != "[]"){
+								$.each(items.chrildren,function(j,itemx){
+                                    if(n==itemx.id){
+                                        var smallListHtmltemp = '<option value="'+itemx.id+'" selected="selected">&nbsp;&nbsp;|—'+itemx.deptname+'</option>'
+                                    }else{
+                                        var smallListHtmltemp = '<option value="'+itemx.id+'">&nbsp;&nbsp;|—'+itemx.deptname+'</option>'
+                                    }
+                                    $.each(itemx.chrildren,function(k,itemy){
+                                        if(n==itemx.id){
+                                            var smallLthiistHtmltemp = '<option value="'+itemy.id+'" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;|——'+itemy.deptname+'</option>'
+                                        }else{
+                                            var smallLthiistHtmltemp = '<option value="'+itemy.id+'">&nbsp;&nbsp;&nbsp;&nbsp;|——'+itemy.deptname+'</option>'
+                                        }
+                                        
+                                        smallListHtmltemp = smallListHtmltemp + smallLthiistHtmltemp;
+                                    });
+                                    listHtmltemp = listHtmltemp + smallListHtmltemp;
+								});
+							}
+							//alert(listHtmltemp);
+						listHtml = listHtml + listHtmltemp;
+						for(var b=0;b<4;b++){
+							listHtml = listHtml.replace("null","-");
+						}
+					});
+				}
+				$("#departInfo").html(listHead + listHtml + listFoot);
+                $('#departId').select2()
+				
+			}else if(code=="002003"){
+				$.session.clear();
+				$(location).attr('href', 'login.html');
+			}else{
+				$("#departInfo").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			alert(data.msg);
+			$("#departInfo").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+	});
+}
+//初始化加载页面
+//填充表单信息
+var param = $("#ajaxcontent").attr("param");
+param = param.replace(/'/g,"\"");
+param = JSON.parse(param);
+$("#reflash").attr("param","{'id':'"+param.id+"'}");
+infoLoding(param.id)
+
+function infoLoding(id){
+    //加载form表单
+    var url = depUrl + "/employee/creator/getEmployee";
+    $.ajax({
+		type: 'POST',
+		url: url,
+		data: {"id":id},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+            var code = data.code;
+            if(code=="000000"){
+                $.each(data.data.list,function(i,items){
+                    $("#uuid").val(items.uuid);
+                    $("#helpId").text(items.id);
+                    $("#empNum").text(items.empNum);
+                    $("#empRealname").text(items.empRealname);
+                    $("#empUsername").text(items.empUsername);
+                    if(items.sex == "0"){
+                       $("#sex").text("未知");
+                    }else if(items.sex=="1"){
+                        $("#sex").text("男");
+                    }else if(items.sex=="2"){
+                        $("#sex").text("女");
+                    }
+                    $("#idCard").text(items.idCard);
+                    
+                    $("#birthdate").text(items.birthdate);
+                    $("#nativePlace").text(items.nativePlace);
+                    if(items.isMarried=="0"){
+                        $("#isMarried").text("已婚");
+                    }else if(items.isMarried=="1"){
+                         $("#isMarried").text("未婚");
+                    }
+                    $("#national").text(items.national);
+                    $("#education").text(items.education);
+                    $("#phone").text(items.phone);
+                    if(items.isMilitaryService=="0"){
+                         $("#isMilitaryService").text("有");
+                    }else if(items.isMilitaryService=="1"){
+                         $("#isMilitaryService").text("无");
+                    }
+                    $("#politicsStatus").text(items.politicsStatus);
+                    $("#height").text(items.height);
+                    $("#emergencyContact").text(items.emergencyContact);
+                    $("#emergencyContactNum").text(items.emergencyContactNum);
+                    $("#specialty").text(items.specialty);
+                    $("#correspondenceAddress").text(items.correspondenceAddress);
+                    $("#contactAddress").text(items.contactAddress);
+                    $("#departName").text(items.departName);
+                    $("#job").text(items.job);
+                    //$("#projectId").text(items.projectId);//未开发，待开发
+                    if(items.empType=="0"){
+                        $("#empType").text("保安员");
+                    }else if(items.empType=="1"){
+                        $("#empType").text("管理层");
+                    }
+                    if(items.isLookMoney=="0"){
+                        $("#isLookMoney").text("允许");
+                    }else if(items.isLookMoney=="1"){
+                         $("#isLookMoney").text("不允许");
+                    }
+                    $("#hiredateMoney").text(items.hiredateMoney);
+                    $("#probationPeriodMoney").text(items.probationPeriodMoney);
+                    $("#phoneAllowance").text(items.phoneAllowance);
+                    $("#trafficAllowance").text(items.trafficAllowance);
+                    $("#foodAllowance").text(items.foodAllowance);
+                    $("#otherAllowance").text(items.otherAllowance);
+                    $("#foodDeductions").text(items.foodDeductions);
+                    $("#withhold").text(items.withhold);
+                    $("#waterElectricityDeductions").text(items.waterElectricityDeductions);
+                    $("#socialSecurityMoney").text(items.socialSecurityMoney);
+                    $("#accumulationFundMoney").text(items.accumulationFundMoney);
+                    $("#otherDeductions").text(items.otherDeductions);
+                    $("#individualIncomeTax").text(items.individualIncomeTax);
+                    $("#socialSecurityNum").text(items.socialSecurityNum);
+                    $("#accumulationFundNum").text(items.accumulationFundNum);
+                    $("input[name='insuranceType']").each(function () {
+                        if(JSON.stringify(items.insuranceType).indexOf($(this).val())>=0){
+                            returnInsuranceType($(this).val());//还有问题，待解决
+                        }
+                    })
+                    if(items.isMountGuard=="0"){
+                        $("#isMountGuard").text("有");
+                    }else if(items.isMountGuard=="1"){
+                        $("#isMountGuard").text("无");
+                    }
+                    $("#mountGuardCardnum").text(items.mountGuardCardnum);
+                    $("#digitalReceipNumt").text(items.digitalReceipNumt);
+                    $("#fileDate").text(items.fileDate);
+                    if(items.medicalType=="0"){
+                        $("#medicalType").text("通过");
+                    }else if(items.medicalType=="1"){
+                        $("#medicalType").text("未通过");
+                    }
+                    if(items.examination=="0"){
+                        $("#examination").text("正常入职");
+                    }else if(items.examination=="1"){
+                        $("#examination").text("特殊入职");
+                    }
+                    if(items.isLock=="1"){
+                        $("#isLock").text("锁定");
+                    }else if(items.examination=="0"){
+                        $("#isLock").text("正常");
+                    }
+                    //遍历所有的input 补充字段标题
+                    $('input[type=text]').each(function(){
+                        $(this).prop("readonly",true);
+                        $(this).parent().append("<span style='position:absolute;top: 8px;right: 30px;'>" + $(this).attr("placeholder") + "</span>");
+                        $(this).prop("placeholder","--");
+                    });
+                });
+                
+            }else if(code=="002003"){
+                $.session.clear();
+				$(location).attr('href', 'login.html');
+            }else{
+				$("#departInfo").text("* 错误提示："+ data.msg +"！");
+			}
+        },
+		error:function(data){
+			alert(data.msg);
+			$("#departInfo").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+    });
+    
+    //加载护卫点（项目）列表
+    $("#projectId").click(function(){
+        alert("功能开发中");
+    });
+}
+//function pinyin(obj){
+//	$("#empUsername").val($(obj).toPinyin());
+//}
+//入职审批操作
+function editEmpStatus(status,content){
+    var uuid = $("#uuid").val();
+    if(uuid==""){
+        alert("参数错误");
+        return false;
+    }else{
+        var ApName = '';
+        if(status=="1"){
+           ApName = '通过';
+        }else if(status=="2"){
+            ApName = '拒绝';
+        }
+        var url = depUrl + "/employee/creator/audit";
+        if(confirm("确定"+ApName+"该员工入职申请吗?")){
+            $.ajax({
+                type:"POST",
+                url:url,
+                data:{"auditNum":id,"status":status,"content":content},
+                dataType: "json",
+                headers:{accessToken:$.session.get('accessToken')},
+                success:function(data){
+                    var code = data.code;
+                    if(code=="000000"){
+                        alert("审批成功"); autoJumpURL('/html/personnel/inLeavApproval.html');
+                    }else if(code=="002003"){
+                        alert("当前登录已失效,请重新登录");
+                        $.session.clear();
+                        $(location).attr('href', 'login.html');
+                    }else{
+                        $("#roleselect").text("* 错误提示："+ data.msg +"！");
+                    }
+                },
+                error:function(data){
+                    $(".box-footer error").text("* 错误提示："+ data.msg +"！");
+                    return false;
+                }
+            });
+        }
+    }
+}
+</script>

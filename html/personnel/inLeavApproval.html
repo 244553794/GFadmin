@@ -1,0 +1,439 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- Content Header (页眉) -->
+<section class="content-header">
+    <h1>员工入离职审批
+    	<small>入离职审批信息列表</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li><a>员工入离职审批列表</a></li>
+        <li class="active">信息列表</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+        <div class="form-group">
+            <div class="col-xs-2"><input type="text" class="form-control" id="empNum" name="empNum" placeholder="人员编号"></div>
+            <div class="col-xs-1"><input type="text" class="form-control" id="empRealname" name="empRealname" placeholder="姓名"></div>
+            <div class="col-xs-2"><input type="text" class="form-control" id="phone" name="phone" placeholder="手机号码"></div>
+            <div class="col-xs-2" id="departInfo"></div>
+            <button type="button" class="btn btn-default" id="daterange-btn">
+              <span>
+                <i class="fa fa-calendar"></i> 日期范围选择
+              </span>
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <input type="hidden" name="starttime" id="starttime">
+            <input type="hidden" name="endtime" id="endtime">
+            <button type="button" class="btn btn-primary" onclick="getEmployee()"><i class="fa fa-search" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-primary float-right" onClick="jumpURL(this)" url="/html/personnel/inLeavApproval.html" param="" title="刷新"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body" id="ajaxTable">
+          <!--
+          |-----------------------|
+          |      异步加载数据       |
+          |-----------------------|
+          -->
+        </div>
+        <!--分页-->
+        <div class="pagination-holder clearfix">
+            <input type="hidden" name="pageNo" id="pageNo" value="1">
+            <div id="compact-pagination"></div>
+        </div>
+        <!-- /.box-body -->
+        
+      </div>
+      <!-- /.box -->
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+</section>
+<!-- /.content -->
+<!-- page script -->
+<script>
+function clearDate(){
+	$("#daterange-btn").html('<span><i class="fa fa-calendar"></i> 日期范围选择</span><i class="fa fa-caret-down"></i>'); 
+}
+//数据分页
+$(function () {
+  $("#example").DataTable({
+	"paging"      : false,
+	"lengthChange": false,
+	"searching"   : false,
+	"ordering"    : true,
+	"info"        : false,
+	"autoWidth"   : false
+  })
+})
+//select事件
+$(function () {
+  //Initialize Select2 Elements
+  $('.select2').select2()
+
+  //Datemask dd/mm/yyyy
+  $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+  //Datemask2 mm/dd/yyyy
+  $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+  //Money Euro
+  $('[data-mask]').inputmask()
+
+  //Date range picker
+  $('#reservation').daterangepicker()
+  //Date range picker with time picker
+  $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
+  //Date range as a button
+  $('#daterange-btn').daterangepicker(
+	{
+	  ranges   : {
+		'今天'       : [moment(), moment()],
+		'昨天'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+		'最近7天' : [moment().subtract(6, 'days'), moment()],
+		'近 30 天': [moment().subtract(29, 'days'), moment()],
+		'本月'  : [moment().startOf('month'), moment().endOf('month')],
+		'上月'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+	  },
+	  startDate: moment().subtract(29, 'days'),
+	  endDate  : moment()
+	},
+	function (start, end) {
+	  $('#daterange-btn span').html(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+      var starttime = start.format('YYYY-MM-DD hh:mm:ss');
+	  var endtime = end.format('YYYY-MM-DD hh:mm:ss');
+      $("#starttime").val(starttime);
+      $("#endtime").val(endtime);
+	}
+  )
+
+  //Date picker
+  $('#datepicker').datepicker({
+	autoclose: true
+  })
+
+  //iCheck for checkbox and radio inputs
+  $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+	checkboxClass: 'icheckbox_minimal-blue',
+	radioClass   : 'iradio_minimal-blue'
+  })
+  //Red color scheme for iCheck
+  $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+	checkboxClass: 'icheckbox_minimal-red',
+	radioClass   : 'iradio_minimal-red'
+  })
+  //Flat red color scheme for iCheck
+  $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+	checkboxClass: 'icheckbox_flat-green',
+	radioClass   : 'iradio_flat-green'
+  })
+
+  //Colorpicker
+  $('.my-colorpicker1').colorpicker()
+  //color picker with addon
+  $('.my-colorpicker2').colorpicker()
+
+  //Timepicker
+  $('.timepicker').timepicker({
+	showInputs: false
+  })
+})
+
+function showMoreInfo(obj){
+	$(obj).find(".moreInfo").show();
+}
+function closeMoreInfo(obj){
+	$(obj).find(".moreInfo").hide();
+}
+//初始化加载页面
+infoLoding()
+function infoLoding(){
+    //加载部门列表
+    var url = depUrl + "/employee/depart/getdepartlist";
+	var listHead = '<select class="form-control" name="departId" id="departId"><option selected="selected" value="">入职部门</option>';
+	var listFoot = '</select>';
+    $.ajax({
+		type: 'POST',
+		url: url,
+		data: {},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+			var code = data.code;
+			var listHtml = '';
+			if(code=="000000"){
+				var listHtmltemp;
+				//alert(JSON.stringify(data.data));
+				if(JSON.stringify(data.data) == ""){
+					listHtmltemp = ''
+				}else{
+					$.each(data.data,function(i,items){
+						listHtmltemp= '<option value="'+items.id+'">'+items.deptname+'</option>'
+							//这里只做了两级分类，可拓展多级分类
+							if(JSON.stringify(items.chrildren) != "[]"){
+								$.each(items.chrildren,function(j,itemx){
+									var smallListHtmltemp = '<option value="'+itemx.id+'">&nbsp;&nbsp;|—'+itemx.deptname+'</option>'
+                                    $.each(itemx.chrildren,function(k,itemy){
+                                        var smallLthiistHtmltemp = '<option value="'+itemy.id+'">&nbsp;&nbsp;&nbsp;&nbsp;|——'+itemy.deptname+'</option>'
+                                        smallListHtmltemp = smallListHtmltemp + smallLthiistHtmltemp;
+                                    });
+                                    listHtmltemp = listHtmltemp + smallListHtmltemp;
+								});
+							}
+							//alert(listHtmltemp);
+						listHtml = listHtml + listHtmltemp;
+						for(var b=0;b<4;b++){
+							listHtml = listHtml.replace("null","-");
+						}
+					});
+				}
+				$("#departInfo").html(listHead + listHtml + listFoot);
+                $('#departId').select2()
+				
+			}else if(code=="002003"){
+				$.session.clear();
+				$(location).attr('href', 'login.html');
+			}else{
+				$("#departInfo").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			alert(data.msg);
+			$("#departInfo").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+	});
+    //加载护卫点（项目）列表
+    $("#projectId").click(function(){
+        alert("功能开发中");
+    });
+}
+    
+//统一加载分页数据
+function loadData(pn){
+	$("#pageNo").val(pn);
+	var pageNo = $("#pageNo").val();
+	getEmployee()
+}
+//判断是否为初始加载
+var pno = $("#pageNo").val();
+if(pno == 1){
+	getEmployee();
+}
+//函数名：getEmployee
+//函数作用：请求信息列表
+function getEmployee(){
+    var editUrl = "/html/personnel/edit.html";
+    var showUrl = "/html/personnel/leaveDetial.html";
+    var param = "{'id':'{$id}'}";
+    //搜索参数
+    var empNum = $("#empNum").val();
+    var empRealname = $("#empRealname").val();
+    var phone = $("#phone").val();
+    var departId = $("#departId").val();
+    var starttime = $("#starttime").val();
+    var endtime = $("#endtime").val();
+    
+	var listHead = '<table id="example" class="table table-bordered table-hover"><thead><tr><th width="8"><label><input type="checkbox"></label></th><th>人员编号</th><th>姓名</th><th>所属部门</th><th>职位</th><th>在职状态</th><th>审批状态</th><th width="260">操作</th></tr></thead><tbody>';
+	var listFoot = '</tbody></table>';
+	var delBtn = '<button type="button" class="btn btn-primary" title="删除" onClick="deleteEmployee({$id})"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
+	var edtBtn = '<button type="button" class="btn btn-primary" title="编辑" onClick="jumpURL(this)" url="'+editUrl+'" param="'+param+'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
+	var lckBtn = '<button type="button" class="btn btn-primary" title="锁定" onClick="isLock({$id})"><i class="fa fa-lock" aria-hidden="true"></i></button>';
+    var unlckBtn = '<button type="button" class="btn btn-primary" title="解锁" onClick="isLock({$id})"><i class="fa fa-unlock" aria-hidden="true"></i></button>';
+    var lckInco = '&nbsp;&nbsp;<i class="fa fa-lock" aria-hidden="true" style="color:red;cursor:pointer"></i>';
+	var shwBtn = '<button type="button" class="btn btn-primary" title="查看" onClick="jumpURL(this)" url="'+showUrl+'" param="'+param+'"><i class="fa fa-eye" aria-hidden="true"></i></button>';
+	var thgBtn = '';
+	var RefBtn = '';
+    
+    var lckBtnHtml='';
+    var incoHtml = '';
+	var url = depUrl + "/employee/creator/getEmployee";
+	var pageNo = $("#pageNo").val();
+	$.ajax({
+		type: 'POST',
+		url: url,
+		data: {"pageNo":pageNo,"empNum":empNum,"empName":empRealname,"phone":phone,"departId":departId,"starttime":starttime,"endtime":endtime,"strAudit":"1,2","islock":"0"},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+		success: function(data){
+			var code = data.code;
+			var empstatus;
+			var empType;
+			var insuranceType="";
+            //alert(data.data);
+			if(code=="000000" && data.data!="" && data.data!=null){
+                //alert(0);
+                var listHtml = '';
+                var empStatus = '';
+                
+                if(data.data.total == "0" || data.data.total == 0){
+                    listHtml = '<tr><td colspan="8"><font color="#999999">数据空空如也，喝一杯咖啡休息一下吧！</font></td></tr>'
+                }else{
+                    $.each(data.data.list,function(i,items){
+                        edtBtn = edtBtn.replace("{$id}",items.id);
+                        shwBtn = shwBtn.replace("{$id}",items.id);
+                        lckBtn = lckBtn.replace("{$id}",items.id);
+                        unlckBtn = unlckBtn.replace("{$id}",items.id);
+                        delBtn = delBtn.replace("{$id}",items.id);
+                        thgBtn = thgBtn.replace("{$uuid}",items.uuid);
+                        RefBtn = RefBtn.replace("{$uuid}",items.uuid);
+                        if(items.isLock=="1"){
+                            lckBtnHtml = unlckBtn;
+                            incoHtml = lckInco;
+                        }else{
+                            lckBtnHtml = lckBtn;
+                            incoHtml = '';
+                        }
+                        if(items.audit=="1"){
+                            thgBtn = "";
+                            RefBtn = "";
+                        }
+                        if(items.audit=="2"){
+                            edtBtn = "";
+                            lckBtnHtml = "";
+                        }
+                        var uuid = items.uuid;
+                        var ise = 0;
+                        var deptid = $.session.get('deptid');
+                        if(items.audit=="2"){
+                            if(JSON.stringify(items.detailList)=="[]"){//还没有人审核过的请假
+                                if(items.departId==deptid){//当前登录用户，与当前数据的部门ID是一样的，即当前登录用户正好是当前请假用户的部门负责人
+                                    ise = ise + 1;//给按钮
+                                }else{
+                                    ise = 0;//否则不给
+                                }
+                            }else{//已经开始审核了
+                                var isexist = "";
+                                $.each(items.detailList,function(i,itemx){
+                                    if(itemx.auditDeptid == deptid){//判断当前登录用户与审核用户是否一致
+                                        isexist = isexist + itemx.auditDeptid;//如果说当前用户已经审核过了，isexist就不为空
+                                    }
+                                });
+                                if(isexist == ""){//如果isexist为空，就说明当前用户还没有审核
+                                    ise = ise + 1;//给按钮
+                                }
+                            }
+
+                        }
+                        if(ise > 0){
+                            thgBtn = '<button type="button" class="btn btn-success" title="通过" onClick=editEmpStatus("'+uuid+'","1","")><i class="fa fa-check" aria-hidden="true"></i>通过</button>';
+                            RefBtn = '<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-default" title="拒绝" onClick=editEmpStatus("'+uuid+'","1","")><i class="fa fa-times" aria-hidden="true"></i>拒绝</button>';
+                        }
+                        listHtml = listHtml + '<tr><td><label><input type="checkbox" value="'+items.id+'"></label></td><td>'+items.empNum+'</td><td style="position:relative;" onMouseOver="showMoreInfo(this)" onMouseOut="closeMoreInfo(this)">'+items.empRealname +'&nbsp;&nbsp;<i class="fa fa-th" aria-hidden="true" style="color:#5bc0de;cursor:pointer"></i>'+incoHtml+'<div class="moreInfo" style="left:100px"><i class="fa fa-caret-left" aria-hidden="true"></i><p>联系电话：'+items.phone+'</p><p>入职时间：'+items.hiredate+'</p><p>保险状态：'+returnInsuranceType(items.insuranceType)+'</p><p>员工类型：'+returnEmpType(items.empType)+'</p></div></td><td>'+items.departName+'</td><td>'+items.job+'</td><td>'+returnEmpStatus(items.empStatus)+'</td><td>待审核</td><td><div class="btn-group">' + edtBtn + lckBtnHtml + shwBtn + RefBtn + thgBtn  + '</div></td></tr>';
+                        for(var a=0;a<10;a++){
+                            listHtml = listHtml.replace("null","-");
+                        }
+                        edtBtn = '<button type="button" class="btn btn-primary" title="编辑" onClick="jumpURL(this)" url="'+editUrl+'" param="'+param+'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
+                        shwBtn = '<button type="button" class="btn btn-primary" title="查看" onClick="jumpURL(this)" url="'+showUrl+'" param="'+param+'"><i class="fa fa-eye" aria-hidden="true"></i></button>';
+                        lckBtn = '<button type="button" class="btn btn-primary" title="锁定" onClick="isLock({$id})"><i class="fa fa-lock" aria-hidden="true"></i></button>';
+                        unlckBtn = '<button type="button" class="btn btn-primary" title="解锁" onClick="isLock({$id})"><i class="fa fa-unlock" aria-hidden="true"></i></button>';
+                        delBtn = '<button type="button" class="btn btn-primary" title="删除" onClick="deleteEmployee({$id})"><i class="fa fa-trash-o" aria-hidden="true"></i></button>'
+                        tghBtn = '';
+                        RfsBtn = '';
+                        ise = 0;
+                    });
+                }
+                $("#ajaxTable").html(listHead + listHtml + listFoot);
+				
+			}else if(code=="002003"){
+				$.session.clear();
+				$(location).attr('href', 'login.html');
+			}else{
+				$("#ajaxTable").text("* 错误提示："+ data.msg +"！");
+			}
+			//分页显示
+			$('#compact-pagination').pagination({
+				pages: data.data.pages,
+				cssStyle: 'compact-theme',
+				displayedPages: 7,
+				currentPage: pageNo
+			});
+		},
+		error:function(data){
+			alert(data.msg);
+			$("#ajaxTable").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+	});
+}
+    
+// 锁定操作
+function isLock(id){
+	if(id==""){
+		alert("请选择要操作的记录");
+		return false;
+	}else{
+		var url = depUrl + "/employee/creator/lock/"+id;
+		$.ajax({
+			type:"POST",
+			url:url,
+			data:{},
+			dataType: "json",
+			headers:{accessToken:$.session.get('accessToken')},
+			success:function(data){
+				var code = data.code;
+				if(code=="000000"){
+					autoJumpURL('/html/personnel/index.html');
+				}else if(code=="002003"){
+					alert("当前登录已失效,请重新登录");
+					$.session.clear();
+					$(location).attr('href', 'login.html');
+				}else{
+					$("#roleselect").text("* 错误提示："+ data.msg +"！");
+				}
+			},
+			error:function(data){
+				$(".box-footer error").text("* 错误提示："+ data.msg +"！");
+				return false;
+			}
+		});
+	}
+}
+//入职审批操作
+function editEmpStatus(id,status,content){
+    if(id==""){
+        alert("参数错误！");
+        return false;
+    }else{
+        var ApName = '';
+        if(status=="1"){
+           ApName = '通过';
+        }else if(status=="2"){
+            ApName = '拒绝';
+        }
+        var url = depUrl + "/employee/creator/audit";
+        if(confirm("确定"+ApName+"该员工入职申请吗?")){
+            $.ajax({
+                type:"POST",
+                url:url,
+                data:{"auditNum":id,"status":status,"content":content},
+                dataType: "json",
+                headers:{accessToken:$.session.get('accessToken')},
+                success:function(data){
+                    var code = data.code;
+                    if(code=="000000"){
+                        alert("审批成功");
+                        autoJumpURL('/html/personnel/inLeavApproval.html');
+                    }else if(code=="002003"){
+                        alert("当前登录已失效,请重新登录");
+                        $.session.clear();
+                        $(location).attr('href', 'login.html');
+                    }else{
+                        alert("* 错误提示："+ data.msg +"！");
+                    }
+                },
+                error:function(data){
+                    alert("* 错误提示："+ data.msg +"！");
+                    return false;
+                }
+            });
+        }
+    }
+}
+</script>

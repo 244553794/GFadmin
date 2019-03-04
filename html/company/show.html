@@ -1,0 +1,185 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<section class="content-header">
+    <h1>增加保安公司信息
+    	<small>新增保安公司</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li><a>保安信息管理</a></li>
+        <li class="active">新增信息</li>
+    </ol>
+</section>
+<section class="content">
+    <form>
+    <!--基本信息-->
+    <div class="box">
+    	<div class="box-header with-border">
+        	<h3 class="box-title">基本信息</h3>
+            <div class="box-tools pull-right">
+            	<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" id="refresh" title="刷新" onClick="jumpURL(this)" url="/html/company/addEdit.html" param=""><i class="fa fa-refresh" aria-hidden="true"></i></button>
+            </div>
+        </div>
+        <!--box-header end-->
+        <div class="box-body">
+        	<div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1; "><div style="width:200px;"><font color="#FF0000">*</font>公司名称</div></span>
+                <div class="form-control" id="companyName"></div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">公司地址</div></span>
+                <div class="form-control" id="companyAddress"></div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">公司电话</div></span>
+                <div class="form-control" id="companyPhone"></div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">联系人</div></span>
+                <div class="form-control" id="contactName"></div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">联系电话</div></span>
+                <div class="form-control" id="contactPhone"></div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">营业执照</div></span>
+                <div class="form-control" style="height:auto">
+                    <ul class="upload-ul clearfix" inputName="businessLicenseImage">
+                    </ul>
+                    <error></error>
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">资质证书</div></span>
+                <div class="form-control" style="height:auto">
+                    <ul class="upload-ul clearfix" inputName="qualificationCertificateImage">
+                    </ul>
+                    <error></error>
+                </div>
+            </div>
+        </div>
+       <!-- box-body end-->
+    </div>
+   <!-- box end-->
+   
+   <!--法人信息-->
+   <div class="box">
+    	<div class="box-header with-border">
+        	<h3 class="box-title">法人信息</h3>
+            <div class="box-tools pull-right">
+            	<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <!--box-header end-->
+        <div class="box-body">
+        	<div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">法人姓名</div></span>
+                <div class="form-control" id="legalName"></div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">法人身份证号</div></span>
+                <div class="form-control" id="legalCardNum"></div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">法人身份证</div></span>
+                <div class="form-control" style="height:auto">
+                    <ul class="upload-ul clearfix" inputName="">
+                        <li class="upload-pick">
+                            <div class="webuploader-container clearfix" id="goodsUpload3"></div>
+                        </li>
+                    </ul>
+                    <error></error>
+                </div>
+            </div>
+        </div>
+       <!-- box-body end-->
+    </div>
+   <!-- box end-->
+   
+   <!--对公账户-->
+   <div class="box">
+    	<div class="box-header with-border">
+        	<h3 class="box-title">对公账户</h3>
+            <div class="box-tools pull-right">
+            	<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <!--box-header end-->
+        <div class="box-body">
+        	<div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;"><font color="#FF0000">*</font>账户卡号</div></span>
+                <div class="form-control" id="bankCardNum"></div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;"><font color="#FF0000">*</font>开户行</div></span>
+                <div class="form-control" id="bankName"></div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;"><font color="#FF0000">*</font>账户名</div></span>
+                <div class="form-control" id="accountName"></div>
+            </div>
+        </div>
+       <!-- box-body end-->
+    </div>
+   <!-- box end-->
+   
+   <!-- /.box-body -->
+    <input type="hidden" name="companyId" id="companyId" value="" />
+    <div class="box-footer" style="position:fixed; left:0px; bottom:0px; width:100%; height:60px;box-shadow: 0px 0px 40px #888888; z-index:9; background-color:#FFF;"><button type="button" class="btn btn-default fl_right" style="width:150px; margin-right:50px;" onClick="jumpURL(this)" url="/html/company/" param="">取消返回</button>
+    </div>
+    <!-- /.box-footer-->
+    </form>
+</section>
+<script>
+var param = $("#ajaxcontent").attr("param");
+if(param!=""){
+    $("#refresh").attr("param",param);
+    fillForm(param);
+}else{
+    alert("未找到相关记录！");
+    autoJumpURL('/html/company/index.html');
+}
+
+//填充表单
+function fillForm(p){
+    var url = depUrl + "/employee/securityCompany/get";
+    $.ajax({
+        type: 'POST',
+		url: url,
+		data: {"companyId":p},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+        success:function(data){
+            if(data.code=="000000"){
+                $.each(data.data.list,function(i,items){
+                    $("#companyName").text(items.companyName);
+                    $("#companyAddress").text(items.companyAddress);
+                    $("#companyPhone").text(items.companyPhone);
+                    $("#contactName").text(items.contactName);
+                    $("#contactPhone").text(items.contactPhone);
+                    $("#legalName").text(items.legalName);
+                    $("#legalCardNum").text(items.legalCardNum);
+                    $("#bankCardNum").text(items.bankCardNum);
+                    $("#bankName").text(items.bankName);
+                    $("#accountName").text(items.accountName);
+                    
+                    $(".upload-ul").eq(0).html('<li id="fileBox_WU_FILE_4" class="diyUploadHover"><div class="viewThumb"><input type="hidden" name="businessLicenseImage" id="businessLicenseImage" value="'+items.businessLicenseImage+'"><div class="diyBar"><div class="diyProgress">0%</div></div><p class="diyControl"><span class="diyLeft"><i></i></span><span class="diyCancel"><i></i></span><span class="diyRight"><i></i></span></p><img src="'+items.businessLicenseImage+'"></div></li>');
+                    $(".upload-ul").eq(1).html('<li id="fileBox_WU_FILE_4" class="diyUploadHover"><div class="viewThumb"><input type="hidden" name="businessLicenseImage" id="businessLicenseImage" value="'+items.qualificationCertificateImage+'"><div class="diyBar"><div class="diyProgress">0%</div></div><p class="diyControl"><span class="diyLeft"><i></i></span><span class="diyCancel"><i></i></span><span class="diyRight"><i></i></span></p><img src="'+items.qualificationCertificateImage+'"></div></li>');
+                });
+            }else if(code=="002003"){
+                $.session.clear();
+				$(location).attr('href', 'login.html');
+            }else{
+               $(".modal-body").text("* 错误提示："+ data.msg +"！"); 
+            }
+        },
+        error:function(data){
+			alert(data.msg);
+			$(".modal-body").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+    });
+}
+</script>
