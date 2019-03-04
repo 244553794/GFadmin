@@ -1,0 +1,31 @@
+<div class="purchase">
+    <div class="head">
+        <div class="ltmenu" style="width:720px;">
+            <titbox class="on">全部</titbox>
+            <titbox>待发起</titbox>
+            <titbox>待审核</titbox>
+            <titbox>审核中</titbox>
+            <titbox>已通过</titbox>
+            <titbox>未通过</titbox>
+        </div>
+    </div>
+    <template>
+    <div class="list">
+        <p>编号：{$}<span class="dage">已拒绝</span></p>
+        <div class="licont">
+            <yen>￥<font>50</font><br />采购成本</yen>
+            <div>发起部门：南昌事业部</div>
+            <div>发起人：张三</div>
+            <div>发起时间：2018-09-09 10:10:10</div>
+        </div>
+        <action><span class="dage">查看</span><span class="winn">编辑</span><span class="winn">发起</span></action>
+    </div>
+    <clear></clear>
+    </template>
+    <list></list>
+</div>
+<div class="submit" onclick=jumpUrl("page/purchaseAddEdit.html","1","")>发起采购</div>
+<script>
+ajaxPostApi("{}","/myaudit/getMySendPurchase",0);//获取列表数据
+function requestData(jsonObj){drawListPage(jsonObj);}//解析列表数据
+</script>

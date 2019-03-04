@@ -1,0 +1,115 @@
+<div class="sign">
+    <div class="head">
+        <img src="../img/face.png">
+        <div class="empinof">
+        </div>
+        <div class="salay">
+            <p class="num" id="week"></p>
+            <p id="empDate"></p>
+        </div>
+        <form>
+            <input type="hidden" name="empId" id="empId" value="" />
+            <input type="hidden" name="empName" id="empName" value="" />
+            <input type="hidden" name="startWork" id="startWork" value="" />
+            <input type="hidden" name="endWork" id="endWork" value="" />
+            <input type="hidden" name="startWorkAddress" id="startWorkAddress" value="" />
+            <input type="hidden" name="endWorkAddress" id="endWorkAddress" value="" />
+        </form>
+    </div>
+    <div class="cont">
+        <div class="mapbox" id="allmap">
+            
+        </div>
+        <div class="mapaddr">
+            <div class="left">
+                <b></b>
+                <p></p>
+            </div>
+            <div class="right" onclick="javascript:window.location.reload()">
+                <i class="fa fa-refresh"> </i> 重新定位
+            </div>
+        </div>
+        <div class="actbox">
+            <div><span class="signin" onclick="qiandao(0)"><i class="fa fa-street-view"></i><p>签到</p></span></div>
+            <div><span class="signout" onclick="qiandao(1)"><i class="fa fa-map-signs"></i><p>签退</p></span></div>
+            <div><span class="detail" onclick=javascript:window.location.href='index.html?{"url":"page/signList.html","title":"签到明细","headstyle":"1","param":[]}'><i class="fa fa-list"></i><p>记录</p></span></div>
+        </div>
+        <div class="recod" style="display: none;">
+            <div class="tit"><span> · 时光印记 · </span></div>
+            <div class="left"></div>
+            <div class="right"><i class="fa fa-clock-o"> </i> 今日签退：80:90</div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+!function(mapInit) {
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src = "http://api.map.baidu.com/api?v=2.0&ak=" + mapAppkey + "&callback=mapinit";
+  window['mapinit'] = function() {
+    mapInit();
+  };
+  document.head.appendChild(script);
+  //统计页面
+}(function() {
+  // 百度地图API功能
+	var map = new BMap.Map("allmap");
+	var point = new BMap.Point(116.331398,39.897445);
+    
+	map.centerAndZoom(point,18);
+
+	var geolocation = new BMap.Geolocation();
+	geolocation.getCurrentPosition(function(r){
+		if(this.getStatus() == BMAP_STATUS_SUCCESS){
+            console.log(JSON.stringify(r));
+			var mk = new BMap.Marker(r.point);
+			map.addOverlay(mk);
+			map.panTo(r.point);
+            if(r.address.streetNumber==undefined){
+                $(".mapaddr .left b").text(cundefind(r.address.street,0));
+            }else{
+                $(".mapaddr .left b").text(r.address.streetNumber);
+            }
+            $(".mapaddr .left p").text(cundefind(r.address.province,0) + cundefind(r.address.city,0) + cundefind(r.address.district,0) + cundefind(r.address.street,0) + cundefind(r.address.streetNumber,0));
+		}
+		else {
+			alert('定位失败：请检查是否开启手机定位。');
+		}        
+	},{enableHighAccuracy: true})
+});
+//获取员工信息
+getEmpInfo();
+//签到
+function qiandao(type){
+    //获取当前时间
+    var date = new Date();
+    if(type==0){
+        $("#startWork").val(getFormatDate("yyyy-mm-dd hh:mm:ss"));
+        $("#startWorkAddress").val($(".mapaddr .left p").text());
+    }else{
+        $("#endWork").val(getFormatDate("yyyy-mm-dd hh:mm:ss"));
+        $("#endWorkAddress").val($(".mapaddr .left p").text());
+    }
+    var url = depUrl + "/employee/empClockIn";
+    var data = {};//全局json
+    var t = $('form').serializeArray();
+    $.each(t, function(){
+        data[this.name] = this.value;
+    });
+    empClockIn(data);
+}
+//打卡时间
+var pram = '{"starttime":"'+getFormatDate("yyyy-mm-dd")+' 00:00:00","endtime":"'+getFormatDate("yyyy-mm-dd")+' 23:59:59"}';
+getClockInList(pram);
+function loadList(jsonObj){
+    $.each(jsonObj.data.list,function(i,items){
+        if(clearNull(items.startWork,"")!="" || clearNull(items.endWork,"")!=""){
+            $(".recod").css("display","block");
+            $(".recod .left").html('<i class="fa fa-history"> </i> 今日签到：'+JsonStringData.startWork);
+            $(".recod .left").html('<i class="fa fa-clock-o"> </i> 今日签退：'+JsonStringData.endWork);
+        }
+    });
+}
+</script>

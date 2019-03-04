@@ -1,0 +1,36 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta charset="utf-8">
+<title>工作台</title>
+<link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
+<link href="../css/wap.css" rel="stylesheet">
+<link rel="stylesheet" href="../js/date/mobiscroll.custom-2.6.2.min.css" />
+<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../js/function.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/iscroll.js"></script>
+<script src="../js/pullToRefresh.js"></script>
+<script type="text/javascript" src="../js/date/mobiscroll.custom-2.6.2.min.js" ></script>
+<script src="../js/session.js"></script>
+
+</head>
+<body>
+<div class="pg_head">
+    <span class="hleft"><i class="fa fa-angle-left" onclick="javascript:history.back(-1);"></i></span>
+    <span class="hright"><i class="fa fa-commenting"></i></span>
+</div>
+<div id="pageConts">
+    <!--异步加载page内容-->
+</div>
+</body>
+</html>
+<script>
+var u = decodeURI(window.location.href);
+var uArr = new Array();
+uArr = u.split("?");
+var p = JSON.parse(uArr[1]);
+$(".pg_head").append(p.title);
+jumpUrl(p.url,p.headstyle,JSON.stringify(p.param));
+
+</script>

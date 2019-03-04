@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>保安互联网管理平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <script src="js/config.js"></script>
+  <link rel="stylesheet" media="screen" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/reset.css"/>
+</head>
+<body>
+
+<div id="particles-js">
+		<div class="login">
+			<div class="login-top">
+				<img src="img/AdminLTELogo.png"/>
+			</div>
+			<div class="login-center clearfix">
+				<div class="login-center-img"><img src="img/name.png"/></div>
+				<div class="login-center-input">
+					<input type="text" name="username" id="username" value="" placeholder="请输入您的用户名" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的用户名'"/>
+					<div class="login-center-input-text">用户名</div>
+				</div>
+			</div>
+			<div class="login-center clearfix">
+				<div class="login-center-img"><img src="img/password.png"/></div>
+				<div class="login-center-input">
+					<input type="password" name="password" id="password" value="" placeholder="请输入您的密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的密码'"/>
+					<div class="login-center-input-text">密码</div>
+				</div>
+			</div>
+			<div class="login-button" onClick="loginaction()">
+				登陆
+			</div>
+            <error></error>
+		</div>
+		<div class="sk-rotating-plane"></div>
+</div>
+
+<!-- scripts -->
+<script src="js/jquery-1.7.1.min.js"></script>
+<script src="js/session.js"></script>
+<script src="js/particles.min.js"></script>
+<script src="js/app.js"></script>
+<script type="text/javascript">
+
+function hasClass(elem, cls) {
+  cls = cls || '';
+  if (cls.replace(/\s/g, '').length == 0) return false; //当cls没有参数时，返回false
+  return new RegExp(' ' + cls + ' ').test(' ' + elem.className + ' ');
+}
+ 
+function addClass(ele, cls) {
+  if (!hasClass(ele, cls)) {
+	ele.className = ele.className == '' ? cls : ele.className + ' ' + cls;
+  }
+}
+ 
+function removeClass(ele, cls) {
+  if (hasClass(ele, cls)) {
+	var newClass = ' ' + ele.className.replace(/[\t\r\n]/g, '') + ' ';
+	while (newClass.indexOf(' ' + cls + ' ') >= 0) {
+	  newClass = newClass.replace(' ' + cls + ' ', ' ');
+	}
+	ele.className = newClass.replace(/^\s+|\s+$/g, '');
+  }
+}
+function loginrequest(uname,pwd){
+	var url = wapUrl + "/employee/exclude/login";
+    var jsonData = '{"empUsername":"'+uname+'","empPassword":"'+pwd+'"}'
+	$.ajax({
+		type: 'POST',
+		url: url,
+		data: jsonData,
+		dataType: "json",
+        contentType:"application/json;charset=UTF-8",
+		success: function(data){
+            console.log(JSON.stringify(data));
+			var code = data.code;
+			if(code=="000000"){
+				$.session.set('accessToken', data.data.token);
+				$.session.set('realname', data.data.empRealname);
+				$.session.set('username', data.data.empUsername);
+				$.session.set('uuid', data.data.uuid);
+                $.session.set('id', data.data.id);
+				$.session.set('phonenumber', data.data.phone);
+				$.session.set('createtime', data.data.createTime);
+                if(data.data.employeeImage != null){
+                    if(data.data.employeeImage.faceImagepath == null){
+                        $.session.set('faceimg', 'http://47.107.134.139/gfsecurity/picture/4c6ee47e6f72438f911f55bf06e8e64f1542984923450.png');
+                    }else{
+                        $.session.set('faceimg', data.data.employeeImage.faceImagepath);
+                    }
+                }else{
+                    $.session.set('faceimg', 'http://47.107.134.139/gfsecurity/picture/4c6ee47e6f72438f911f55bf06e8e64f1542984923450.png');
+                }
+                $.session.set('deptid', data.data.departId);
+                $.session.set('empStatus', data.data.empStatus);
+                $.session.set('departName', data.data.departName);
+				removeClass(document.querySelector(".login"), "active");
+				removeClass(document.querySelector(".sk-rotating-plane"), "active");
+				document.querySelector(".login").style.display = "block";
+				$(location).attr('href', 'index.html');
+			}else{
+				removeClass(document.querySelector(".login"), "active")
+				removeClass(document.querySelector(".sk-rotating-plane"), "active")
+				document.querySelector(".login").style.display = "block"
+				$("error").text("* 错误提示："+ data.msg +"！");
+			}
+		},
+		error:function(data){
+			removeClass(document.querySelector(".login"), "active")
+			removeClass(document.querySelector(".sk-rotating-plane"), "active")
+			document.querySelector(".login").style.display = "block"
+			$("error").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+	});
+}
+$(document).keyup(function(event){  
+	  if(event.keyCode ==13){  
+	  	loginaction();
+	  }
+});
+function loginaction(){
+		var uname = $("#username").val();
+		var pwd = $("#password").val();
+		if($.trim(uname)==""){
+			$("error").text("* 错误提示：帐号为空！");
+			return false
+		}else if($.trim(pwd)==""){
+			$("error").text("* 错误提示：密码为空！");
+			return false
+		}else{
+			addClass(document.querySelector(".login"), "active")
+			setTimeout(function(){
+				addClass(document.querySelector(".sk-rotating-plane"), "active")
+				document.querySelector(".login").style.display = "none"
+			},100)
+			setTimeout(function(){
+				loginrequest(uname,pwd);
+			},500)
+		}
+}
+</script>
+</body>
+</html>

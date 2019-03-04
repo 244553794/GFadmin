@@ -1,0 +1,75 @@
+<div class="sign">
+    <div class="head">
+        <img src="../img/face.png">
+        <div class="empinof">
+        </div>
+        <div class="salay">
+            <p class="num" id="week"></p>
+            <p id="empDate"></p>
+        </div>
+    </div>
+    <list>
+        <div class="list">
+            <div class="licont">
+                <worktime style="color: green"><font>8.6</font>小时</worktime>
+                <name>张三</name><br>
+                <depart>南昌事业部</depart>
+
+            </div>
+            <action><span class="start"><i class="fa fa-street-view"></i> 签到：2018-09-09 10:10:10</span><span class="end"><i class="fa fa-map-signs"></i> 签退：2018-09-09 10:10:10</span></action>
+        </div>
+        <clear></clear>
+        <div class="list">
+            <div class="licont">
+                <worktime style="color: green"><font>8.6</font>小时</worktime>
+                <name>张三</name><br>
+                <depart>南昌事业部</depart>
+
+            </div>
+            <action><span class="start"><i class="fa fa-street-view"></i> 签到：2018-09-09 10:10:10</span><span class="end"><i class="fa fa-map-signs"></i> 签退：2018-09-09 10:10:10</span></action>
+        </div>
+        <clear></clear>
+        <div class="list">
+            <div class="licont">
+                <worktime style="color: green"><font>8.6</font>小时</worktime>
+                <name>张三</name><br>
+                <depart>南昌事业部</depart>
+
+            </div>
+            <action><span class="start"><i class="fa fa-street-view"></i> 签到：2018-09-09 10:10:10</span><span class="end"><i class="fa fa-map-signs"></i> 签退：2018-09-09 10:10:10</span></action>
+        </div>
+        <clear></clear>
+        <div class="list">
+            <div class="licont">
+                <worktime style="color: green"><font>8.6</font>小时</worktime>
+                <name>张三</name><br>
+                <depart>南昌事业部</depart>
+
+            </div>
+            <action><span class="start"><i class="fa fa-street-view"></i> 签到：2018-09-09 10:10:10</span><span class="end"><i class="fa fa-map-signs"></i> 签退：2018-09-09 10:10:10</span></action>
+        </div>
+        <clear></clear>
+        <div class="list">
+            <div class="licont">
+                <worktime style="color: green"><font>8.6</font>小时</worktime>
+                <name>张三</name><br>
+                <depart>南昌事业部</depart>
+
+            </div>
+            <action><span class="start"><i class="fa fa-street-view"></i> 签到：2018-09-09 10:10:10</span><span class="end"><i class="fa fa-map-signs"></i> 签退：2018-09-09 10:10:10</span></action>
+        </div>
+        <clear></clear>
+    </list>
+</div>
+<script>
+getEmpInfo();
+getClockInList('{"starttime":"","endtime":""}');
+function loadList(jsonObj){
+    var listHtml = '';
+    $.each(jsonObj.data.list,function(i,items){
+        var worktime = '<font>'+'</font>小时';
+        listHtml = listHtml + '<div class="list"><div class="licont"><worktime style="color: green">'+ worktime +'</worktime><name>'+$.session.get('realname')+'</name><br><depart>'+$.session.get('departName')+'</depart></div><action><span class="start"><i class="fa fa-street-view"></i> 签到：'+clearNull(items.startWork,"-")+'</span><span class="end"><i class="fa fa-map-signs"></i> 签退：'+clearNull(items.endWork,"-")+'</span></action></div>';
+    });
+    $("list").html(listHtml);
+}
+</script>

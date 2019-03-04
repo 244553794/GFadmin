@@ -1,0 +1,128 @@
+<div class="purchase">
+    <div class="head" style="height: 100px;">
+        <img src="../img/face.png">
+        <div class="empinof">
+            <p>发起人：没抽风<span>正式</span></p>
+            <p>部门：南昌事业部</p>
+        </div>
+        <div class="salay">
+            <p class="num">周五</p>
+            <p>2018-09-10</p>
+        </div>
+    </div>
+    <div class="cont">
+        <form>
+            <div class="ip_checkbox" style="position: fixed;top: 150px;left: 0px;background-color: #FFF;width: 100%;z-index: 1;margin: 0px;padding-top: 15px;border-bottom: #f1f1f1 1px solid">
+                <span class="rd_on" data-val="1" onclick="chkCk(this)">事假</span><span data-val="2" onclick="chkCk(this)">病假</span><span data-val="3" onclick="chkCk(this)">其他</span>
+                <input type="hidden" name="" id="" value="1" />
+            </div>
+            <tbbox>
+                <div class="input">
+                    <input type="text" name="" id="" value="" placeholder="物资名称" />
+                </div>
+                <div class="input">
+                    <input type="text" name="" id="" value="" placeholder="规格型号" />
+                </div>
+                <div class="input">
+                    <input type="text" name="" id="" value="" placeholder="采购项目" />
+                    <i class="fa fa-angle-right"></i>
+                </div>
+                <div class="ip_radio" style="margin-top: 20px;">
+                    单位：
+                    <span class="rd_on" data-val="1" onclick="rdCk(this)">件</span><span data-val="2" onclick="rdCk(this)">只</span><span data-val="3" onclick="rdCk(this)">个</span><span data-val="3" onclick="rdCk(this)">套</span>
+                    <input type="hidden" name="" id="" value="1" />
+                </div>
+                <div class="inpnum">
+                    <input type="text" style="text-align: center;" name="" id="" value="" placeholder="数量" />
+                    <div class="lbox" onclick="updownNum(this)">-</div>
+                    <div class="rbox" onclick="updownNum(this)">+</div>
+                </div>
+                <div class="input">
+                    <input type="text" name="" id="" value="" placeholder="单价" />
+                </div>
+                <div class="input">
+                    <input type="text" name="" id="" value="" placeholder="金额合计" />
+                </div>
+                <div class="line"></div>
+            </tbbox>
+            <tbbox>
+                <div class="input">
+                    <input type="text" name="" id="" value="" placeholder="物资名称" />
+                </div>
+                <div class="input">
+                    <input type="text" name="" id="" value="" placeholder="规格型号" />
+                </div>
+                <div class="input">
+                    <input type="text" name="" id="" value="" placeholder="采购项目" />
+                    <i class="fa fa-angle-right"></i>
+                </div>
+                <div class="ip_radio" style="margin-top: 20px;">
+                    单位：
+                    <span class="rd_on" data-val="1" onclick="rdCk(this)">件</span><span data-val="2" onclick="rdCk(this)">只</span><span data-val="3" onclick="rdCk(this)">个</span><span data-val="3" onclick="rdCk(this)">套</span>
+                    <input type="hidden" name="" id="" value="1" />
+                </div>
+                <div class="inpnum">
+                    <input type="text" style="text-align: center;" name="" id="" value="" placeholder="数量" />
+                    <div class="lbox" onclick="updownNum(this)">-</div>
+                    <div class="rbox" onclick="updownNum(this)">+</div>
+                </div>
+                <div class="input">
+                    <input type="text" name="" id="" value="" placeholder="单价" />
+                </div>
+                <div class="input">
+                    <input type="text" name="" id="" value="" placeholder="金额合计" />
+                </div>
+            </tbbox>
+            <div class="submit">提交请假</div>
+        </form>
+    </div>
+
+</div>
+<script>
+$(function () {
+	var currYear = (new Date()).getFullYear();	
+	var currDay = (new Date()).getDate()-1;
+	var currMonth = (new Date()).getMonth()+1;
+	if(currMonth<10){
+		currMonth='0'+currMonth;
+	}
+	$("#execDate").val(currYear+currMonth+currDay);
+	var currdate=currYear+"年"+currMonth+"月"+currDay
+	baseTime=currYear+"-"+currMonth+"-"+currDay;
+	
+	var lastDay = new Date();//获取当前时间  
+	lastDay.setDate(lastDay.getDate()-1);//设置天数 -1 天 
+	
+	var opt={};
+	opt.date = {preset : 'date'};
+	opt.datetime = {preset : 'datetime'};
+	opt.time = {preset : 'time'};
+	opt.default = {
+		preset: 'date', //日期
+		theme: 'android-ics light', //皮肤样式
+		display: 'modal', //显示方式 
+		mode: 'scroller', //日期选择模式
+		dateFormat: 'yyyy-mm-dd',
+		dateOrder : 'yyyymmdd', //面板中日期排列格式
+		lang: 'zh',
+		showNow: false,
+		nowText: "今天",
+		maxDate: lastDay, //设置最大可选日期（必须日期格式）
+		startYear: currYear - 10, //开始年份
+		endYear: currYear + 10,//结束年份
+		onSelect:function(Value,inst){ //选中时触发事件
+			var t=Value.replace(/-/g,"")
+			$("#execDate").val(t);
+			baseTime=Value
+			$("#calendarInput1").val(Value.split("-")[0]+"年"+Value.split("-")[1]+"月"+Value.split("-")[2]);
+		},
+	};
+ 
+	$("#calendarInput1").mobiscroll($.extend(opt['date'], opt['default']));
+	$("#calendarInput1").val(currdate);
+	
+	$("iframe").height($(window).height());
+	
+});
+
+</script>

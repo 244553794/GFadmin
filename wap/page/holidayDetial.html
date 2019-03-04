@@ -1,0 +1,48 @@
+<div class="holiday">
+    <div class="head">
+        <img src="../img/face.png">
+        <div class="empinof">
+            <p>发起人：<realname></realname><span><empStatus></empStatus></span></p>
+            <p>部门：<departName></departName></p>
+        </div>
+        <div class="salay">
+            <p class="num"><week></week></p>
+            <p><dateTime></dateTime></p>
+        </div>
+    </div>
+    <div class="cont det">
+        <p class="det_tit"><span>病假条</span></p>
+        <p>尊敬的各位领导：</p>
+        <p class="det_index">本人由于以下理由：</p>
+        <p class="det_index clearNull" data-type="无">{$reason}</p>
+        <p class="det_index">需要请假从【<b>{$leaveStarttime}</b>】至【<b>{$leaveEndtime}</b>】共计【<b>5</b>】天，如若在请假期间，发生任何意外事故，与公司无关，还望批准，谢谢！</p>
+        <p>&nbsp;</p>
+        <p class="det_rig"><realname></realname></p>
+        <p class="det_rig">{$createTime}</p>
+    </div>
+
+</div>
+<script>
+getWeek();//获取当前周几
+$("html").find("dateTime").each(function(){$(this).html(getFormatDate("yyyy-mm-dd"))});//获取当前时间
+drawSession();//获取当前用户身份信息
+//获取参数
+var u = decodeURI(window.location.href);
+var uArr = new Array();
+uArr = u.split("?");
+var p = JSON.parse(uArr[1]);
+var param = JSON.stringify(p.param).replace("[","").replace("]","");
+ajaxPostApi(param,'/myaudit/getMySendLeave',1);
+function requestData(data){drawContentPage(data);}
+function holidayClearNull(){
+    $("#pageConts").find(".clearNull").each(function(){
+        $(this).text(clearNull($(this).text(),$(this).attr("data-type")));//去掉null值
+    });
+}
+function getChStutas(){
+    
+}
+function getChType(){
+    
+}
+</script>

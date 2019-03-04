@@ -1,0 +1,61 @@
+<div class="holiday">
+    <div class="head">
+        <img src="../img/face.png">
+        <div class="empinof">
+            <p>发起人：<realname></realname><span><empStatus></empStatus></span></p>
+            <p>部门：<departName></departName></p>
+        </div>
+        <div class="salay">
+            <p class="num"><week></week></p>
+            <p><dateTime></dateTime></p>
+        </div>
+    </div>
+    <div class="cont">
+        <form>
+            <input type="hidden" data-type="session" data-name="id" name="empId" id="empId" value="" />
+            <input type="hidden" data-type="session" data-name="deptid" name="departId" id="departId" value="" />
+            <input type="hidden" data-type="session" data-name="departName" name="departName" id="departName" value="" />
+            <div class="ip_radio">
+                <span class="rd_on" data-val="1" onclick="rdCk(this)">事假</span><span data-val="2" onclick="rdCk(this)">病假</span><span data-val="3" onclick="rdCk(this)">其他</span>
+                <input type="hidden" name="leaveType" id="leaveType" value="1" />
+            </div>
+            <div class="input">
+                <input type="text" name="leaveStarttime" onclick="dataTimeBox(this)" data-type="yyyy-mm-dd" show-mode="0" value="" placeholder="开始时间" />
+            </div>
+            <div class="input">
+                <input type="text" name="leaveEndtime" onclick="dataTimeBox(this)" data-type="yyyy-mm-dd" show-mode="0" value="" placeholder="结束时间" />
+            </div>
+            <div class="ip_txtarea">
+                <p>请假理由：</p>
+                <textarea name="reason" id="reason" value="">&nbsp;
+                </textarea>
+            </div>
+            <div class="submit">提交请假</div>
+        </form>
+    </div>
+
+</div>
+<script>
+getWeek();//获取当前周几
+$("html").find("dateTime").each(function(){$(this).html(getFormatDate("yyyy-mm-dd"))});//获取当前时间
+drawSession();//获取当前用户身份信息
+$("input[name=leaveStarttime]").trigger("click");//初始化开始时间
+//$("input[name=leaveStarttime]").val(getFormatDate("yyyy-mm-dd"));//时间插件选择器
+$("input[name=leaveEndtime]").trigger("click");//初始化开始时间
+//$("input[name=leaveEndtime]").val(getFormatDate("yyyy-mm-dd"));//时间插件选择器
+//提交数据
+$(".submit").click(function(){
+    var url = "/empleave/catetor/add";
+    var data = {};//全局json
+    var t = $('form').serializeArray();
+    $.each(t, function(){
+        data[this.name] = this.value;
+    });
+    ajaxPostApi(JSON.stringify(data),url,0);
+});
+//回调函数
+function requestData(data){
+    alert("提交成功，等待审批！");
+    window.location.href='index.html?{"url":"page/holidayList.html","title":"请假列表","headstyle":"1","param":[]}'
+}
+</script>

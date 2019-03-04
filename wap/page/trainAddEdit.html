@@ -1,0 +1,94 @@
+<div class="train">
+    <div class="head" style="height: 100px;">
+        <img src="../img/face.png">
+        <div class="empinof">
+            <p>发起人：没抽风<span>正式</span></p>
+            <p>部门：南昌事业部</p>
+        </div>
+        <div class="salay">
+            <p class="num">周五</p>
+            <p>2018-09-10</p>
+        </div>
+    </div>
+    <div class="cont">
+        <form>
+            <div class="approv">
+                <div style="width: 414px;"><span class="rd_on">发起人</span>-><span>发起部门</span>-><span>人事部</span>-><span>总经办</span></div>
+            </div>
+            <tbbox>
+                <div class="ip_radio" style="margin-top: 20px;">
+                    <span class="rd_on" data-val="1" onclick="rdCk(this)">岗前培训</span><span data-val="2" onclick="rdCk(this)">在岗培训</span><span data-val="3" onclick="rdCk(this)">上岗培训</span>
+                    <input type="hidden" name="" id="" value="1" />
+                </div>
+                <div class="input">
+                    <input type="text" name="" id="" value="" placeholder="参与人员" />
+                </div>
+                <div class="input">
+                    <input type="text" name="" id="" value="" placeholder="执行负责人" />
+                </div>
+                <div class="input">
+                    <input type="text" name="" id="" value="" placeholder="采购项目" />
+                    <i class="fa fa-angle-right"></i>
+                </div>
+                <div class="input">
+                    <input type="text" name="" id="" value="" placeholder="培训地址" />
+                </div>
+                <div class="ip_checkbox" style="margin-top: 20px;">
+                    <div style="line-height: 40px;float: left;vertical-align: top;height: 80px;">内容：</div>
+                    <span class="rd_on" data-val="1" onclick="chkCk(this)">岗位职责</span><span data-val="2" onclick="chkCk(this)">安全知识</span><span data-val="3" onclick="chkCk(this)">消防知识</span><span class="rd_on" data-val="4" onclick="chkCk(this)">专业知识</span><span data-val="5" onclick="chkCk(this)">职业规划</span>
+                    <input type="hidden" name="" id="" value="1" />
+                </div>
+            </tbbox>
+            <div class="submit">提交申请</div>
+        </form>
+    </div>
+
+</div>
+<script>
+$(function () {
+	var currYear = (new Date()).getFullYear();	
+	var currDay = (new Date()).getDate()-1;
+	var currMonth = (new Date()).getMonth()+1;
+	if(currMonth<10){
+		currMonth='0'+currMonth;
+	}
+	$("#execDate").val(currYear+currMonth+currDay);
+	var currdate=currYear+"年"+currMonth+"月"+currDay
+	baseTime=currYear+"-"+currMonth+"-"+currDay;
+	
+	var lastDay = new Date();//获取当前时间  
+	lastDay.setDate(lastDay.getDate()-1);//设置天数 -1 天 
+	
+	var opt={};
+	opt.date = {preset : 'date'};
+	opt.datetime = {preset : 'datetime'};
+	opt.time = {preset : 'time'};
+	opt.default = {
+		preset: 'date', //日期
+		theme: 'android-ics light', //皮肤样式
+		display: 'modal', //显示方式 
+		mode: 'scroller', //日期选择模式
+		dateFormat: 'yyyy-mm-dd',
+		dateOrder : 'yyyymmdd', //面板中日期排列格式
+		lang: 'zh',
+		showNow: false,
+		nowText: "今天",
+		maxDate: lastDay, //设置最大可选日期（必须日期格式）
+		startYear: currYear - 10, //开始年份
+		endYear: currYear + 10,//结束年份
+		onSelect:function(Value,inst){ //选中时触发事件
+			var t=Value.replace(/-/g,"")
+			$("#execDate").val(t);
+			baseTime=Value
+			$("#calendarInput1").val(Value.split("-")[0]+"年"+Value.split("-")[1]+"月"+Value.split("-")[2]);
+		},
+	};
+ 
+	$("#calendarInput1").mobiscroll($.extend(opt['date'], opt['default']));
+	$("#calendarInput1").val(currdate);
+	
+	$("iframe").height($(window).height());
+	
+});
+
+</script>

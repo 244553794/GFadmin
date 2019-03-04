@@ -1,0 +1,46 @@
+<div class="holiday">
+    <div class="head">
+        <img src="../img/face.png">
+        <div class="empinof">
+            <p>发起人：<realname></realname><span><empStatus></empStatus></span></p>
+            <p>部门：<departName></departName></p>
+        </div>
+        <div class="salay">
+            <p class="num"><week></week></p>
+            <p><dateTime></dateTime></p>
+        </div>
+    </div>
+<!--    指定模版-->
+    <template>
+        <div class="list" onclick=javascript:window.location.href='index.html?{"url":"page/holidayDetial.html","title":"请假详情","headstyle":"1","param":[{"id":"1"}]}'>
+            <p>编号：{$leaveNum$}<status class="dage" data-num="{$status$}">{$status$}</status></p>
+            <div class="licont">
+                <div>请假类型：<leaveType data-num="{$leaveType$}">{$leaveType$}</leaveType><info><realname></realname>【部门：{$departName$}】</info></div>
+                <div>开始时间：{$leaveStarttime$}</div>
+                <div>结束时间：{$leaveEndtime$}</div>
+            </div>
+            <action><span class="winn">查看</span></action>
+        </div>
+        <clear></clear>
+    </template>
+    <list><!-- 列表数据存储器 --></list>
+</div>
+<div class="submit" onclick=jumpUrl("page/holidayAdd.html","1","")>我要请假</div>
+<script>
+getWeek();//获取当前周几
+$("html").find("dateTime").each(function(){$(this).html(getFormatDate("yyyy-mm-dd"))});//获取当前日期
+ajaxPostApi("{}","/myaudit/getMySendLeave",0);//获取列表数据
+function requestData(jsonObj){drawListPage(jsonObj);}//解析列表数据
+function getChStutas(){//转换状态
+    $(".list").find("status").each(function(){
+        var num = $(this).attr("data-num");
+        $(this).text(holidayStuts(num));
+    });
+}
+function getChType(){//请假类型
+    $(".list").find("leaveType").each(function(){
+        var num = $(this).attr("data-num");
+        $(this).text(clearNull(holidayType(num),"-"));
+    });
+}
+</script>
