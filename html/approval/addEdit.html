@@ -1,0 +1,66 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!-- Content Header (页眉) -->
+<section class="content-header">
+    <h1>增加审批流程
+    	<small>审批流程新增</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li><a>增加审批流程</a></li>
+        <li class="active">新增信息</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="callout callout-info">
+      <h4>提示！</h4>
+      <p>审批流程请慎重授权</p>
+    </div>
+    <!--基本信息-->
+    <div class="box">
+    	<div class="box-header with-border">
+        	<h3 class="box-title">审批流程信息</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" title="刷新，注意保存信息" onClick="jumpURL(this)" url="/html/approval/add.html" param=""><i class="fa fa-refresh" aria-hidden="true"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <!--内容    -->
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">流程名称</div></span>
+                <input type="text" class="form-control" placeholder="法人姓名" name="legalName" id="legalName" value="">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">所属分组</div></span>
+                <input type="text" class="form-control" placeholder="法人姓名" name="legalName" id="legalName" value="">
+                <error></error>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">审批节点</div></span>
+                <div class="form-control" style="height: auto;">
+                
+                <label class="checkbtn">发起人<input type="hidden" value="王武" name="secondPersonName" id="secondPersonName"><input type="hidden" value="10" name="secondPersonId" id="secondPersonId"></label><i class="fa fa-long-arrow-right"></i>
+                    
+                <label class="checkbtn">南昌事业部<input type="hidden" value="王武" name="secondPersonName" id="secondPersonName"><input type="hidden" value="10" name="secondPersonId" id="secondPersonId"><i class="fa fa-times-circle" aria-hidden="true" onclick="delEmp(this)"></i></label><i class="fa fa-long-arrow-right"></i>
+                    
+                <label class="checkbtn">人事部<input type="hidden" value="王武" name="secondPersonName" id="secondPersonName"><input type="hidden" value="10" name="secondPersonId" id="secondPersonId"><i class="fa fa-times-circle" aria-hidden="true" onclick="delEmp(this)"></i></label><i class="fa fa-long-arrow-right"></i>
+                    
+                <label class="checkbtn">总经办<input type="hidden" value="王武" name="secondPersonName" id="secondPersonName"><input type="hidden" value="10" name="secondPersonId" id="secondPersonId"></label>
+                    
+                
+                </div>
+                <error></error>
+            </div>
+        </div>
+    </div>
+    <!--添加第二个面板-->
+    
+    <!--底部-->
+    <div class="box-footer" style="position:fixed; left:0px; bottom:0px; width:100%; height:60px;box-shadow: 0px 0px 40px #888888; z-index:9; background-color:#FFF;">
+    <p><error></error></p>
+    <button type="button" class="btn btn-info fl_right" style="width:150px; margin-right:50px;" onClick="judgeform()">保存提交</button><button type="button" class="btn btn-default fl_right" style="width:150px; margin-right:50px;" onClick="jumpURL(this)" url="/html/personnel/" param="">取消返回</button>
+    </div>
+</section>
