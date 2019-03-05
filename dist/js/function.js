@@ -777,7 +777,7 @@ function JNMUploadImg(obj){
             }else{
                 imgsSrc = imgsSrc + "," + this.result;
             }
-            $(obj).parents(".loadJNMImgUpload").find("input[name="+dataId+"]").val(imgsSrc);
+            $(obj).parents(".loadJNMImgUpload").find("input[name="+dataId+"]").val(imgsSrc.replace("data:image/png;base64,","").replace("data:image/jpeg;base64,","").replace("data:image/gif;base64,","").replace("data:image/jpg;base64,",""));
         };
     }
     if(dataType==""){//如果只允许上传一张图片
@@ -813,7 +813,7 @@ function JNMUploadImgActionDel(obj){
     endImgsSrc = imgsSrc.replace(shouldeDelImgSrc+",","");
     endImgsSrc = imgsSrc.replace(shouldeDelImgSrc,"");
     
-    $(obj).parents(".loadJNMImgUpload").find("input[name="+dataId+"]").val(endImgsSrc);
+    $(obj).parents(".loadJNMImgUpload").find("input[name="+dataId+"]").val(endImgsSrc.replace("data:image/png;base64,","").replace("data:image/jpeg;base64,","").replace("data:image/gif;base64,","").replace("data:image/jpg;base64,",""));
     
     $(obj).parents(".upload-img").remove();
 }

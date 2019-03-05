@@ -28,13 +28,6 @@
                 <error></error>
             </div>
             <div class="input-group" style="margin-bottom:20px;">
-                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">图片测试</div></span>
-                <div class="form-control loadJNMImgUpload" style="height: auto;" data-type="" data-accept="image/png, image/jpeg, image/gif, image/jpg" data-id="file" data-maxsize="1024">
-                    <!--多张图片data-type="multiple"-->
-                </div>
-                <error></error>
-            </div>
-            <div class="input-group" style="margin-bottom:20px;">
                 <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">公司地址</div></span>
                 <input type="text" class="form-control" placeholder="公司地址" name="companyAddress" id="companyAddress" value="">
                 <error></error>
@@ -56,24 +49,14 @@
             </div>
             <div class="input-group" style="margin-bottom:20px;">
                 <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">营业执照</div></span>
-                <div class="form-control" style="height:auto">
-                    <ul class="upload-ul clearfix" inputName="businessLicenseImage">
-                        <li class="upload-pick">
-                            <div class="webuploader-container clearfix" id="goodsUpload"></div>
-                        </li>
-                    </ul>
-                    <error></error>
+                <div class="form-control loadJNMImgUpload" style="height: auto;" data-type="" data-accept="image/png, image/jpeg, image/gif, image/jpg" data-id="businessLicenseImage">
+                    <!--多张图片data-type="multiple"-->
                 </div>
             </div>
             <div class="input-group" style="margin-bottom:20px;">
                 <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">资质证书</div></span>
-                <div class="form-control" style="height:auto">
-                    <ul class="upload-ul clearfix" inputName="qualificationCertificateImage">
-                        <li class="upload-pick">
-                            <div class="webuploader-container clearfix" id="goodsUpload2"></div>
-                        </li>
-                    </ul>
-                    <error></error>
+                <div class="form-control loadJNMImgUpload" style="height: auto;" data-type="" data-accept="image/png, image/jpeg, image/gif, image/jpg" data-id="qualificationCertificateImage">
+                    <!--多张图片data-type="multiple"-->
                 </div>
             </div>
         </div>
@@ -102,14 +85,15 @@
                 <error></error>
             </div>
             <div class="input-group" style="margin-bottom:20px;">
-                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">法人身份证</div></span>
-                <div class="form-control" style="height:auto">
-                    <ul class="upload-ul clearfix" inputName="">
-                        <li class="upload-pick">
-                            <div class="webuploader-container clearfix" id="goodsUpload3"></div>
-                        </li>
-                    </ul>
-                    <error></error>
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">法人身份证【正面】</div></span>
+                <div class="form-control loadJNMImgUpload" style="height: auto;" data-type="" data-accept="image/png, image/jpeg, image/gif, image/jpg" data-id="legalCardFirstImage">
+                    <!--多张图片data-type="multiple"-->
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom:20px;">
+                <span class="input-group-addon" style="background-color:#f1f1f1;"><div style="width:200px;">法人身份证【反面】</div></span>
+                <div class="form-control loadJNMImgUpload" style="height: auto;" data-type="" data-accept="image/png, image/jpeg, image/gif, image/jpg" data-id="legalCardSecondImage">
+                    <!--多张图片data-type="multiple"-->
                 </div>
             </div>
         </div>
@@ -159,7 +143,6 @@
 <script>
 //初始化图片上传组件
 loadJNMImgUpload()
-
 
 $(function(){
 	//上传图片
@@ -253,8 +236,25 @@ function fillForm(p){
                     $("#bankName").val(items.bankName);
                     $("#accountName").val(items.accountName);
                     
-                    $(".upload-ul").eq(0).html('<li id="fileBox_WU_FILE_4" class="diyUploadHover"><div class="viewThumb"><input type="hidden" name="businessLicenseImage" id="businessLicenseImage" value="'+items.businessLicenseImage+'"><div class="diyBar"><div class="diyProgress">0%</div></div><p class="diyControl"><span class="diyLeft"><i></i></span><span class="diyCancel"><i></i></span><span class="diyRight"><i></i></span></p><img src="'+items.businessLicenseImage+'"></div></li><li class="upload-pick"><div class="webuploader-container clearfix" id="goodsUpload"></div></li>');
-                    $(".upload-ul").eq(1).html('<li id="fileBox_WU_FILE_4" class="diyUploadHover"><div class="viewThumb"><input type="hidden" name="businessLicenseImage" id="businessLicenseImage" value="'+items.qualificationCertificateImage+'"><div class="diyBar"><div class="diyProgress">0%</div></div><p class="diyControl"><span class="diyLeft"><i></i></span><span class="diyCancel"><i></i></span><span class="diyRight"><i></i></span></p><img src="'+items.qualificationCertificateImage+'"></div></li><li class="upload-pick"><div class="webuploader-container clearfix" id="goodsUpload"></div></li>');
+                    $(".loadJNMImgUpload").each(function(){
+                        var did = $(this).attr("data-id");
+                        var val = '';
+                        if(did=="businessLicenseImage"){
+                            val = items.businessLicenseImage;
+                        }
+                        if(did=="qualificationCertificateImage"){
+                            val = items.qualificationCertificateImage;
+                        }
+                        if(did=="legalCardFirstImage"){
+                            val = items.legalCardFirstImage;
+                        }
+                        if(did=="legalCardSecondImage"){
+                            val = items.legalCardSecondImage;
+                        }
+                        if(val!=null && val!=""){
+                            $(this).html('<input id="'+did+'" class="filepath" onchange="JNMUploadImg(this)" type="file" accept="image/png, image/jpeg, image/gif, image/jpg" style="display: none"><imgwarp><div class="upload-img" onmouseover="showJNMUploadImgActionBox(this)" onmouseout="hideJNMUploadImgActionBox(this)"><img src="'+val+'"><div class="action" style="display: none;"><i class="fa fa-arrow-left" onclick="JNMUploadImgActionlft(this)"></i><i class="fa fa-trash" onclick="JNMUploadImgActionDel(this)"></i><i class="fa fa-search-plus" onclick="showJNMUploadBigImg(this)"></i><i class="fa fa-arrow-right marnone" onclick="JNMUploadImgActionrgt(this)"></i></div></div></imgwarp><input name="'+did+'" value="'+val+'" type="hidden">');
+                        }
+                    });
                 });
             }else if(code=="002003"){
                 $.session.clear();
