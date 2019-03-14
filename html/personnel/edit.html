@@ -1,9 +1,9 @@
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 <!-- Content Header (页眉) -->
 <section class="content-header">
     <h1>编辑员工信息
-    	<small>员工入职编辑</small>
+        <small>员工入职编辑</small>
     </h1>
     <ol class="breadcrumb">
         <li><a><i class="fa fa-dashboard"></i> 首页</a></li>
@@ -14,241 +14,342 @@
 <!-- Main content -->
 <section class="content">
     <div class="callout callout-info">
-      <h4>提示！</h4>
-      <p>新员工入职，请及时保存或者暂存员工信息</p>
-      <p>新员工入职的初始用户名为下面填写的用户名</p>
-      <p>新员工入职的初始密码为手机号后6位数</p>
+        <h4>提示！</h4>
+
+        <p>新员工入职，请及时保存或者暂存员工信息</p>
+
+        <p>新员工入职的初始用户名为下面填写的用户名</p>
+
+        <p>新员工入职的初始密码为手机号后6位数</p>
     </div>
     <!--基本信息-->
     <div class="box">
-    	<div class="box-header with-border">
-        	<h3 class="box-title">员工基本信息</h3>
+        <div class="box-header with-border">
+            <h3 class="box-title">员工基本信息</h3>
+
             <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
-                <button type="button" class="btn btn-box-tool" id="reflash" title="刷新，注意保存信息" onclick="jumpURL(this)" url="/html/personnel/edit.html" param=""><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠"
+                        onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" id="reflash" title="刷新，注意保存信息" onclick="jumpURL(this)"
+                        url="/html/personnel/edit.html" param=""><i class="fa fa-refresh" aria-hidden="true"></i>
+                </button>
             </div>
         </div>
         <div class="box-body">
-        	<div class="col-xs-3"><input type="text" name="empNum" class="form-control" id="empNum" placeholder="人员编号"></div>
-            <div class="col-xs-3"><input type="text" name="empRealname" class="form-control xv_hanzi" id="empRealname" placeholder="人员姓名"></div>
-            <div class="col-xs-3"><input type="text" name="empUsername" class="form-control xv_pinyin" id="empUsername" placeholder="用户名"></div>
+            <div class="col-xs-3"><input type="text" name="empNum" class="form-control" id="empNum" placeholder="人员编号">
+            </div>
+            <div class="col-xs-3"><input type="text" name="empRealname" class="form-control xv_hanzi" id="empRealname"
+                                         placeholder="人员姓名"></div>
+            <div class="col-xs-3"><input type="text" name="empUsername" class="form-control xv_pinyin" id="empUsername"
+                                         placeholder="用户名"></div>
             <div class="col-xs-3">
-            	<div style="line-height:35px;">
-                性别：&nbsp;&nbsp;
-            	<label><input type="radio" name="sex" value="0" class="minimal" checked>未知</label>&nbsp;&nbsp;
-                <label><input type="radio" name="sex" value="1" class="minimal">男</label>&nbsp;&nbsp;
-                <label><input type="radio" name="sex" value="2" class="minimal">女</label>
+                <div style="line-height:35px;">
+                    性别：&nbsp;&nbsp;
+                    <label><input type="radio" name="sex" value="2" class="minimal" checked>未知</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="sex" value="0" class="minimal">男</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="sex" value="1" class="minimal">女</label>
                 </div>
             </div>
             <p>&nbsp;</p>
-            <div class="col-xs-3"><input type="text" name="idCard" class="form-control" id="idCard" placeholder="身份证号"></div>
+
+            <div class="col-xs-3"><input type="text" name="idCard" class="form-control" id="idCard" placeholder="身份证号">
+            </div>
             <div class="col-xs-3">
-            	<div class="input-group date">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" name="birthdate" class="form-control" id="birthdate" placeholder="出生年月">
+                <div class="input-group date">
+                    <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" name="birthdate" class="form-control" id="birthdate" placeholder="出生年月">
                 </div>
             </div>
-            <div class="col-xs-3"><input type="text" name="nativePlace" class="form-control" id="nativePlace" placeholder="籍贯"></div>
+            <div class="col-xs-3"><input type="text" name="nativePlace" class="form-control" id="nativePlace"
+                                         placeholder="籍贯"></div>
             <div class="col-xs-3">
-            	<div style="line-height:35px;">
-            	婚否：&nbsp;&nbsp;
-                <label><input type="radio" name="isMarried" value="1" class="minimal">是</label>&nbsp;&nbsp;
-                <label><input type="radio" name="isMarried" value="2" class="minimal" checked>否</label>
+                <div style="line-height:35px;">
+                    婚否：&nbsp;&nbsp;
+                    <label><input type="radio" name="isMarried" value="0" class="minimal">是</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="isMarried" value="1" class="minimal" checked>否</label>
                 </div>
             </div>
             <p>&nbsp;</p>
-            <div class="col-xs-3"><input type="text" name="national" class="form-control" id="national" placeholder="民族"></div>
+
+            <div class="col-xs-3"><input type="text" name="national" class="form-control" id="national"
+                                         placeholder="民族"></div>
             <div class="col-xs-3">
-            	<select class="form-control select2" name="education" id="education">
-                  <option selected="selected" value="">选择学历</option>
-                  <option value="小学">小学</option>
-                  <option value="初中">初中</option>
-                  <option value="高中">高中</option>
-                  <option value="专科">专科</option>
-                  <option value="本科">本科</option>
-                  <option value="研究生">研究生</option>
-                  <option value="博士">博士</option>
-                  <option value="硕士">硕士</option>
+                <select class="form-control select2" name="education" id="education">
+                    <option selected="selected" value="">选择学历</option>
+                    <option value="小学">小学</option>
+                    <option value="初中">初中</option>
+                    <option value="高中">高中</option>
+                    <option value="专科">专科</option>
+                    <option value="本科">本科</option>
+                    <option value="研究生">研究生</option>
+                    <option value="博士">博士</option>
+                    <option value="硕士">硕士</option>
                 </select>
             </div>
-            <div class="col-xs-3"><input type="text" name="phone" class="form-control" id="phone" placeholder="电话号码"></div>
+            <div class="col-xs-3"><input type="text" name="phone" class="form-control" id="phone" placeholder="电话号码">
+            </div>
             <div class="col-xs-3">
-            	<div style="line-height:35px;">
-            	兵役：&nbsp;&nbsp;
-                <label><input type="radio" name="isMilitaryService" value="1" class="minimal">有</label>&nbsp;&nbsp;
-                <label><input type="radio" name="isMilitaryService" value="2" class="minimal" checked>无</label>
+                <div style="line-height:35px;">
+                    兵役：&nbsp;&nbsp;
+                    <label><input type="radio" name="isMilitaryService" value="0" class="minimal">有</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="isMilitaryService" value="1" class="minimal" checked>无</label>
                 </div>
             </div>
             <p>&nbsp;</p>
-            <div class="col-xs-3"><input type="text" name="politicsStatus" class="form-control" id="politicsStatus" placeholder="政治面貌"></div>
-            <div class="col-xs-3"><input type="text" name="height" class="form-control" id="height" placeholder="身高（cm）"></div>
-            <div class="col-xs-3"><input type="text" name="emergencyContact" class="form-control" id="emergencyContact" placeholder="紧急联系人"></div>
-            <div class="col-xs-3"><input type="text" name="emergencyContactNum" class="form-control" id="emergencyContactNum" placeholder="紧急联系号码"></div>
+
+            <div class="col-xs-3"><input type="text" name="politicsStatus" class="form-control" id="politicsStatus"
+                                         placeholder="政治面貌"></div>
+            <div class="col-xs-3"><input type="text" name="height" class="form-control" id="height"
+                                         placeholder="身高（cm）"></div>
+            <div class="col-xs-3"><input type="text" name="emergencyContact" class="form-control" id="emergencyContact"
+                                         placeholder="紧急联系人"></div>
+            <div class="col-xs-3"><input type="text" name="emergencyContactNum" class="form-control"
+                                         id="emergencyContactNum" placeholder="紧急联系号码"></div>
             <div class="col-xs-3">&nbsp;</div>
             <p>&nbsp;</p>
-            <div class="col-xs-12"><input type="text" name="specialty" class="form-control" id="specialty" placeholder="有何特长"></div>
+
+            <div class="col-xs-12"><input type="text" name="specialty" class="form-control" id="specialty"
+                                          placeholder="有何特长"></div>
             <p>&nbsp;</p>
-            <div class="col-xs-12"><input type="text" name="correspondenceAddress" class="form-control" id="correspondenceAddress" placeholder="通讯地址"></div>
+
+            <div class="col-xs-12"><input type="text" name="correspondenceAddress" class="form-control"
+                                          id="correspondenceAddress" placeholder="通讯地址"></div>
             <p>&nbsp;</p>
-            <div class="col-xs-12"><input type="text" name="contactAddress" class="form-control" id="contactAddress" placeholder="联系地址"></div>
-            
+
+            <div class="col-xs-12"><input type="text" name="contactAddress" class="form-control" id="contactAddress"
+                                          placeholder="联系地址"></div>
+
         </div>
     </div>
-    
+
     <!--职位信息-->
     <div class="box">
-    	<div class="box-header with-border">
-        	<h3 class="box-title">员工职位信息</h3>
+        <div class="box-header with-border">
+            <h3 class="box-title">员工职位信息</h3>
+
             <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠"
+                        onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
             </div>
         </div>
         <div class="box-body">
-        	<div class="col-xs-3" id="departInfo">
-            	<select class="form-control select2" name="departId" id="departId">
-                  <option selected="selected" value="">入职部门</option>
+            <div class="col-xs-3" id="departInfo">
+                <select class="form-control select2" name="departId" id="departId">
+                    <option selected="selected" value="">入职部门</option>
                 </select>
             </div>
             <div class="col-xs-3"><input type="text" name="job" class="form-control" id="job" placeholder="入职岗位"></div>
-            <div class="col-xs-3"><input type="text" name="projectId" class="form-control" id="projectId" placeholder="护卫点项目" readonly="readonly"></div>
             <div class="col-xs-3">
-            	<div style="line-height:35px;">
-            	员工类别：&nbsp;&nbsp;
-                <label><input type="radio" name="empType" value="1" class="minimal" checked>保安</label>&nbsp;&nbsp;
-                <label><input type="radio" name="empType" value="2" class="minimal">管理层</label>
+                <div class="form-control" style="padding: 0px 0px 0px 20px;">
+                    <button type="button" class="btn btn-primary" onClick="getProjectList(this)"
+                            fill-id-name="projectName_in" data-mode="1" data-toggle="modal" data-target="#modal-default"
+                            title="新增" style="float:right;"><i class="fa fa-plus" aria-hidden="true"></i> 新增
+                    </button>
+                    <span id="projectName_in" style="line-height: 30px"></span>
+                    <input name="projectName" id="projectName" value="" type="hidden">
+                    <input name="projectId" id="projectId" value="" type="hidden">
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div style="line-height:35px;">
+                    员工类别：&nbsp;&nbsp;
+                    <label><input type="radio" name="empType" value="1" class="minimal" checked>保安</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="empType" value="2" class="minimal">管理层</label>
                 </div>
             </div>
             <p>&nbsp;</p>
+
             <div class="col-xs-3">
-            	<div style="line-height:35px;">
-            	是否允许查看薪资：&nbsp;&nbsp;
-                <label><input type="radio" name="isLookMoney" value="1" class="minimal" checked>是</label>&nbsp;&nbsp;
-                <label><input type="radio" name="isLookMoney" value="2" class="minimal">否</label>
+                <div style="line-height:35px;">
+                    是否允许查看薪资：&nbsp;&nbsp;
+                    <label><input type="radio" name="isLookMoney" value="0" class="minimal" checked>是</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="isLookMoney" value="1" class="minimal">否</label>
                 </div>
             </div>
         </div>
     </div>
-    
+
+    <!--弹框-->
+    <div class="modal modal-default fade" id="modal-default" data-id="">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <div class="col-xs-3"><input type="text" class="form-control" placeholder="姓名" name="schempName"
+                                                 id="schempName" value=""></div>
+                    <div class="col-xs-5"><input type="text" class="form-control" placeholder="手机号" name="schphone"
+                                                 id="schphone" value=""></div>
+                    <button type="button" class="btn btn-primary" onClick="searchList(this)" title="搜索"><i
+                            class="fa fa-search" aria-hidden="true"></i></button>
+                </div>
+                <div class="modal-body">
+                    <!--异步加载数据-->
+                </div>
+                <!--分页-->
+                <div class="pagination-holder clearfix">
+                    <input type="hidden" name="pageNo" id="pageNo" value="1">
+
+                    <div id="compact-pagination"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary pull-left" id="closeModal" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" onClick="checkEmpDep(this)">确定选择</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
     <!--薪酬信息-->
     <div class="box">
-    	<div class="box-header with-border">
-        	<h3 class="box-title">员工薪酬信息</h3>
+        <div class="box-header with-border">
+            <h3 class="box-title">员工薪酬信息</h3>
+
             <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠"
+                        onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
             </div>
         </div>
         <div class="box-body">
-            <div class="col-xs-3"><input type="text" name="hiredateMoney" class="form-control" id="hiredateMoney" placeholder="入职薪资"></div>
-            <div class="col-xs-3"><input type="text" name="probationPeriodMoney" class="form-control" id="probationPeriodMoney" placeholder="试用期薪资"></div>
-            <div class="col-xs-3"><input type="text" name="phoneAllowance" class="form-control" id="phoneAllowance" placeholder="通讯津贴"></div>
-            <div class="col-xs-3"><input type="text" name="trafficAllowance" class="form-control" id="trafficAllowance" placeholder="交通补贴"></div>
+            <div class="col-xs-3"><input type="text" name="hiredateMoney" class="form-control" id="hiredateMoney"
+                                         placeholder="入职薪资"></div>
+            <div class="col-xs-3"><input type="text" name="probationPeriodMoney" class="form-control"
+                                         id="probationPeriodMoney" placeholder="试用期薪资"></div>
+            <div class="col-xs-3"><input type="text" name="phoneAllowance" class="form-control" id="phoneAllowance"
+                                         placeholder="通讯津贴"></div>
+            <div class="col-xs-3"><input type="text" name="trafficAllowance" class="form-control" id="trafficAllowance"
+                                         placeholder="交通补贴"></div>
             <p style="clear:both">&nbsp;</p>
-            <div class="col-xs-3"><input type="text" name="foodAllowance" class="form-control" id="foodAllowance" placeholder="伙食补助"></div>
-            <div class="col-xs-3"><input type="text" name="otherAllowance" class="form-control" id="otherAllowance" placeholder="其他补贴"></div>
+
+            <div class="col-xs-3"><input type="text" name="foodAllowance" class="form-control" id="foodAllowance"
+                                         placeholder="伙食补助"></div>
+            <div class="col-xs-3"><input type="text" name="otherAllowance" class="form-control" id="otherAllowance"
+                                         placeholder="其他补贴"></div>
             <p style="clear:both">&nbsp;</p>
-            <div class="col-xs-3"><input type="text" name="foodDeductions" class="form-control" id="foodDeductions" placeholder="伙食费扣减"></div>
-            <div class="col-xs-3"><input type="text" name="withhold" class="form-control" id="withhold" placeholder="代扣项"></div>
-            <div class="col-xs-3"><input type="text" name="waterElectricityDeductions" class="form-control" id="waterElectricityDeductions" placeholder="水电扣减"></div>
-            <div class="col-xs-3"><input type="text" name="socialSecurityMoney" class="form-control" id="socialSecurityMoney" placeholder="社保金额"></div>
+
+            <div class="col-xs-3"><input type="text" name="foodDeductions" class="form-control" id="foodDeductions"
+                                         placeholder="伙食费扣减"></div>
+            <div class="col-xs-3"><input type="text" name="withhold" class="form-control" id="withhold"
+                                         placeholder="代扣项"></div>
+            <div class="col-xs-3"><input type="text" name="waterElectricityDeductions" class="form-control"
+                                         id="waterElectricityDeductions" placeholder="水电扣减"></div>
+            <div class="col-xs-3"><input type="text" name="socialSecurityMoney" class="form-control"
+                                         id="socialSecurityMoney" placeholder="社保金额"></div>
             <p style="clear:both">&nbsp;</p>
-            <div class="col-xs-3"><input type="text" name="accumulationFundMoney" class="form-control" id="accumulationFundMoney" placeholder="公积金金额"></div>
-            <div class="col-xs-3"><input type="text" name="otherDeductions" class="form-control" id="otherDeductions" placeholder="其他扣减"></div>
-            <div class="col-xs-3"><input type="text" name="individualIncomeTax" class="form-control" id="individualIncomeTax" placeholder="个人所得税"></div>
+
+            <div class="col-xs-3"><input type="text" name="accumulationFundMoney" class="form-control"
+                                         id="accumulationFundMoney" placeholder="公积金金额"></div>
+            <div class="col-xs-3"><input type="text" name="otherDeductions" class="form-control" id="otherDeductions"
+                                         placeholder="其他扣减"></div>
+            <div class="col-xs-3"><input type="text" name="individualIncomeTax" class="form-control"
+                                         id="individualIncomeTax" placeholder="个人所得税"></div>
             <p style="clear:both">&nbsp;</p>
-            <div class="col-xs-3"><input type="text" name="socialSecurityNum" class="form-control" id="socialSecurityNum" placeholder="社保号"></div>
-            <div class="col-xs-3"><input type="text" name="accumulationFundNum" class="form-control" id="accumulationFundNum" placeholder="公积金号"></div>
+
+            <div class="col-xs-3"><input type="text" name="socialSecurityNum" class="form-control"
+                                         id="socialSecurityNum" placeholder="社保号"></div>
+            <div class="col-xs-3"><input type="text" name="accumulationFundNum" class="form-control"
+                                         id="accumulationFundNum" placeholder="公积金号"></div>
             <div style="line-height:35px;">
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <label><input type="checkbox" name="insuranceType" value="1" class="minimal">养老保险</label>&nbsp;&nbsp;
                 <label><input type="checkbox" name="insuranceType" value="2" class="minimal">医疗保险</label>&nbsp;&nbsp;
-                <label><input type="checkbox" name="insuranceType" value="2" class="minimal">失业保险</label>&nbsp;&nbsp;
-                <label><input type="checkbox" name="insuranceType" value="2" class="minimal">工商保险</label>&nbsp;&nbsp;
-                <label><input type="checkbox" name="insuranceType" value="2" class="minimal">生育保险</label>&nbsp;&nbsp;
-                <label><input type="checkbox" name="insuranceType" value="2" class="minimal">商业险</label>&nbsp;&nbsp;
+                <label><input type="checkbox" name="insuranceType" value="3" class="minimal">失业保险</label>&nbsp;&nbsp;
+                <label><input type="checkbox" name="insuranceType" value="4" class="minimal">工商保险</label>&nbsp;&nbsp;
+                <label><input type="checkbox" name="insuranceType" value="5" class="minimal">生育保险</label>&nbsp;&nbsp;
+                <label><input type="checkbox" name="insuranceType" value="6" class="minimal">商业险</label>&nbsp;&nbsp;
             </div>
         </div>
     </div>
-    
+
     <!--员工证件信息-->
     <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">员工证件信息</h3>
+            <h3 class="box-title">员工证件信息</h3>
 
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
-          </div>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠"
+                        onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+            </div>
         </div>
         <div class="box-body">
-        	身份证：
+            身份证：
         </div>
         <!-- /.box-body -->
-	</div>
+    </div>
     <!--员工特征信息-->
     <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">员工特征信息</h3>
+            <h3 class="box-title">员工特征信息</h3>
 
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
-          </div>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠"
+                        onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+            </div>
         </div>
         <div class="box-body">
-        	人脸识别：
+            人脸识别：
             指纹识别
         </div>
         <!-- /.box-body -->
-	</div>
-    
+    </div>
+
     <!--银行卡信息-->
     <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">银行卡信息</h3>
+            <h3 class="box-title">银行卡信息</h3>
 
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
-          </div>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠"
+                        onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+            </div>
         </div>
         <div class="box-body">
-        	银行卡号：
+            银行卡号：
         </div>
         <!-- /.box-body -->
-	</div>
-    
+    </div>
+
     <!--员工上岗信息-->
     <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">员工上岗信息</h3>
+            <h3 class="box-title">员工上岗信息</h3>
 
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
-          </div>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠"
+                        onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+            </div>
         </div>
         <div class="box-body">
-        	<div class="col-xs-3">
-            	<div style="line-height:35px;">
-            	有无上岗证：&nbsp;&nbsp;
-                <label><input type="radio" name="isMountGuard" value="1" class="minimal" checked>有</label>&nbsp;&nbsp;
-                <label><input type="radio" name="isMountGuard" value="2" class="minimal">无</label>
+            <div class="col-xs-3">
+                <div style="line-height:35px;">
+                    有无上岗证：&nbsp;&nbsp;
+                    <label><input type="radio" name="isMountGuard" value="1" class="minimal" checked>有</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="isMountGuard" value="2" class="minimal">无</label>
                 </div>
             </div>
-        	<div class="col-xs-3"><input type="text" name="mountGuardCardnum" class="form-control" id="mountGuardCardnum" placeholder="上岗证编号"></div>
-            <div class="col-xs-3"><input type="text" name="digitalReceipNumt" class="form-control" id="digitalReceipNumt" placeholder="数码回执号"></div>
+            <div class="col-xs-3"><input type="text" name="mountGuardCardnum" class="form-control"
+                                         id="mountGuardCardnum" placeholder="上岗证编号"></div>
+            <div class="col-xs-3"><input type="text" name="digitalReceipNumt" class="form-control"
+                                         id="digitalReceipNumt" placeholder="数码回执号"></div>
             <div class="col-xs-3">
-            	<div class="input-group date">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" name="fileDate" class="form-control" id="fileDate" placeholder="交档案日期">
+                <div class="input-group date">
+                    <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" name="fileDate" class="form-control" id="fileDate" placeholder="交档案日期">
                 </div>
             </div>
             <p style="clear:both;"></p>
+
             <div class="col-xs-3">
-            	<div style="line-height:35px;">
-            	体检状态：&nbsp;&nbsp;
-                <label><input type="radio" name="medicalType" value="1" class="minimal" checked>通过</label>&nbsp;&nbsp;
-                <label><input type="radio" name="medicalType" value="2" class="minimal">不通过</label>
+                <div style="line-height:35px;">
+                    体检状态：&nbsp;&nbsp;
+                    <label><input type="radio" name="medicalType" value="1" class="minimal" checked>通过</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="medicalType" value="2" class="minimal">不通过</label>
                 </div>
             </div>
             回执照片：
@@ -256,437 +357,559 @@
             体检证明：
         </div>
         <!-- /.box-body -->
-	</div>
-    
+    </div>
+
     <!--员工文件签署-->
     <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">员工文件签署</h3>
+            <h3 class="box-title">员工文件签署</h3>
 
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
-          </div>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠"
+                        onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+            </div>
         </div>
         <div class="box-body">
-        	无犯罪承诺书：
-        	劳动合同：
+            无犯罪承诺书：
+            劳动合同：
         </div>
         <!-- /.box-body -->
-	</div>
-    
+    </div>
+
     <!--其他-->
     <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">其他</h3>
+            <h3 class="box-title">其他</h3>
 
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠" onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
-          </div>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="折叠"
+                        onClick="hidebox(this)"><i class="fa fa-minus"></i></button>
+            </div>
         </div>
         <div class="box-body">
-        	<div class="col-xs-5">
-            	<div style="line-height:35px;">
-            	入职审批：&nbsp;&nbsp;
-                <label><input type="radio" name="examination" value="1" class="minimal" checked>正常入职</label>&nbsp;&nbsp;
-                <label><input type="radio" name="examination" value="2" class="minimal">特殊入职</label>
+            <div class="col-xs-5">
+                <div style="line-height:35px;">
+                    入职审批：&nbsp;&nbsp;
+                    <label><input type="radio" name="examination" value="1" class="minimal" checked>正常入职</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="examination" value="2" class="minimal">特殊入职</label>
                 </div>
             </div>
             <div class="col-xs-5">
-            	<div style="line-height:35px;">
-            	是否启用：&nbsp;&nbsp;
-                <label><input type="radio" name="isLock" value="1" class="minimal">锁定</label>&nbsp;&nbsp;
-                <label><input type="radio" name="isLock" value="2" class="minimal" checked>正常</label>
+                <div style="line-height:35px;">
+                    是否启用：&nbsp;&nbsp;
+                    <label><input type="radio" name="isLock" value="1" class="minimal">锁定</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="isLock" value="2" class="minimal" checked>正常</label>
                 </div>
             </div>
         </div>
         <input type="hidden" name="helpId" id="helpId" value="">
         <!-- /.box-body -->
-	</div>
-    <div class="box-footer" style="position:fixed; left:0px; bottom:0px; width:100%; height:60px;box-shadow: 0px 0px 40px #888888; z-index:9; background-color:#FFF;">
-    <p><error></error></p>
-    <button type="button" class="btn btn-warning fl_right" style="width:150px;" onClick="judgeform()">暂时存储</button><button type="button" class="btn btn-primary fl_right" style="width:150px; margin-right:50px;" onClick="judgeform()">保存提交</button><button type="button" class="btn btn-default fl_right" style="width:150px; margin-right:50px;" onClick="jumpURL(this)" url="/html/personnel/" param="">取消返回</button>
+    </div>
+    <div class="box-footer"
+         style="position:fixed; left:0px; bottom:0px; width:100%; height:60px;box-shadow: 0px 0px 40px #888888; z-index:9; background-color:#FFF;">
+        <p>
+            <error></error>
+        </p>
+        <button type="button" class="btn btn-warning fl_right" style="width:150px;" onClick="judgeform(2)">暂时存储</button>
+        <button type="button" class="btn btn-primary fl_right" style="width:150px; margin-right:50px;"
+                onClick="judgeform(1)">保存提交
+        </button>
+        <button type="button" class="btn btn-default fl_right" style="width:150px; margin-right:50px;"
+                onClick="jumpURL(this)" url="/html/personnel/" param="">取消返回
+        </button>
     </div>
 </section>
 
 <script>
-$(function () {
-  //Initialize Select2 Elements
-  $('.select2').select2()
-
-  //Date picker
-  $('#birthdate').datepicker({
-	autoclose: true
-  })
-  $('#fileDate').datepicker({
-	autoclose: true
-  })
-});
-$(".col-xs-3").css("position","relative");
-$("input").keyup(function(){
-    if($(this).val()==""){
-        $(this).parent().find("span").remove();
-    }else{
-        if($(this).parent().find("span").length>0){
-            return false;
-        }else{
-            $(this).parent().append("<span style='position:absolute;top: 8px;right: 30px;'>" + $(this).attr("placeholder") + "</span>");
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+        //Date picker
+        $.fn.datepicker.defaults.format = "yyyy-mm-dd 00:00:00";
+        $('#fileDate,#birthdate').datepicker({autoclose: true});
+    });
+    $(".col-xs-3").css("position", "relative");
+    $("input").keyup(function () {
+        if ($(this).val() == "") {
+            $(this).parent().find("span").remove();
+        } else {
+            if ($(this).parent().find("span").length > 0) {
+                return false;
+            } else {
+                $(this).parent().append("<span style='position:absolute;top: 8px;right: 30px;'>" + $(this).attr("placeholder") + "</span>");
+            }
         }
-    }
-});
-// 加载部门数据
-function getdepartlist(n){
-    var urldep = depUrl + "/employee/depart/getdepartlist";
-	var listHead = '<select class="form-control" name="departId" id="departId"><option selected="selected" value="">入职部门</option>';
-	var listFoot = '</select>';
-    $.ajax({
-		type: 'POST',
-		url: urldep,
-		data: {},
-		dataType: "json",
-		contentType:"application/x-www-form-urlencoded",
-		headers:{accessToken:$.session.get('accessToken')},
-		success: function(data){
-			var code = data.code;
-			var listHtml = '';
-			if(code=="000000"){
-				var listHtmltemp;
-				//alert(JSON.stringify(data.data));
-				if(JSON.stringify(data.data) == ""){
-					listHtmltemp = ''
-				}else{
-					$.each(data.data,function(i,items){
-						listHtmltemp= '<option value="'+items.id+'">'+items.deptname+'</option>'
-							//这里只做了两级分类，可拓展多级分类
-							if(JSON.stringify(items.chrildren) != "[]"){
-								$.each(items.chrildren,function(j,itemx){
-                                    if(n==itemx.id){
-                                        var smallListHtmltemp = '<option value="'+itemx.id+'" selected="selected">&nbsp;&nbsp;|—'+itemx.deptname+'</option>'
-                                    }else{
-                                        var smallListHtmltemp = '<option value="'+itemx.id+'">&nbsp;&nbsp;|—'+itemx.deptname+'</option>'
+    });
+    // 加载部门数据
+    function getdepartlist(n) {
+        var urldep = depUrl + "/employee/depart/getdepartlist";
+        var listHead = '<select class="form-control" name="departId" id="departId"><option selected="selected" value="">入职部门</option>';
+        var listFoot = '</select>';
+        $.ajax({
+            type: 'POST',
+            url: urldep,
+            data: {},
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded",
+            headers: {accessToken: $.session.get('accessToken')},
+            success: function (data) {
+                var code = data.code;
+                var listHtml = '';
+                if (code == "000000") {
+                    var listHtmltemp;
+                    //alert(JSON.stringify(data.data));
+                    if (JSON.stringify(data.data) == "") {
+                        listHtmltemp = ''
+                    } else {
+                        $.each(data.data, function (i, items) {
+                            listHtmltemp = '<option value="' + items.id + '">' + items.deptname + '</option>'
+                            //这里只做了两级分类，可拓展多级分类
+                            if (JSON.stringify(items.chrildren) != "[]") {
+                                $.each(items.chrildren, function (j, itemx) {
+                                    if (n == itemx.id) {
+                                        var smallListHtmltemp = '<option value="' + itemx.id + '" selected="selected">&nbsp;&nbsp;|—' + itemx.deptname + '</option>'
+                                    } else {
+                                        var smallListHtmltemp = '<option value="' + itemx.id + '">&nbsp;&nbsp;|—' + itemx.deptname + '</option>'
                                     }
-                                    $.each(itemx.chrildren,function(k,itemy){
-                                        if(n==itemx.id){
-                                            var smallLthiistHtmltemp = '<option value="'+itemy.id+'" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;|——'+itemy.deptname+'</option>'
-                                        }else{
-                                            var smallLthiistHtmltemp = '<option value="'+itemy.id+'">&nbsp;&nbsp;&nbsp;&nbsp;|——'+itemy.deptname+'</option>'
+                                    $.each(itemx.chrildren, function (k, itemy) {
+                                        if (n == itemx.id) {
+                                            var smallLthiistHtmltemp = '<option value="' + itemy.id + '" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;|——' + itemy.deptname + '</option>'
+                                        } else {
+                                            var smallLthiistHtmltemp = '<option value="' + itemy.id + '">&nbsp;&nbsp;&nbsp;&nbsp;|——' + itemy.deptname + '</option>'
                                         }
-                                        
+
                                         smallListHtmltemp = smallListHtmltemp + smallLthiistHtmltemp;
                                     });
                                     listHtmltemp = listHtmltemp + smallListHtmltemp;
-								});
-							}
-							//alert(listHtmltemp);
-						listHtml = listHtml + listHtmltemp;
-						for(var b=0;b<4;b++){
-							listHtml = listHtml.replace("null","-");
-						}
-					});
-				}
-				$("#departInfo").html(listHead + listHtml + listFoot);
-                $('#departId').select2()
-				
-			}else if(code=="002003"){
-				$.session.clear();
-				$(location).attr('href', 'login.html');
-			}else{
-				$("#departInfo").text("* 错误提示："+ data.msg +"！");
-			}
-		},
-		error:function(data){
-			alert(data.msg);
-			$("#departInfo").text("* 错误提示：服务器请求出错！");
-			return false;
-		}
-	});
-}
-//初始化加载页面
-//填充表单信息
-var param = $("#ajaxcontent").attr("param");
-param = param.replace(/'/g,"\"");
-param = JSON.parse(param);
-$("#reflash").attr("param","{'id':'"+param.id+"'}");
-infoLoding(param.id)
-
-function infoLoding(id){
-    //加载form表单
-    var url = depUrl + "/employee/creator/getEmployee";
-    $.ajax({
-		type: 'POST',
-		url: url,
-		data: {"id":id},
-		dataType: "json",
-		contentType:"application/x-www-form-urlencoded",
-		headers:{accessToken:$.session.get('accessToken')},
-		success: function(data){
-            var code = data.code;
-            if(code=="000000"){
-                $.each(data.data.list,function(i,items){
-                    $("#helpId").val(items.id);
-                    $("#empNum").val(items.empNum);
-                    $("#empRealname").val(items.empRealname);
-                    $("#empUsername").val(items.empUsername);
-                    if(items.sex == "0"){
-                       $('input:radio[name="sex"]').eq(0).prop('checked', true);
-                    }else if(items.sex=="1"){
-                        $('input:radio[name="sex"]').eq(1).prop('checked', true);
-                    }else if(items.sex=="2"){
-                        $('input:radio[name="sex"]').eq(2).prop('checked', true);
-                    }
-                    $("#idCard").val(items.idCard);
-                    
-                    $("#birthdate").val(items.birthdate);
-                    $("#nativePlace").val(items.nativePlace);
-                    if(items.isMarried=="0"){
-                        $('input:radio[name="sex"]').eq(0).prop('checked', true);
-                    }else if(items.isMarried=="1"){
-                         $('input:radio[name="sex"]').eq(1).prop('checked', true);
-                    }
-                    $("#national").val(items.national);
-                    if(items.education=="小学"){
-                        $("#education").find("option[text='小学']").attr("selected",true);
-                    }else if(items.education=="初中"){
-                        $("#education").find("option[text='初中']").attr("selected",true);
-                    }else if(items.education=="高中"){
-                        $("#education").find("option[text='高中']").attr("selected",true);
-                    }else if(items.education=="专科"){
-                        $("#education").find("option[text='专科']").attr("selected",true);
-                    }else if(items.education=="本科"){
-                        $("#education").find("option[text='本科']").attr("selected",true);
-                    }else if(items.education=="研究生"){
-                        $("#education").find("option[text='研究生']").attr("selected",true);
-                    }else if(items.education=="博士"){
-                        $("#education").find("option[text='博士']").attr("selected",true);
-                    }else if(items.education=="硕士"){
-                        $("#education").find("option[text='硕士']").attr("selected",true);
-                    }
-                    $("#phone").val(items.phone);
-                    if(items.isMilitaryService=="0"){
-                        $('input:radio[name="isMilitaryService"]').eq(0).prop('checked', true);
-                    }else if(items.isMilitaryService=="1"){
-                         $('input:radio[name="isMilitaryService"]').eq(1).prop('checked', true);
-                    }
-                    $("#politicsStatus").val(items.politicsStatus);
-                    $("#height").val(items.height);
-                    $("#emergencyContact").val(items.emergencyContact);
-                    $("#emergencyContactNum").val(items.emergencyContactNum);
-                    $("#specialty").val(items.specialty);
-                    $("#correspondenceAddress").val(items.correspondenceAddress);
-                    $("#contactAddress").val(items.contactAddress);
-                    getdepartlist(items.departId);
-                    $("#job").val(items.job);
-                    //$("#projectId").val(items.projectId);//未开发，待开发
-                    if(items.empType=="0"){
-                        $('input:radio[name="empType"]').eq(0).prop('checked', true);
-                    }else if(items.empType=="1"){
-                         $('input:radio[name="empType"]').eq(1).prop('checked', true);
-                    }
-                    if(items.isLookMoney=="0"){
-                        $('input:radio[name="isLookMoney"]').eq(0).prop('checked', true);
-                    }else if(items.isLookMoney=="1"){
-                         $('input:radio[name="isLookMoney"]').eq(1).prop('checked', true);
-                    }
-                    $("#hiredateMoney").val(items.hiredateMoney);
-                    $("#probationPeriodMoney").val(items.probationPeriodMoney);
-                    $("#phoneAllowance").val(items.phoneAllowance);
-                    $("#trafficAllowance").val(items.trafficAllowance);
-                    $("#foodAllowance").val(items.foodAllowance);
-                    $("#otherAllowance").val(items.otherAllowance);
-                    $("#foodDeductions").val(items.foodDeductions);
-                    $("#withhold").val(items.withhold);
-                    $("#waterElectricityDeductions").val(items.waterElectricityDeductions);
-                    $("#socialSecurityMoney").val(items.socialSecurityMoney);
-                    $("#accumulationFundMoney").val(items.accumulationFundMoney);
-                    $("#otherDeductions").val(items.otherDeductions);
-                    $("#individualIncomeTax").val(items.individualIncomeTax);
-                    $("#socialSecurityNum").val(items.socialSecurityNum);
-                    $("#accumulationFundNum").val(items.accumulationFundNum);
-                    $("input[name='insuranceType']").each(function () {
-                        if(JSON.stringify(items.insuranceType).indexOf($(this).val())>=0){
-                            $(this).prop("checked",true);
-                        }else{
-                            $(this).prop("checked",false);
-                        }
-                    })
-                    if(items.isMountGuard=="0"){
-                        $('input:radio[name="isMountGuard"]').eq(0).prop('checked', true);
-                    }else if(items.isMountGuard=="1"){
-                         $('input:radio[name="isMountGuard"]').eq(1).prop('checked', true);
-                    }
-                    $("#mountGuardCardnum").val(items.mountGuardCardnum);
-                    $("#digitalReceipNumt").val(items.digitalReceipNumt);
-                    $("#fileDate").val(items.fileDate);
-                    if(items.medicalType=="0"){
-                        $('input:radio[name="medicalType"]').eq(0).prop('checked', true);
-                    }else if(items.medicalType=="1"){
-                         $('input:radio[name="medicalType"]').eq(1).prop('checked', true);
-                    }
-                    if(items.examination=="0"){
-                        $('input:radio[name="examination"]').eq(0).prop('checked', true);
-                    }else if(items.examination=="1"){
-                         $('input:radio[name="examination"]').eq(1).prop('checked', true);
-                    }
-                    //遍历所有的input 补充字段标题
-                    $('input[type=text]').each(function(){
-                        if($(this).val()==""){
-                            $(this).parent().find("span").remove();
-                        }else{
-                            if($(this).parent().find("span").length>0){
-                                return false;
-                            }else{
-                                $(this).parent().append("<span style='position:absolute;top: 8px;right: 30px;'>" + $(this).attr("placeholder") + "</span>");
+                                });
                             }
-                        }
-                    });
-                });
-                
-            }else if(code=="002003"){
-                $.session.clear();
-				$(location).attr('href', 'login.html');
-            }else{
-				$("#departInfo").text("* 错误提示："+ data.msg +"！");
-			}
-        },
-		error:function(data){
-			alert(data.msg);
-			$("#departInfo").text("* 错误提示：服务器请求出错！");
-			return false;
-		}
-    });
-    
-    //加载护卫点（项目）列表
-    $("#projectId").click(function(){
-        alert("功能开发中");
-    });
-}
-//判断表单信息
-function judgeform(){
-    var helpId = $("#helpId").val();
-    var empNum = $("#empNum").val();
-	var empRealname = $("#empRealname").val();
-	var empUsername = $("#empUsername").val();
-	var sex = $("#sex").val();
-	var idCard = $("#idCard").val();
-	var birthdate = $("#birthdate").val();
-	var nativePlace = $("#nativePlace").val();
-	var education = $("#education").val();
-	var phone = $("#phone").val();
-	var politicsStatus = $("#politicsStatus").val();
-	var empHeight = $("#height").val();
-	var emergencyContact = $("#emergencyContact").val();
-	var emergencyContactNum = $("#emergencyContactNum").val();
-	var specialty = $("#specialty").val();
-	var correspondenceAddress = $("#correspondenceAddress").val();
-	var contactAddress = $("#contactAddress").val();
-	var departId = $("#departId").val();
-    var departName = '';
-    if(departId!=""){
-        departName = $("#departId").find("option:selected").text();
-        departName = $("#departId").find("option:selected").text().replace('&nbsp;&nbsp;|—','').replace('|—','');
-        departName = $("#departId").find("option:selected").text().replace('&nbsp;&nbsp;&nbsp;&nbsp;|——','').replace('|——','');
-        
-    }else{
-        departName = $("#departId").find("option:selected").text().replace('&nbsp;&nbsp;|—','').replace('|—','');
-        departName = $("#departId").find("option:selected").text().replace('&nbsp;&nbsp;&nbsp;&nbsp;|——','').replace('|——','');
-    }
-    if(departName=="入职部门"){
-        departName="";
-    }
-    departName = departName.replace('|—','').trim();
-	var job = $("#job").val();
-	var empType = $("input[name='empType']:checked").val();
-	var isLookMoney = $("input[name='isLookMoney']:checked").val();
-	var hiredateMoney = $("#hiredateMoney").val();
-	var probationPeriodMoney = $("#probationPeriodMoney").val();
-	var phoneAllowance = $("#phoneAllowance").val();
-	var trafficAllowance = $("#trafficAllowance").val();
-	var foodAllowance = $("#foodAllowance").val();
-	var otherAllowance = $("#otherAllowance").val();
-	var foodDeductions = $("#foodDeductions").val();
-	var withhold = $("#withhold").val();
-	var waterElectricityDeductions = $("#waterElectricityDeductions").val();
-	var socialSecurityMoney = $("#socialSecurityMoney").val();
-	var accumulationFundMoney = $("#accumulationFundMoney").val();
-	var otherDeductions = $("#otherDeductions").val();
-	var individualIncomeTax = $("#individualIncomeTax").val();
-	var socialSecurityNum = $("#socialSecurityNum").val();
-	var accumulationFundNum = $("#accumulationFundNum").val();
-	var socialSecurityNum = $("#socialSecurityNum").val();
-	var accumulationFundNum = $("#accumulationFundNum").val();
-    var insuranceType = "";
-	$('input:checkbox[name=insuranceType]:checked').each(function(k){
-		if(k == 0){
-			insuranceType = $(this).val();
-		}else{
-			insuranceType = insuranceType + ',' + $(this).val();
-		}
-	});
-    insuranceType = insuranceType.substr(1,insuranceType.length);
-	var isMountGuard = $("input[name='isMountGuard']:checked").val();
-	var mountGuardCardnum = $("#mountGuardCardnum").val();
-	var digitalReceipNumt = $("#digitalReceipNumt").val();
-	var fileDate = $("#fileDate").val();
-	var medicalType = $("input[name='medicalType']:checked").val();
-	var examination = $("input[name='examination']:checked").val();
-	var isLock = $("#isLock").val();
-	//var empPassword = phone.substr(phone.length-6,phone.length);
-    //alert(empPassword);
-    var matchphone=/^1[34578]\d{9}$/;
-    //alert(empPassword);
-	if(empNum == ""){
-		$(".box-footer").find("error").text("员工编号不能为空");
-        return false;
-	}else if(empRealname == ""){
-		$(".box-footer").find("error").text("员工姓名不能为空");
-        return false;
-	}else if(empUsername == ""){
-		$(".box-footer").find("error").text("员工初始用户名不能为空");
-        return false;
-	}else if(phone.match(matchphone)==null){
-		$(".box-footer").find("error").text("电话号码格式不正确");
-        return false;
-	}else if(phone == ""){
-		$(".box-footer").find("error").text("员工电话号码不能为空");
-        return false;
-	}else{
-        addEmployee(helpId,empNum,empRealname,empUsername,sex,idCard,birthdate,nativePlace,education,phone,politicsStatus,empHeight,emergencyContact,emergencyContactNum,specialty,correspondenceAddress,departId,departName,job,empType,isLookMoney,hiredateMoney,probationPeriodMoney,phoneAllowance,trafficAllowance,foodAllowance,otherAllowance,foodDeductions,withhold,waterElectricityDeductions,socialSecurityMoney,accumulationFundMoney,socialSecurityNum,accumulationFundNum,insuranceType,isMountGuard,mountGuardCardnum,digitalReceipNumt,fileDate,medicalType,examination,isLock);
-    }
-}
-    
-// 编辑员工
-function addEmployee(helpId,empNum,empRealname,empUsername,sex,idCard,birthdate,nativePlace,education,phone,politicsStatus,empHeight,emergencyContact,emergencyContactNum,specialty,correspondenceAddress,departId,departName,job,empType,isLookMoney,hiredateMoney,probationPeriodMoney,phoneAllowance,trafficAllowance,foodAllowance,otherAllowance,foodDeductions,withhold,waterElectricityDeductions,socialSecurityMoney,accumulationFundMoney,socialSecurityNum,accumulationFundNum,insuranceType,isMountGuard,mountGuardCardnum,digitalReceipNumt,fileDate,medicalType,examination,isLock){
-    var url = depUrl + "/employee/creator/updateEmployee";
-    $.ajax({
-        type: 'POST',
-		url:url,
-		data: {"helpId":helpId,"empNum":empNum,"empRealname":empRealname,"empUsername":empUsername,"sex":sex,"idCard":idCard,"birthdate":birthdate,"nativePlace":nativePlace,"education":education,"phone":phone,"politicsStatus":politicsStatus,"empHeight":empHeight,"emergencyContact":emergencyContact,"emergencyContactNum":emergencyContactNum,"specialty":specialty,"correspondenceAddress":correspondenceAddress,"departId":departId,"departName":departName,"job":job,"empType":empType,"isLookMoney":isLookMoney,"hiredateMoney":hiredateMoney,"probationPeriodMoney":probationPeriodMoney,"phoneAllowance":phoneAllowance,"trafficAllowance":trafficAllowance,"foodAllowance":foodAllowance,"otherAllowance":otherAllowance,"foodDeductions":foodDeductions,"withhold":withhold,"waterElectricityDeductions":waterElectricityDeductions,"socialSecurityMoney":socialSecurityMoney,"accumulationFundMoney":accumulationFundMoney,"socialSecurityNum":socialSecurityNum,"accumulationFundNum":accumulationFundNum,"insuranceType":insuranceType,"isMountGuard":isMountGuard,"mountGuardCardnum":mountGuardCardnum,"digitalReceipNumt":digitalReceipNumt,"fileDate":fileDate,"medicalType":medicalType,"examination":examination,"isLock":isLock},
-		dataType: "json",
-		contentType:"application/x-www-form-urlencoded",
-		headers:{accessToken:$.session.get('accessToken')},
-		success: function(data){
-            var code = data.code;
-			if(code=="000000"){
-                alert("修改成功！");
-				autoJumpURL('/html/personnel/index.html');
-            }else{
-                $(".box-footer error").text("* 错误提示："+ data.msg +"！");
+                            //alert(listHtmltemp);
+                            listHtml = listHtml + listHtmltemp;
+                            for (var b = 0; b < 4; b++) {
+                                listHtml = listHtml.replace("null", "-");
+                            }
+                        });
+                    }
+                    $("#departInfo").html(listHead + listHtml + listFoot);
+                    $('#departId').select2()
+
+                } else if (code == "002003") {
+                    $.session.clear();
+                    $(location).attr('href', 'login.html');
+                } else {
+                    $("#departInfo").text("* 错误提示：" + data.msg + "！");
+                }
+            },
+            error: function (data) {
+                alert(data.msg);
+                $("#departInfo").text("* 错误提示：服务器请求出错！");
                 return false;
             }
-        },
-		error:function(data){
-			$(".box-footer error").text("* 错误提示："+ data.msg +"！");
-			return false;
-		}
-    });
-	
-}
-    
-//暂存员工信息
-function empCache(){
-    
-}
-//function pinyin(obj){
-//	$("#empUsername").val($(obj).toPinyin());
-//}
+        });
+    }
+    //初始化加载页面
+    //填充表单信息
+    var param = $("#ajaxcontent").attr("param");
+    param = param.replace(/'/g, "\"");
+    param = JSON.parse(param);
+    $("#reflash").attr("param", "{'id':'" + param.id + "'}");
+    infoLoding(param.id)
+
+    function infoLoding(id) {
+        //加载form表单
+        var url = depUrl + "/employee/creator/getEmployee";
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {"id": id},
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded",
+            headers: {accessToken: $.session.get('accessToken')},
+            success: function (data) {
+                var code = data.code;
+                if (code == "000000") {
+                    $.each(data.data.list, function (i, items) {
+                        $("#helpId").val(items.id);
+                        $("#empNum").val(items.empNum);
+                        $("#empRealname").val(items.empRealname);
+                        $("#empUsername").val(items.empUsername);
+                        if (items.sex == "2") {
+                            $('input:radio[name="sex"]').eq(0).prop('checked', true);
+                        } else if (items.sex == "0") {
+                            $('input:radio[name="sex"]').eq(1).prop('checked', true);
+                        } else if (items.sex == "1") {
+                            $('input:radio[name="sex"]').eq(2).prop('checked', true);
+                        }
+                        $("#idCard").val(items.idCard);
+
+                        $("#birthdate").val(items.birthdate);
+                        $("#nativePlace").val(items.nativePlace);
+                        if (items.isMarried == "0") {
+                            $('input:radio[name="isMarried"]').eq(0).prop('checked', true);
+                        } else if (items.isMarried == "1") {
+                            $('input:radio[name="isMarried"]').eq(1).prop('checked', true);
+                        }
+                        $("#national").val(items.national);
+
+                        if (items.education == "小学") {
+                            //alert(items.education+"=="+$("#education").find("option:eq(1)").val());
+                            //$("#education").find("option:eq(1)").attr('selected', 'selected');
+                            $("#select2-education-container").text("小学");
+                            //$("#education").find("option:eq(0)").removeAttr('selected');
+                        } else if (items.education == "初中") {
+                            //$("#education").find("option[text='初中']").attr("selected", true);
+                            $("#select2-education-container").text("初中");
+                        } else if (items.education == "高中") {
+                            //$("#education").find("option[text='高中']").attr("selected", true);
+                            $("#select2-education-container").text("高中");
+                        } else if (items.education == "专科") {
+                            //$("#education").find("option[text='专科']").attr("selected", true);
+                            $("#select2-education-container").text("专科");
+                        } else if (items.education == "本科") {
+                            //$("#education").find("option[text='本科']").attr("selected", true);
+                            $("#select2-education-container").text("本科");
+                        } else if (items.education == "研究生") {
+                            //$("#education").find("option[text='研究生']").attr("selected", true);
+                            $("#select2-education-container").text("研究生");
+                        } else if (items.education == "博士") {
+                            //$("#education").find("option[text='博士']").attr("selected", true);
+                            $("#select2-education-container").text("博士");
+                        } else if (items.education == "硕士") {
+                            //$("#education").find("option[text='硕士']").attr("selected", true);
+                            $("#select2-education-container").text("硕士");
+                        }
+                        $("#phone").val(items.phone);
+                        if (items.isMilitaryService == "0") {
+                            $('input:radio[name="isMilitaryService"]').eq(0).prop('checked', true);
+                        } else if (items.isMilitaryService == "1") {
+                            $('input:radio[name="isMilitaryService"]').eq(1).prop('checked', true);
+                        }
+                        $("#politicsStatus").val(items.politicsStatus);
+                        $("#height").val(items.height);
+                        $("#emergencyContact").val(items.emergencyContact);
+                        $("#emergencyContactNum").val(items.emergencyContactNum);
+                        $("#specialty").val(items.specialty);
+                        $("#correspondenceAddress").val(items.correspondenceAddress);
+                        $("#contactAddress").val(items.contactAddress);
+                        getdepartlist(items.departId);
+                        $("#job").val(items.job);
+                        $("#projectId").val(items.projectId);//未开发，待开发
+                        $("#projectName").val(items.projectName);
+                        $("#projectName_in").text(items.projectName);
+                        if (items.empType == "0") {
+                            $('input:radio[name="empType"]').eq(0).prop('checked', true);
+                        } else if (items.empType == "1") {
+                            $('input:radio[name="empType"]').eq(1).prop('checked', true);
+                        }
+                        if (items.isLookMoney == "0") {
+                            $('input:radio[name="isLookMoney"]').eq(0).prop('checked', true);
+                        } else if (items.isLookMoney == "1") {
+                            $('input:radio[name="isLookMoney"]').eq(1).prop('checked', true);
+                        }
+                        console.log(items);
+                        $("#hiredateMoney").val(items.hiredateMoney);
+                        $("#probationPeriodMoney").val(items.probationPeriodMoney);
+                        $("#phoneAllowance").val(items.emolumentInfo.phoneAllowance);
+                        $("#trafficAllowance").val(items.emolumentInfo.trafficAllowance);
+                        $("#foodAllowance").val(items.emolumentInfo.foodAllowance);
+                        $("#otherAllowance").val(items.emolumentInfo.otherAllowance);
+                        $("#foodDeductions").val(items.emolumentInfo.foodDeductions);
+                        $("#withhold").val(items.emolumentInfo.withhold);
+                        $("#waterElectricityDeductions").val(items.emolumentInfo.waterElectricityDeductions);
+                        $("#socialSecurityMoney").val(items.socialSecurity.socialSecurityMoney);
+                        $("#accumulationFundMoney").val(items.socialSecurity.accumulationFundMoney);
+                        $("#otherDeductions").val(items.emolumentInfo.otherDeductions);
+                        $("#individualIncomeTax").val(items.individualIncomeTax);
+                        $("#socialSecurityNum").val(items.socialSecurityNum);
+                        $("#accumulationFundNum").val(items.accumulationFundNum);
+                        $("input[name='insuranceType']").each(function () {
+                            if (JSON.stringify(items.insuranceType).indexOf($(this).val()) >= 0) {
+                                $(this).prop("checked", true);
+                            } else {
+                                $(this).prop("checked", false);
+                            }
+                        })
+                        if (items.isMountGuard == "0") {
+                            $('input:radio[name="isMountGuard"]').eq(0).prop('checked', true);
+                        } else if (items.isMountGuard == "1") {
+                            $('input:radio[name="isMountGuard"]').eq(1).prop('checked', true);
+                        }
+                        $("#mountGuardCardnum").val(items.mountGuardCardnum);
+                        $("#digitalReceipNumt").val(items.digitalReceipNumt);
+                        $("#fileDate").val(items.fileDate);
+                        if (items.medicalType == "0") {
+                            $('input:radio[name="medicalType"]').eq(0).prop('checked', true);
+                        } else if (items.medicalType == "1") {
+                            $('input:radio[name="medicalType"]').eq(1).prop('checked', true);
+                        }
+                        if (items.examination == "0") {
+                            $('input:radio[name="examination"]').eq(0).prop('checked', true);
+                        } else if (items.examination == "1") {
+                            $('input:radio[name="examination"]').eq(1).prop('checked', true);
+                        }
+                        //遍历所有的input 补充字段标题
+                        $('input[type=text]').each(function () {
+                            if ($(this).val() == "") {
+                                $(this).parent().find("span").remove();
+                            } else {
+                                if ($(this).parent().find("span").length > 0) {
+                                    return false;
+                                } else {
+                                    $(this).parent().append("<span style='position:absolute;top: 8px;right: 30px;'>" + $(this).attr("placeholder") + "</span>");
+                                }
+                            }
+                        });
+                    });
+
+                } else if (code == "002003") {
+                    $.session.clear();
+                    $(location).attr('href', 'login.html');
+                } else {
+                    $("#departInfo").text("* 错误提示：" + data.msg + "！");
+                }
+            },
+            error: function (data) {
+                alert(data.msg);
+                $("#departInfo").text("* 错误提示：服务器请求出错！");
+                return false;
+            }
+        });
+    }
+    //加载护卫点（项目）列表
+    /*$("#projectId").click(function () {
+     $(".modal-header").html('<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><div class="col-xs-3"><input type="text" class="form-control"                placeholder="项目名称" name="projectName" id="projectName" value=""></div><div class="col-xs-5"><input type="text" class="form-control" placeholder="项目编号" name="projectNum" id="projectNum" value=""></div>' +
+     '<div class="col-xs-5"><input type="text" class="form-control" placeholder="所属公司名称" name="companyName" id="companyName" value=""></div><button                        type="button" class="btn btn-primary" onClick="searchList(this)" title="搜索"><i class="fa fa-search" aria-hidden="true"></i></button>');
+     $(".modal-footer").html('<button type="button" class="btn btn-primary pull-left" id="closeModal" data-dismiss="modal">关闭</button><button type="button" class="btn btn-primary" onClick="checkEmpDep(this)"><确定选择>             </确定选择></button>');
+     $(".modal-dialog").css("width", "35%");
+
+     var projectName = $("#projectName").val();
+     var companyName = $("#companyName").val();
+     var projectNum = $("#projectNum").val();
+     var pageNo = $("#pageNo").val();
+     var url = depUrl + "/employee/project/get";
+     $.ajax({
+     type: 'POST',
+     url: url,
+     data: {"projectName": projectName, "companyName": companyName,  "projectNum": projectNum, "pageNo": pageNo},
+     dataType: "json",
+     contentType: "application/x-www-form-urlencoded",
+     headers: {accessToken: $.session.get('accessToken')},
+     success: function (data) {
+     var code = data.code;
+     var empHtml = "";
+     if (code == "000000") {
+     $.each(data.data.list, function (i, items) {
+     if (dn == 2) {
+     empHtml = empHtml + '<div style="height:40px; line-height:40px; width:100%; border-bottom:#f1f1f1 1px solid; overflow:hidden;"><div class="col-xs-3"><label><input type="checkbox" name="uid" value="' + items.id + '">' + items.projectName + '</label></div><div class="col-xs-5">' + items.companyName + '</div></div>';
+     } else {
+     empHtml = empHtml + '<div style="height:40px; line-height:40px; width:100%; border-bottom:#f1f1f1 1px solid; overflow:hidden;"><div class="col-xs-3"><label><input type="radio" name="uid" value="' + items.id + '">' + items.projectName + '</label></div><div class="col-xs-5">' + items.companyName + '</div></div>';
+     }
+     });
+     $(".modal-body").html(empHtml);
+     } else {
+     $(".modal-body").text("* 错误提示：" + data.msg + "！");
+     }
+     //分页显示
+     $('#compact-pagination').pagination({
+     pages: data.data.pages,
+     cssStyle: 'compact-theme',
+     displayedPages: 7,
+     currentPage: pageNo
+     });
+     },
+     error: function (data) {
+     $(".modal-body").text("* 错误提示：" + data.msg + "！");
+     return false;
+     }
+     });
+     $("#modal-default").attr("data-id", dn);
+     });*/
+    //判断表单信息
+    function judgeform() {
+        var helpId = $("#helpId").val();
+        var empNum = $("#empNum").val();
+        var empRealname = $("#empRealname").val();
+        var empUsername = $("#empUsername").val();
+        var sex = $("#sex").val();
+        var idCard = $("#idCard").val();
+        var birthdate = $("#birthdate").val();
+        var nativePlace = $("#nativePlace").val();
+        var national = $("#national").val();
+        var isMarried = $("input[name='isMarried']:checked").val();
+        var sex = $("input[name='sex']:checked").val();
+        var isMilitaryService = $("input[name='isMilitaryService']:checked").val();
+        //alert(isMarried + " " + isMilitaryService + " " + sex);
+        var education = $("#education").val();
+        var phone = $("#phone").val();
+        var politicsStatus = $("#politicsStatus").val();
+        var empHeight = $("#height").val();
+        var emergencyContact = $("#emergencyContact").val();
+        var emergencyContactNum = $("#emergencyContactNum").val();
+        var specialty = $("#specialty").val();
+        var correspondenceAddress = $("#correspondenceAddress").val();
+        var contactAddress = $("#contactAddress").val();
+        var departId = $("#departId").val();
+        var departName = '';
+        if (departId != "") {
+            departName = $("#departId").find("option:selected").text();
+            departName = $("#departId").find("option:selected").text().replace('&nbsp;&nbsp;|—', '').replace('|—', '');
+            departName = $("#departId").find("option:selected").text().replace('&nbsp;&nbsp;&nbsp;&nbsp;|——', '').replace('|——', '');
+
+        } else {
+            departName = $("#departId").find("option:selected").text().replace('&nbsp;&nbsp;|—', '').replace('|—', '');
+            departName = $("#departId").find("option:selected").text().replace('&nbsp;&nbsp;&nbsp;&nbsp;|——', '').replace('|——', '');
+        }
+        if (departName == "入职部门") {
+            departName = "";
+        }
+        departName = departName.replace('|—', '').trim();
+        var job = $("#job").val();
+        var empType = $("input[name='empType']:checked").val();
+        var isLookMoney = $("input[name='isLookMoney']:checked").val();
+        var hiredateMoney = $("#hiredateMoney").val();
+        var probationPeriodMoney = $("#probationPeriodMoney").val();
+        var phoneAllowance = $("#phoneAllowance").val();
+        var trafficAllowance = $("#trafficAllowance").val();
+        var foodAllowance = $("#foodAllowance").val();
+        var otherAllowance = $("#otherAllowance").val();
+        var foodDeductions = $("#foodDeductions").val();
+        var withhold = $("#withhold").val();
+        var waterElectricityDeductions = $("#waterElectricityDeductions").val();
+        var socialSecurityMoney = $("#socialSecurityMoney").val();
+        var accumulationFundMoney = $("#accumulationFundMoney").val();
+        var otherDeductions = $("#otherDeductions").val();
+        var individualIncomeTax = $("#individualIncomeTax").val();
+        var socialSecurityNum = $("#socialSecurityNum").val();
+        var accumulationFundNum = $("#accumulationFundNum").val();
+        var socialSecurityNum = $("#socialSecurityNum").val();
+        var accumulationFundNum = $("#accumulationFundNum").val();
+        var projectname = $("#projectName").val();
+        var projectid = $("#projectId").val();
+        var insuranceType = "";
+        $('input:checkbox[name=insuranceType]:checked').each(function (k) {
+            if (k == 0) {
+                insuranceType = $(this).val();
+            } else {
+                insuranceType = insuranceType + ',' + $(this).val();
+            }
+            // alert(insuranceType)
+        });
+        //insuranceType = insuranceType.substr(1, insuranceType.length);
+        var isMountGuard = $("input[name='isMountGuard']:checked").val();
+        var mountGuardCardnum = $("#mountGuardCardnum").val();
+        var digitalReceipNumt = $("#digitalReceipNumt").val();
+        var fileDate = $("#fileDate").val();
+        var medicalType = $("input[name='medicalType']:checked").val();
+        var examination = $("input[name='examination']:checked").val();
+        var isLock = $("#isLock").val();
+        //var empPassword = phone.substr(phone.length-6,phone.length);
+        //alert(empPassword);
+        var matchphone = /^1[34578]\d{9}$/;
+        //alert(empPassword);
+        if (empNum == "") {
+            $(".box-footer").find("error").text("员工编号不能为空");
+            return false;
+        } else if (empRealname == "") {
+            $(".box-footer").find("error").text("员工姓名不能为空");
+            return false;
+        } else if (empUsername == "") {
+            $(".box-footer").find("error").text("员工初始用户名不能为空");
+            return false;
+        } else if (phone.match(matchphone) == null) {
+            $(".box-footer").find("error").text("电话号码格式不正确");
+            return false;
+        } else if (phone == "") {
+            $(".box-footer").find("error").text("员工电话号码不能为空");
+            return false;
+        } else {
+             addEmployee(helpId, empNum, empRealname, empUsername, sex, idCard, birthdate, nativePlace, national, isMarried, isMilitaryService, education, phone, politicsStatus, empHeight, emergencyContact, emergencyContactNum, specialty, correspondenceAddress, contactAddress, projectname, projectid, departId, departName, job, empType, isLookMoney, hiredateMoney, probationPeriodMoney, phoneAllowance, trafficAllowance, foodAllowance, otherAllowance, foodDeductions, withhold, waterElectricityDeductions, socialSecurityMoney, accumulationFundMoney, otherDeductions, individualIncomeTax, socialSecurityNum, accumulationFundNum, insuranceType, isMountGuard, mountGuardCardnum, digitalReceipNumt, fileDate, medicalType, examination, isLock);
+        }
+    }
+
+    // 编辑员工
+    function addEmployee(helpId, empNum, empRealname, empUsername, sex, idCard, birthdate, nativePlace, national, isMarried, isMilitaryService, education, phone, politicsStatus, empHeight, emergencyContact, emergencyContactNum, specialty, correspondenceAddress, contactAddress, projectname, projectid, departId, departName, job, empType, isLookMoney, hiredateMoney, probationPeriodMoney, phoneAllowance, trafficAllowance, foodAllowance, otherAllowance, foodDeductions, withhold, waterElectricityDeductions, socialSecurityMoney, accumulationFundMoney, otherDeductions, individualIncomeTax, socialSecurityNum, accumulationFundNum, insuranceType, isMountGuard, mountGuardCardnum, digitalReceipNumt, fileDate, medicalType, examination, isLock) {
+        var url = depUrl + "/employee/creator/updateEmployee";
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {
+                "helpId": helpId,
+                "empNum": empNum,
+                "empRealname": empRealname,
+                "empUsername": empUsername,
+                "sex": sex,
+                "idCard": idCard,
+                "birthdate": birthdate,
+                "nativePlace": nativePlace,
+                "national": national,
+                "isMarried": isMarried,
+                "isMilitaryService": isMilitaryService,
+                "education": education,
+                "phone": phone,
+                "politicsStatus": politicsStatus,
+                "height": empHeight,
+                "emergencyContact": emergencyContact,
+                "emergencyContactNum": emergencyContactNum,
+                "specialty": specialty,
+                "correspondenceAddress": correspondenceAddress,
+                "contactAddress": contactAddress,
+                "projectName": projectname,
+                "projectId": projectid,
+                "departId": departId,
+                "departName": departName,
+                "job": job,
+                "empType": empType,
+                "isLookMoney": isLookMoney,
+                "hiredateMoney": hiredateMoney,
+                "probationPeriodMoney": probationPeriodMoney,
+                "phoneAllowance": phoneAllowance,
+                "trafficAllowance": trafficAllowance,
+                "foodAllowance": foodAllowance,
+                "otherAllowance": otherAllowance,
+                "foodDeductions": foodDeductions,
+                "withhold": withhold,
+                "waterElectricityDeductions": waterElectricityDeductions,
+                "socialSecurityMoney": socialSecurityMoney,
+                "accumulationFundMoney": accumulationFundMoney,
+                "otherDeductions": otherDeductions,
+                "individualIncomeTax": individualIncomeTax,
+                "socialSecurityNum": socialSecurityNum,
+                "accumulationFundNum": accumulationFundNum,
+                "insuranceType": insuranceType,
+                "isMountGuard": isMountGuard,
+                "mountGuardCardnum": mountGuardCardnum,
+                "digitalReceipNumt": digitalReceipNumt,
+                "fileDate": fileDate,
+                "medicalType": medicalType,
+                "examination": examination,
+                "isLock": isLock
+            }, dataType: "json",
+            contentType: "application/x-www-form-urlencoded",
+            headers: {accessToken: $.session.get('accessToken')},
+            success: function (data) {
+                var code = data.code;
+                if (code == "000000") {
+                    alert("修改成功！")
+                    autoJumpURL('/html/personnel/index.html');
+                } else {
+                    $(".box-footer error").text("* 错误提示：" + data.msg + "！");
+                    return false;
+                }
+            },
+            error: function (data) {
+                $(".box-footer error").text("* 错误提示：" + data.msg + "！");
+                return false;
+            }
+        });
+
+    }
+
+    //暂存员工信息
+    function empCache() {
+
+    }
+    //function pinyin(obj){
+    //	$("#empUsername").val($(obj).toPinyin());
+    //}
 
 </script>
