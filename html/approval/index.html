@@ -50,8 +50,105 @@
                 
                 </div>
                 <!--box-body end-->
+                <!--分页-->
+                <div class="pagination-holder clearfix">
+                    <div class="col-sm-5"><div class="dataTables_info" id="example1_info" role="status" aria-live="polite" style="color: darkgray">当前页 <curpage></curpage>，共<totpage></totpage> 页，共计 <datanum></datanum> 条数据</div></div>
+                    <input type="hidden" name="pageNo" id="pageNo" value="1">
+                    <div id="compact-pagination"></div>
+                </div>
             </div>
             <!--box end-->
         </div>
     </div>
 </section>
+
+<script>
+//翻页动作
+function pageAction(p){
+    $("#pageNo").val(p);
+    auditProcess()
+}
+auditProcess()
+//页面初始化，获取信息列表
+function auditProcess(){
+    var url = depUrl + "/employee/auditprocess/get";
+	var pageNo = $("#pageNo").val();
+    $.ajax({
+        type: 'POST',
+		url: url,
+		data: {"pageNo":pageNo},
+		dataType: "json",
+		contentType:"application/x-www-form-urlencoded",
+		headers:{accessToken:$.session.get('accessToken')},
+        success:function(data){
+            var editUrl = '/html/company/addEdit.html';
+            var showUrl = '/html/company/show.html';
+            var code = data.code;
+            if(code=="000000"){
+                var headHtml = '<table id="example" class="table table-bordered table-hover"><thead><tr><th width="8"><label><input type="checkbox" onClick=selectAllCheckbox("id") id="AllChk"></label></th><th>编号</th><th>审批名称</th><th>审批分组</th><th>审批流程</th><th width="180">操作</th></tr></thead><tbody>';
+                var footHtml = '</tbody></table>';
+                var listHtml = '';
+                
+                if(data.total=="0"){
+                    listHtml = '<tr><td colspan="8"><font color="#999999">数据空空如也，喝一杯咖啡休息一下吧！</font></td></tr>';
+                }else{
+                    $.each(data.data.list,function(i,items){
+                        var lckBtn = '';
+                        var lckIco = '';
+                        var delBtn = '';
+                        var edtBtn = '';
+                        
+                        var listlable = '<label class="checkbtn">发起人</label>';
+                        $.each(items.tbDepartments,function(j,itemx){
+                             listlable = listlable + '<i class="fa fa-long-arrow-right"></i><label class="checkbtn">'+itemx.departName+'</label>';
+
+                        });
+                        
+                        if(items.isLock==0){
+                            lckBtn = '<button type="button" class="btn btn-primary" title="锁定" onClick=publicLockInfo("[{id:'+items.id+'}]","/employee/auditprocess/islock","/html/approval/index.html")><i class="fa fa-lock"></i></button>';
+                            lckIco = '<label><input type="checkbox" name="id" value="'+items.id+'" onClick=selectOneUid(this)></label>';
+                        }else{
+                            lckBtn = '<button type="button" class="btn btn-primary" title="解锁" onClick=publicLockInfo("[{id:'+items.id+'}]","/employee/auditprocess/islock","/html/approval/index.html")><i class="fa fa-unlock"></i></button>';
+                            lckIco = '<i class="fa fa-lock" style="color:red;"></i>'
+                        }
+                        
+                        listHtml = listHtml + '<tr><td>'+lckIco+'</td><td>'+items.auditNum+'</td><td>'+items.processName+'</td><td>'+items.auditType+'</td><td>'+listlable+'</td><td><div class="btn-group"><button type="button" class="btn btn-primary" title="删除" onClick=publicDeleteInfo("[{id:'+items.id+'}]","/employee/auditprocess/delete","/html/approval/index.html")><i class="fa fa-trash-o" aria-hidden="true"></i></button><button type="button" class="btn btn-primary" title="编辑" onClick="jumpURL(this)" url="'+editUrl+'" param="'+items.id+'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>'+lckBtn+'</div></td></tr>';
+                        
+                    });
+                    
+                }
+                $("#ajaxTable").html(headHtml+listHtml+footHtml);
+                
+            }else if(code=="002003"){
+                $.session.clear();
+				$(location).attr('href', 'login.html');
+            }else{
+               $("#ajaxTable").text("* 错误提示："+ data.msg +"！"); 
+            }
+            //分页显示
+            $("curpage").text(pageNo);
+            $("totpage").text(data.data.pages);
+            $("datanum").text(data.data.total);
+			$('#compact-pagination').pagination({
+				pages: data.data.pages,
+				cssStyle: 'compact-theme',
+				displayedPages: 7,
+				currentPage: pageNo
+			});
+        },
+        error:function(data){
+			alert(data.msg);
+			$("#ajaxTable").text("* 错误提示：服务器请求出错！");
+			return false;
+		}
+    });
+}
+
+
+
+
+
+
+
+
+</script>

@@ -11,6 +11,12 @@
 <section class="content">
 	<div class="row">
     	<div class="col-xs-12">
+            <div class="callout callout-info">
+                <h4 style="display: inline">当月已经导入【<datarow></datarow>】条数据，共计实发工资【<totlesalay></totlesalay>元】，确定发起工资审批？</h4>
+                <div class="col-xs-2" style="float: right;margin-top: -5px;"><button type="button" class="btn btn-block btn-primary">发起工资审批</button></div>
+            </div>
+            
+            
         	<div class="box">
             	<div class="box-header">
                 	<div class="form-group">
@@ -35,10 +41,11 @@
                         <button type="button" class="btn btn-primary" onClick="getsalaryList()" title="搜索"><i class="fa fa-search" aria-hidden="true"></i></button>
                         <button type="button" class="btn btn-primary" onClick="downloadSalay()"><i class="fa fa-arrow-up"></i> 导出工资</button>
                         <button type="button" class="btn btn-primary" fill-id-name="companyid_in" data-toggle="modal" data-target="#modal-default" title="新增"><i class="fa fa-arrow-down"></i> 导入工资</button>
-                        <button type="button" class="btn btn-primary" onClick="jumpURL(this)" url="/html/financial/budgetAddEdit.html" param=""><i class="fa fa-code-fork"></i> 将选中工资发起审批</button>
+                        
                         
                         <button type="button" class="btn btn-primary float-right" onClick="jumpURL(this)" url="/html/financial/salaryList.html" param="" title="刷新"><i class="fa fa-refresh" aria-hidden="true"></i></button>
                     </div>
+                    
                 </div>
                 <!--box-hearder end-->
                 <div class="box-body" id="ajaxTable">
@@ -89,8 +96,6 @@
               <!-- /.modal-dialog -->
             </div>
             <!-- /.弹窗 -->
-            
-            
             
         </div>
     </div>
@@ -176,10 +181,13 @@ function getsalaryList(){
                 var editUrl = "/html/financial/salaryEdit.html";
                 var showUrl = '/html/financial/salaryDetail.html';
                 
-                if(data.data.endRow=="0"){
+                //填充导入数量
+                $("datarow").text(data.data.totalcount);
+                $("totlesalay").text(data.data.totalmoney);
+                if(data.data.pageInfo.endRow=="0"){
                     listHtml = '<tr><td colspan="14"><font color="#999999">数据空空如也，喝一杯咖啡休息一下吧！</font></td></tr>';
                 }else{
-                    $.each(data.data.list,function(i,items){
+                    $.each(data.data.pageInfo.list,function(i,items){
                         var dateStr = items.empSalary.shouldTime;
                         var dateArr = new Array();
                         dateArr = dateStr.split("-");
@@ -189,7 +197,7 @@ function getsalaryList(){
                         var edtBtn = '<button type="button" class="btn btn-primary" title="编辑" onClick="jumpURL(this)" url="'+editUrl+'" param="'+param+'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
                         var shwBtn = '<button type="button" class="btn btn-primary" title="查看" onClick="jumpURL(this)" url="'+showUrl+'" param="'+param+'"><i class="fa fa-eye" aria-hidden="true"></i></button>';
                         
-                        listHtml = listHtml + '<tr><td><label><input type="checkbox" name="id" value="'+items.id+'" onClick="selectOneUid(this)"></label></td><td>'+items.empNum+'</td><td>'+items.empRealname+'</td><td>'+outNull(items.departName)+'</td><td>'+outNull(items.phone)+'</td><td>'+outNull(items.idCard)+'</td><td>'+items.hiredate+'</td><td>'+outNull(items.empSalary.workDays)+'</td><td><font color="green">￥'+outNull(items.empSalary.hiredateMoney)+'</font></td><td><font color="red">￥'+outNull(items.empSalary.shouldMoney)+'</font></td><td><b style="color:darkorange">￥'+outNull(items.empSalary.realMoney)+'</b>&nbsp;&nbsp;<i class="fa fa-th-large" style="position: relative;cursor: pointer;" onmouseover="showMoreInfo(this)" onmouseout="closeMoreInfo(this)"><div class="moreInfo" style="left:30px"><i class="fa fa-caret-left" aria-hidden="true"></i><p>+ 伙食补助：'+outNull(items.empSalary.foodDeductions)+'</p><p>+ 通讯津贴：'+outNull(items.empSalary.phoneAllowance)+'</p><p>+ 其他：'+outNull(items.empSalary.otherMoney)+'</p><p>+ 交通补贴：'+outNull(items.empSalary.trafficAllowance)+'</p><p>- 水电：'+outNull(items.empSalary.waterElectricityDeductions)+'</p><p>- 伙食费：'+outNull(items.empSalary.foodDeductions)+'</p><p>- 违纪：'+outNull(items.empSalary.discipline)+'</p><p>- 代扣：'+outNull(items.empSalary.withhold)+'</p><p>- 其他：'+outNull(items.empSalary.otherDeductions)+'</p><p>- 保险：'+outNull(items.empSalary.securityMoney)+'</p><p>- 公积金：'+outNull(items.empSalary.accumulationFundMoney)+'</p><p>- 个税'+outNull(items.empSalary.individualIncomeTax)+'</p></div></i></td><td>'+salayData+'</td><td><font color="green">'+salaryStatus(items.empSalary.status)+'</font></td><td><div class="btn-group">'+ edtBtn + shwBtn +'</div></td></tr>';
+                        listHtml = listHtml + '<tr><td><label><input type="checkbox" name="id" value="'+items.id+'" onClick="selectOneUid(this)"></label></td><td>'+items.empNum+'</td><td>'+items.empRealname+'</td><td>'+outNull(items.departName)+'</td><td>'+outNull(items.phone)+'</td><td>'+outNull(items.idCard)+'</td><td>'+items.hiredate+'</td><td>'+outNull(items.empSalary.workDays)+'</td><td><font color="green">￥'+outNull(items.empSalary.hiredateMoney)+'</font></td><td><font color="red">￥'+outNull(items.empSalary.shouldMoney)+'</font></td><td><b style="color:darkorange">￥'+outNull(items.empSalary.realMoney)+'</b>&nbsp;&nbsp;<i class="fa fa-th-large" style="position: relative;cursor: pointer;" onmouseover="showMoreInfo(this)" onmouseout="closeMoreInfo(this)"><div class="moreInfo" style="left:30px"><i class="fa fa-caret-left" aria-hidden="true"></i><p>+ 伙食补助：￥'+outNull(items.empSalary.foodDeductions)+'</p><p>+ 通讯津贴：￥'+outNull(items.empSalary.phoneAllowance)+'</p><p>+ 其他：￥'+outNull(items.empSalary.otherMoney)+'</p><p>+ 交通补贴：￥'+outNull(items.empSalary.trafficAllowance)+'</p><p>- 水电：￥'+outNull(items.empSalary.waterElectricityDeductions)+'</p><p>- 伙食费：￥'+outNull(items.empSalary.foodDeductions)+'</p><p>- 违纪：￥'+outNull(items.empSalary.discipline)+'</p><p>- 代扣：￥'+outNull(items.empSalary.withhold)+'</p><p>- 其他：￥'+outNull(items.empSalary.otherDeductions)+'</p><p>- 保险：￥'+outNull(items.empSalary.securityMoney)+'</p><p>- 公积金：￥'+outNull(items.empSalary.accumulationFundMoney)+'</p><p>- 个税：￥'+outNull(items.empSalary.individualIncomeTax)+'</p></div></i></td><td>'+salayData+'</td><td><font color="green">'+salaryStatus(items.empSalary.status)+'</font></td><td><div class="btn-group">'+ edtBtn + shwBtn +'<button type="button" class="btn btn-primary" title="加入审批" onClick="jumpURL(this)" url="'+editUrl+'" param="'+param+'"><i class="fa fa-plus" aria-hidden="true"></i></button></div></td></tr>';
                     });
                 }
                 $("#ajaxTable").html(headHtml + listHtml + footHtml);
@@ -219,35 +227,10 @@ function getsalaryList(){
 }
 //导出工资
 function downloadSalay(){
+    window.open(depUrl + "/salary/export");
     var starttime = $("#starttime").val();
     var endtime = $("#endtime").val();
     var url = depUrl + "/salary/export";
-    if(starttime!="" && endtime!=""){
-        $.ajax({
-            type: 'POST',
-            url: url,
-            data: {"starttime":starttime,"endtime":endtime},
-            dataType: "json",
-            contentType:"application/x-www-form-urlencoded",
-            headers:{accessToken:$.session.get('accessToken')},
-            success:function(data){
-                if(data.code=="000000"){
-                    window.location.href = data.data;
-                }else{
-                    alert("导出失败！请稍后重试。");
-                    return false;
-                }
-            },
-            error:function(data){
-                alert(data.msg);
-                $("#ajaxTable").text("* 错误提示：服务器请求出错！");
-                return false;
-            }
-        });
-    }else{
-        alert("请选择需要导出的员工工资时间段！");
-        return false;
-    }
 }
 //点击上传表格
 function uploadExc(){
@@ -270,7 +253,19 @@ function uploadSalay(){
         processData: false, //processData 默认为false，当设置为true的时候,jquery ajax 提交的时候不会序列化 data，而是直接使用data
         contentType: false, //
         success:function(data){
-            alert(data.data);
+            if(data.data=="0"){
+                josnObj=$.ajax({url:depUrl + "/salary/addSalary",headers:{accessToken:$.session.get('accessToken')},async:false});
+                    alert("导入成功！");
+            }else{
+                if(confirm("导入数据有"+data.data+"重复数据，是否确定覆盖？")){
+                    josnObj=$.ajax({url:depUrl + "/salary/addSalary",headers:{accessToken:$.session.get('accessToken')},async:false});
+                    alert("导入成功！");
+                }else{
+                    return false;
+                }
+            }
+            $("#closeModal").trigger("click");
+            $(".modal-backdrop").remove();
             autoJumpURL('/html/financial/salaryList.html');
         },
         error:function(data){
